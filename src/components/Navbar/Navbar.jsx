@@ -1,9 +1,15 @@
-import { useContext } from "react";
-import { AuthContext } from './../../providers/AuthProvider';
+import useUser from "../../hooks/useUser";
 
 const Navbar = () => {
 
-    const { user, loading } = useContext(AuthContext);
+    const [userData] = useUser();
+    const userId = localStorage.getItem('userId');
+    const accessToken = localStorage.getItem('accessToken');
+
+    const handleLogout = () => {
+        localStorage.removeItem('userId');
+        localStorage.removeItem('accessToken');
+    }
 
     return (
         <nav>
@@ -56,7 +62,8 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Button {user}</a>
+                    <button className="btn">user {userId}</button>
+                    <button onClick={handleLogout} className="btn">logout</button>
                 </div>
             </div>
         </nav>

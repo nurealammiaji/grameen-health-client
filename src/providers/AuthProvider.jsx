@@ -16,8 +16,9 @@ const AuthProvider = ({ children }) => {
         await axiosPublic.post('/auth/login', { email, password })
             .then(({ data }) => {
                 // Store JWT in local storage
-                console.log(data.res);
+                console.log(data.id);
                 localStorage.setItem('accessToken', data.accessToken);
+                localStorage.setItem('userId', data.id);
                 // Update user info
                 setUser(data.user);
                 setLoading(false);
