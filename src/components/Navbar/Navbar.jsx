@@ -1,14 +1,19 @@
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import { Link } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 
 const Navbar = () => {
 
+    const { user, logout } = useContext(AuthContext);
     const [userData] = useUser();
-    const userId = localStorage.getItem('userId');
-    const accessToken = localStorage.getItem('accessToken');
+
+    if (userData) {
+        console.log(userData);
+    }
 
     const handleLogout = () => {
-        localStorage.removeItem('userId');
-        localStorage.removeItem('accessToken');
+        logout();
     }
 
     return (
@@ -44,7 +49,7 @@ const Navbar = () => {
                             <li><a>Item 3</a></li>
                         </ul>
                     </div>
-                    <a className="text-xl btn btn-ghost">daisyUI</a>
+                    <a className="text-xl btn btn-ghost">Grameen Health</a>
                 </div>
                 <div className="hidden navbar-center lg:flex">
                     <ul className="px-1 menu menu-horizontal">
@@ -52,7 +57,7 @@ const Navbar = () => {
                         <li>
                             <details>
                                 <summary>Parent</summary>
-                                <ul className="p-2">
+                                <ul className="p-2 w-32">
                                     <li><a>Submenu 1</a></li>
                                     <li><a>Submenu 2</a></li>
                                 </ul>
@@ -62,10 +67,17 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <button className="btn">user {userId}</button>
-                    <button onClick={handleLogout} className="btn">logout</button>
+                    {
+                        (user) ?
+                            <>
+                                <button className="btn">{user.email}</button>
+                                <button onClick={handleLogout} className="btn">logout</button>
+                            </> :
+                            <Link to={"/login"} className="btn">Login</Link>
+                    }
                 </div>
             </div>
+            <br /><br />
         </nav>
     )
 }

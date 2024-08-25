@@ -8,18 +8,28 @@ import { Link } from 'react-router-dom';
 const Login = () => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const { user, login } = useContext(AuthContext);
+
+    const { user, login, setAuthenticated } = useContext(AuthContext);
     const [eyeClose, setEyeClose] = useState(true);
 
     const handleLogin = (data) => {
         const email = data.email;
         const password = data.password;
-        login(email, password);
+        login(email, password)
+            .then((res) => {
+                console.log(res.data);
+                localStorage.setItem('accessToken', res.data.accessToken);
+                localStorage.setItem('userId', res.data.id);
+                setAuthenticated(true);
+            })
+            .catch((err) => {
+                console.error(err);
+                setAuthenticated(false);
+            });
     };
 
     return (
         <div>
-            <br /><br />
             <HelmetAsync title={"Login"} />
             <div className="min-h-screen hero">
                 <div className="p-10 mx-auto my-auto shadow-2xl rounded-3xl md:w-6/12 hero-content">
