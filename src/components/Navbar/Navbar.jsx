@@ -1,17 +1,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import useUser from "../../hooks/useUser";
 import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
 
 const Navbar = () => {
 
     const { user, logout } = useContext(AuthContext);
-    const [userData] = useUser();
-
-    if (userData) {
-        console.log(userData);
-    }
 
     const handleLogout = () => {
         logout();
@@ -50,7 +44,7 @@ const Navbar = () => {
                             <li><a>Item 3</a></li>
                         </ul>
                     </div>
-                    <Link to={"/"} className="text-xl btn btn-ghost">Grameen Health</Link>
+                    <Link to={"/"} className="text-xl font-bold text-success">Grameen Health</Link>
                 </div>
                 <div className="hidden navbar-center lg:flex">
                     <ul className="px-1 menu menu-horizontal">

@@ -9,7 +9,7 @@ const Login = () => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    const { login, setAuthenticated } = useContext(AuthContext);
+    const { login, setAuthenticated, setUser, setLoading } = useContext(AuthContext);
     const [eyeClose, setEyeClose] = useState(true);
     const location = useLocation();
     const navigate = useNavigate();
@@ -18,17 +18,18 @@ const Login = () => {
     const handleLogin = (data) => {
         const email = data.email;
         const password = data.password;
+        console.log(email, password);
         login(email, password)
-            .then((res) => {
-                localStorage.setItem('accessToken', res.data.accessToken);
-                localStorage.setItem('userId', res.data.id);
-                setAuthenticated(true);
-                navigate(from, {replace: true});
-            })
-            .catch((err) => {
-                console.error(err);
-                setAuthenticated(false);
-            });
+            // .then((res) => {
+            //     localStorage.setItem('accessToken', res.data.accessToken);
+            //     localStorage.setItem('userId', res.data.id);
+            //     setAuthenticated(true);
+            //     navigate(from, {replace: true});
+            // })
+            // .catch((err) => {
+            //     console.error(err);
+            //     setAuthenticated(false);
+            // });
     };
 
     return (
