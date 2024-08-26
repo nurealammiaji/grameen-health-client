@@ -13,7 +13,7 @@ const Navbar = () => {
 
     return (
         <nav>
-            <div className="navbar bg-base-100">
+            <div className="navbar bg-base-200">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -52,7 +52,7 @@ const Navbar = () => {
                         <li>
                             <details>
                                 <summary>Parent</summary>
-                                <ul className="p-2 w-32">
+                                <ul className="w-32 p-2">
                                     <li><a>Submenu 1</a></li>
                                     <li><a>Submenu 2</a></li>
                                 </ul>
@@ -67,9 +67,9 @@ const Navbar = () => {
                             <div>
                                 <button className="btn btn-sm">{user.email}</button>
                                 <span className="mx-2">||</span>
-                                <button onClick={handleLogout} className="btn btn-sm btn-circle p-2"><AiOutlineLogout className="text-error font-bold" /></button>
+                                <button onClick={handleLogout} className="p-2 btn btn-sm btn-circle"><AiOutlineLogout className="font-bold text-error" /></button>
                             </div> :
-                            <Link to={"/login"} className="btn btn-sm tooltip tooltip-bottom btn-circle p-2" data-tip="Login" ><AiOutlineLogin className="text-success font-bold" /></Link>
+                            <Link to={"/login"} className="p-2 btn btn-sm tooltip tooltip-bottom btn-circle" data-tip="Login" ><AiOutlineLogin className="font-bold text-success" /></Link>
                     }
                 </div>
             </div>

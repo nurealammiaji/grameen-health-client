@@ -7,29 +7,28 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const { login, setAuthenticated, setUser, setLoading } = useContext(AuthContext);
+    const { setAuthenticated, setLoading, login } = useContext(AuthContext);
     const [eyeClose, setEyeClose] = useState(true);
     const location = useLocation();
     const navigate = useNavigate();
     const from = location?.state?.from?.pathname || "/";
 
-    const handleLogin = (data) => {
-        const email = data.email;
-        const password = data.password;
-        console.log(email, password);
+    const handleLogin = async (data) => {
+        const { email, password } = data;
         login(email, password)
-            // .then((res) => {
-            //     localStorage.setItem('accessToken', res.data.accessToken);
-            //     localStorage.setItem('userId', res.data.id);
-            //     setAuthenticated(true);
-            //     navigate(from, {replace: true});
-            // })
-            // .catch((err) => {
-            //     console.error(err);
-            //     setAuthenticated(false);
-            // });
+            .then(({ data }) => {
+                localStorage.setItem('accessToken', data.accessToken);
+                localStorage.setItem('userId', data.id);
+                setAuthenticated(true);
+                setLoading(false);
+                navigate(from, { replace: true });
+            })
+            .catch((err) => {
+                console.error(err);
+                setLoading(false);
+            });
     };
 
     return (
@@ -55,12 +54,9 @@ const Login = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <div className="relative flex items-center">
-                                    <input {...register("password", { required: true })} type={(eyeClose) ? 'password' : 'text'} placeholder="password" name="password" className="w-full input input-bordered" />
+                                    <input {...register("password", { required: true })} type={eyeClose ? 'password' : 'text'} placeholder="password" name="password" className="w-full input input-bordered" />
                                     <p onClick={() => setEyeClose(!eyeClose)} className="absolute right-2 btn btn-xs">
-                                        {
-                                            (eyeClose) ?
-                                                <TbEyeClosed className="text-2xl" /> : <TbEye className="text-2xl" />
-                                        }
+                                        {eyeClose ? <TbEyeClosed className="text-2xl" /> : <TbEye className="text-2xl" />}
                                     </p>
                                 </div>
                                 {errors.password?.type === 'required' && <span className="text-error">Password is required !!</span>}
@@ -70,23 +66,18 @@ const Login = () => {
                             </div>
                         </form>
                         <div className="flex items-center justify-center mt-3">
-                            <label className="label"><span className="mr-2 text-sm">New here ?</span>
+                            <label className="label">
+                                <span className="mr-2 text-sm">New here?</span>
                                 <Link to="/register" className="text-sm font-medium text-primary label-text-alt link link-hover">
                                     Create a new account
                                 </Link>
                             </label>
                         </div>
-                        {/* <div className="divider">or</div>
-                        <div className="flex justify-center">
-                            <label className="label">
-                                <span className="font-medium label-text">Login with</span>
-                            </label>
-                        </div> */}
                     </div>
                 </div>
             </div>
             <br /><br />
-        </div >
+        </div>
     );
 };
 

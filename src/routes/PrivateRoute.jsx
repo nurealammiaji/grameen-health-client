@@ -4,11 +4,11 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
 
-    const { user, loading } = useContext(AuthContext);
+    const { user, loading, authenticated } = useContext(AuthContext);
     const location = useLocation();
 
     if (loading) {
-        return <div className="flex justify-center items-center">
+        return <div className="flex items-center justify-center">
             <button className="btn">
                 <span className="loading loading-spinner text-success"></span>
                 Loading ...
@@ -16,7 +16,7 @@ const PrivateRoute = ({ children }) => {
         </div>
     }
 
-    if (user) {
+    if (user || authenticated) {
         return children;
     }
 

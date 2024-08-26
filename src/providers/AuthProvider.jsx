@@ -6,28 +6,17 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const axiosPublic = useAxiosPublic();
-    const [loading, setLoading] = useState(true);
-    const [authenticated, setAuthenticated] = useState(!!localStorage.getItem('accessToken')); // Initialize based on token presence
-    const [user, setUser] = useState(null);
-
     const accessToken = localStorage.getItem('accessToken');
     const userId = localStorage.getItem('userId');
+
+    const axiosPublic = useAxiosPublic();
+    const [loading, setLoading] = useState(true);
+    const [authenticated, setAuthenticated] = useState(!!accessToken); // Initialize based on token presence
+    const [user, setUser] = useState(null);
 
     const login = async (email, password) => {
         setLoading(true);
         return await axiosPublic.post('/auth/login', { email, password })
-            .then(({ data }) => {
-                localStorage.setItem('accessToken', data.accessToken);
-                localStorage.setItem('userId', data.id);
-                setAuthenticated(true); // Set authenticated to true on successful login
-                setUser(data.user); // Optionally set user data if available in the response
-                setLoading(false);
-            })
-            .catch((err) => {
-                console.error(err);
-                setLoading(false);
-            });
     };
 
     const logout = () => {
@@ -54,7 +43,7 @@ const AuthProvider = ({ children }) => {
                     .catch((err) => {
                         console.error(err);
                         setLoading(false);
-                        logout(); // Optionally log out if fetching user data fails
+                        logout();
                     });
             };
             auth();
@@ -65,7 +54,9 @@ const AuthProvider = ({ children }) => {
 
     const authInfo = {
         user,
+        setUser,
         loading,
+        setLoading,
         login,
         logout,
         authenticated,
