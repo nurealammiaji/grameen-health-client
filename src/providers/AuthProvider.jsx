@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createContext } from 'react';
 import useAxiosPublic from '../hooks/useAxiosPublic';
+import { json } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
@@ -15,42 +16,41 @@ const AuthProvider = ({ children }) => {
     const userId = localStorage.getItem('userId');
 
     const login = async (email, password) => {
-        console.log(email, password);
         setLoading(true);
         return await axiosPublic.post('/auth/login', { email, password })
-        // .then(({ data }) => {
-        //     // Store JWT in local storage
-        //     console.log(data);
-        //     localStorage.setItem('accessToken', data.accessToken);
-        //     localStorage.setItem('userId', data.id);
-        //     setLoading(false);
-        // })
-        // .catch((err) => {
-        //     console.error(err);
-        //     setLoading(false);
-        // });
     };
 
     const logout = () => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('userId');
+        localStorage.removeItem('userInfo');
         setUser(null);
         setAuthenticated(false);
     };
 
     useEffect(() => {
+        if (accessToken && userId) {
+            setAuthenticated(true);
+            setUser(true);
+            setLoading(false);
+        }
+    }, [accessToken, userId])
+
+    useEffect(() => {
         if (authenticated) {
-            console.log("hitted useEffect");
+            setLoading(false);
             const auth = async () => {
                 await axiosPublic.get(`/auth/user/${userId}`, { headers: { "Authorization": `Bearer ${accessToken}` } })
                     .then((res) => {
-                        console.log("hitted res");
-                        console.log(res.data);
-                        setUser(res.data);
-                        setLoading(false);
+                        const currentUser = res.data;
+                        // setLoading(true);
+                        if (currentUser) {
+                            setUser(currentUser);
+                            localStorage.setItem("userInfo", JSON.stringify(currentUser));
+                            // setLoading(false);
+                        };
                     })
                     .catch((err) => {
-                        console.log("hitted err");
                         console.log(err);
                     })
             };

@@ -3,24 +3,27 @@ import { AuthContext } from './../../providers/AuthProvider';
 import { useForm } from 'react-hook-form';
 import HelmetAsync from './../../components/HelmetAsync/HelmetAsync';
 import { TbEye, TbEyeClosed } from 'react-icons/tb';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    const { user, login, setAuthenticated } = useContext(AuthContext);
+    const { login, setAuthenticated } = useContext(AuthContext);
     const [eyeClose, setEyeClose] = useState(true);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location?.state?.from?.pathname || "/";
 
     const handleLogin = (data) => {
         const email = data.email;
         const password = data.password;
         login(email, password)
             .then((res) => {
-                console.log(res.data);
                 localStorage.setItem('accessToken', res.data.accessToken);
                 localStorage.setItem('userId', res.data.id);
                 setAuthenticated(true);
+                navigate(from, {replace: true});
             })
             .catch((err) => {
                 console.error(err);

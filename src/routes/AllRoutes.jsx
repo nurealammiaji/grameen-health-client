@@ -4,6 +4,7 @@ import ErrorBoundary from "../pages/Error/ErrorBoundary";
 import Home from "../pages/Home/Home";
 import Login from './../pages/Login/Login';
 import PrivateRoute from "./PrivateRoute";
+import TermsConditions from "../pages/TermsConditions/TermsConditions";
 
 const AllRoutes = createBrowserRouter([
     {
@@ -20,8 +21,8 @@ const AllRoutes = createBrowserRouter([
                 element: <Login />
             },
             {
-                path: "/private",
-                element: <PrivateRoute><div>This is a private route</div></PrivateRoute>
+                path: "/terms",
+                element: <PrivateRoute><TermsConditions /></PrivateRoute>
             }
         ]
     },

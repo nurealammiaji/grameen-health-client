@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useUser from "../../hooks/useUser";
+import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
 
 const Navbar = () => {
 
@@ -49,11 +50,11 @@ const Navbar = () => {
                             <li><a>Item 3</a></li>
                         </ul>
                     </div>
-                    <a className="text-xl btn btn-ghost">Grameen Health</a>
+                    <Link to={"/"} className="text-xl btn btn-ghost">Grameen Health</Link>
                 </div>
                 <div className="hidden navbar-center lg:flex">
                     <ul className="px-1 menu menu-horizontal">
-                        <li><a>Item 1</a></li>
+                        <li><NavLink to={"/terms"}>Terms</NavLink></li>
                         <li>
                             <details>
                                 <summary>Parent</summary>
@@ -69,11 +70,12 @@ const Navbar = () => {
                 <div className="navbar-end">
                     {
                         (user) ?
-                            <>
-                                <button className="btn">{user.email}</button>
-                                <button onClick={handleLogout} className="btn">logout</button>
-                            </> :
-                            <Link to={"/login"} className="btn">Login</Link>
+                            <div>
+                                <button className="btn btn-sm">{user.email}</button>
+                                <span className="mx-2">||</span>
+                                <button onClick={handleLogout} className="btn btn-sm btn-circle p-2"><AiOutlineLogout className="text-error font-bold" /></button>
+                            </div> :
+                            <Link to={"/login"} className="btn btn-sm tooltip tooltip-bottom btn-circle p-2" data-tip="Login" ><AiOutlineLogin className="text-success font-bold" /></Link>
                     }
                 </div>
             </div>
