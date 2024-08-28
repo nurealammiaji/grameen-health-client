@@ -34,7 +34,7 @@ const Login = () => {
     return (
         <div>
             <HelmetAsync title={"Login"} />
-            <div className="min-h-screen hero">
+            <div className="hero">
                 <div className="p-10 mx-auto my-auto shadow-2xl rounded-3xl md:w-6/12 hero-content">
                     <div className="mx-auto md:w-10/12">
                         <form onSubmit={handleSubmit(handleLogin)}>
@@ -49,7 +49,7 @@ const Login = () => {
                                 <input {...register("email", { required: true })} type="email" placeholder="email" name="email" className="input input-bordered" />
                                 {errors.email?.type === 'required' && <span className="text-error">Email is required !!</span>}
                             </div>
-                            <div className="form-control">
+                            <div className="mt-2 form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>

@@ -1,11 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineLogin, AiOutlineLogout, AiOutlineMenu, AiOutlineMenuFold, AiOutlineUser } from "react-icons/ai";
+import { RiLogoutCircleFill, RiUser3Fill } from "react-icons/ri";
 
 const Navbar = () => {
 
     const { user, logout } = useContext(AuthContext);
+    const [menuToggle, setMenuToggle] = useState(true);
 
     const handleLogout = () => {
         logout();
@@ -15,25 +17,16 @@ const Navbar = () => {
         <nav>
             <div className="navbar bg-base-200">
                 <div className="navbar-start">
-                    <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-5 h-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4 6h16M4 12h8m-8 6h16" />
-                            </svg>
-                        </div>
-                        <ul
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li><a>Item 1</a></li>
+                    <details className="dropdown" >
+                        <summary tabIndex={0} role="button" className="btn btn-sm lg:hidden" onClick={() => setMenuToggle(!menuToggle)} >
+                            {
+                                (menuToggle) ?
+                                    <AiOutlineMenu className="text-2xl" /> :
+                                    <AiOutlineClose className="text-2xl" />
+                            }
+                        </summary>
+                        <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            <li><NavLink to={"/terms"}>Terms</NavLink></li>
                             <li>
                                 <a>Parent</a>
                                 <ul className="p-2">
@@ -43,8 +36,8 @@ const Navbar = () => {
                             </li>
                             <li><a>Item 3</a></li>
                         </ul>
-                    </div>
-                    <Link to={"/"} className="text-xl font-bold text-success">Grameen Health</Link>
+                    </details>
+                    <Link to={"/"} className="min-w-full font-bold text-success">Grameen Health</Link>
                 </div>
                 <div className="hidden navbar-center lg:flex">
                     <ul className="px-1 menu menu-horizontal">
@@ -64,12 +57,11 @@ const Navbar = () => {
                 <div className="navbar-end">
                     {
                         (user) ?
-                            <div>
-                                <button className="btn btn-sm">{user.email}</button>
-                                <span className="mx-2">||</span>
-                                <button onClick={handleLogout} className="p-2 btn btn-sm btn-circle"><AiOutlineLogout className="font-bold text-error" /></button>
+                            <div className="flex items-center">
+                                <button className="mr-2 btn btn-sm btn-neutral"><RiUser3Fill className="font-bold text-success" /><span className="hidden md:block">{user.email}</span></button>
+                                <button onClick={handleLogout} className="btn btn-sm btn-neutral"><RiLogoutCircleFill className="font-bold text-error" /><span className="hidden md:block">Logout</span></button>
                             </div> :
-                            <Link to={"/login"} className="p-2 btn btn-sm tooltip tooltip-bottom btn-circle" data-tip="Login" ><AiOutlineLogin className="font-bold text-success" /></Link>
+                            <Link to={"/login"} className="btn btn-sm btn-neutral"><AiOutlineLogin className="font-bold text-success" /><span className="hidden md:block">Login</span></Link>
                     }
                 </div>
             </div>
