@@ -1,20 +1,19 @@
 import React, { useContext } from 'react';
-import useAxiosPublic from './useAxiosPublic';
 import { AuthContext } from '../providers/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
+import useAxiosPrivate from './useAxiosPrivate';
 
 const useUser = () => {
 
-    const axiosPublic = useAxiosPublic();
-    const { authenticated, user } = useContext(AuthContext);
-    const accessToken = localStorage.getItem('accessToken');
+    const axiosPrivate = useAxiosPrivate();
+    const { authenticated } = useContext(AuthContext);
     const userId = localStorage.getItem('userId');
 
     const { data: userData, refetch: refetchUser, isLoading: isUserLoading } = useQuery({
         queryKey: ['user', userId, accessToken],
         enabled: !!authenticated,
         queryFn: async () => {
-            const res = await axiosPublic.get(`/auth/user/${userId}`, { headers: { 'Authorization': `Bearer ${accessToken}` } })
+            const res = await axiosPrivate.get(`/auth/user/${userId}`)
             return res.data;
         },
     })

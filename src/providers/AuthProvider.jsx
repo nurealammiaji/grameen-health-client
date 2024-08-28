@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createContext } from 'react';
 import useAxiosPublic from '../hooks/useAxiosPublic';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 export const AuthContext = createContext();
 
@@ -10,8 +11,9 @@ const AuthProvider = ({ children }) => {
     const userId = localStorage.getItem('userId');
 
     const axiosPublic = useAxiosPublic();
+    const axiosPrivate = useAxiosPrivate();
     const [loading, setLoading] = useState(true);
-    const [authenticated, setAuthenticated] = useState(!!accessToken); // Initialize based on token presence
+    const [authenticated, setAuthenticated] = useState(!!accessToken);
     const [user, setUser] = useState(null);
 
     const login = async (email, password) => {
@@ -31,7 +33,7 @@ const AuthProvider = ({ children }) => {
         if (accessToken && userId) {
             setAuthenticated(true);
             const auth = async () => {
-                await axiosPublic.get(`/auth/user/${userId}`, { headers: { "Authorization": `Bearer ${accessToken}` } })
+                await axiosPrivate.get(`/auth/user/${userId}`)
                     .then((res) => {
                         const currentUser = res.data;
                         if (currentUser) {

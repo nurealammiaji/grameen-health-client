@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 
 const axiosPublic = axios.create({
-    // baseURL: 'http://localhost:3200/api/v1'
-    baseURL: 'https://server.grameen.com.bd/api/v1'
+    baseURL: 'http://localhost:3200/api/v1'
+    // baseURL: 'https://server.grameen.com.bd/api/v1'
 });
 
 const useAxiosPublic = () => {
