@@ -13,10 +13,35 @@ const Navbar = () => {
         logout();
     }
 
+    const pageLinks = <>
+        <li><NavLink to={"/terms"}>Terms</NavLink></li>
+        <li>
+            <a>Parent</a>
+            <ul className="p-2">
+                <li><a>Submenu 1</a></li>
+                <li><a>Submenu 2</a></li>
+            </ul>
+        </li>
+        <li><a>Item 3</a></li>
+    </>
+
+    const categoryLinks = <>
+        <li><NavLink to={"/terms"}>Cat Terms</NavLink></li>
+        <li>
+            <a>Cat Parent</a>
+            <ul className="p-2">
+                <li><a>Submenu 1</a></li>
+                <li><a>Submenu 2</a></li>
+            </ul>
+        </li>
+        <li><a>Cat Item 3</a></li>
+    </>;
+
     return (
         <nav>
             <div className="navbar bg-base-200 fixed z-50">
-                <div className="">
+                {/* Mobile Category */}
+                <div>
                     <details className="dropdown" >
                         <summary tabIndex={0} role="button" className="btn btn-sm lg:hidden" onClick={() => setMenuToggle(!menuToggle)} >
                             {
@@ -26,68 +51,34 @@ const Navbar = () => {
                             }
                         </summary>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li><NavLink to={"/terms"}>Terms</NavLink></li>
-                            <li>
-                                <a>Parent</a>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </li>
-                            <li><a>Item 3</a></li>
+                            {categoryLinks}
                         </ul>
                     </details>
                     <Link to={"/"} className="min-w-full lg:min-w-max font-bold text-success lg:text-lg">Grameen Health</Link>
                 </div>
-                <div className="ml-20 navbar">
-                    {/* Category Links */}
-                    <div>
-                        <details className="dropdown" >
-                            <summary tabIndex={0} role="button" className="btn btn-sm lg:flex hidden text-lg" onClick={() => setCategoryToggle(!categoryToggle)} >
-                                {
-                                    (categoryToggle) ?
-                                        <RiMenu2Line className="text-2xl" /> :
-                                        <RiCloseLargeLine className="text-2xl" />
-                                }
-                                Category
-                            </summary>
-                            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                                <li><NavLink to={"/terms"}>Terms</NavLink></li>
-                                <li>
-                                    <a>Parent</a>
-                                    <ul className="p-2">
-                                        <li><a>Submenu 1</a></li>
-                                        <li><a>Submenu 2</a></li>
-                                    </ul>
-                                </li>
-                                <li><a>Item 3</a></li>
-                            </ul>
-                        </details>
-                    </div>
-                    {/* Search Desktop */}
-                    <div className="ml-10 hidden lg:block">
-                        <label className="input input-sm input-bordered flex items-center gap-2">
-                            <input type="text" className="grow" placeholder="Search" />
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                className="h-4 w-4 opacity-70">
-                                <path
-                                    fillRule="evenodd"
-                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                    clipRule="evenodd" />
-                            </svg>
-                        </label>
-                    </div>
+                {/* Search Desktop */}
+                <div className="ml-10 hidden lg:block">
+                    <label className="input input-sm input-bordered flex items-center gap-2">
+                        <input type="text" className="grow" placeholder="Search" />
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 16 16"
+                            fill="currentColor"
+                            className="h-4 w-4 opacity-70">
+                            <path
+                                fillRule="evenodd"
+                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                clipRule="evenodd" />
+                        </svg>
+                    </label>
                 </div>
-                <div className="hidden lg:flex navbar-start">
-                    <ul className="px-1 menu menu-horizontal">
-                        <li><NavLink to={"/terms"}>Terms</NavLink></li>
+                <div className="navbar-center hidden lg:flex">
+                    <ul className="menu menu-horizontal px-1">
+                        <li><a>Item 1</a></li>
                         <li>
                             <details>
                                 <summary>Parent</summary>
-                                <ul className="w-32 p-2">
+                                <ul className="p-2">
                                     <li><a>Submenu 1</a></li>
                                     <li><a>Submenu 2</a></li>
                                 </ul>

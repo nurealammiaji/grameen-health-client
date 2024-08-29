@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosPrivate = axios.create({
-    baseURL: 'http://localhost:3200/api/v1'
-    // baseURL: 'https://server.grameen.com.bd/api/v1'
+    // baseURL: 'http://localhost:3200/api/v1'
+    baseURL: 'https://server.grameen.com.bd/api/v1'
 })
 
 const useAxiosPrivate = () => {
