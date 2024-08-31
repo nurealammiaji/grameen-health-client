@@ -16,7 +16,12 @@ const AuthProvider = ({ children }) => {
     const [authenticated, setAuthenticated] = useState(!!accessToken);
     const [user, setUser] = useState(null);
 
-    const login = async (email, password) => {
+    const userRegister = async (user) => {
+        setLoading(true);
+        return await axiosPublic.post('/auth/register', { user })
+    }
+
+    const userLogin = async (email, password) => {
         setLoading(true);
         return await axiosPublic.post('/auth/login', { email, password })
     };
@@ -59,7 +64,8 @@ const AuthProvider = ({ children }) => {
         setUser,
         loading,
         setLoading,
-        login,
+        userLogin,
+        userRegister,
         logout,
         authenticated,
         setAuthenticated,

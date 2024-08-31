@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosPrivate = axios.create({
-    // baseURL: 'http://localhost:3200/api/v1'
-    baseURL: 'https://server.grameen.com.bd/api/v1'
+    baseURL: 'http://localhost:5000/api/v1'
+    // baseURL: 'https://server.grameen.com.bd/api/v1'
 })
 
 const useAxiosPrivate = () => {
@@ -18,7 +18,6 @@ const useAxiosPrivate = () => {
         return Promise.reject(error);
     });
 
-
     // intercepts 401 and 403 status
     axiosPrivate.interceptors.response.use(function (response) {
         return response;
@@ -27,7 +26,6 @@ const useAxiosPrivate = () => {
         // console.log('status error in the interceptor', status);
         // for 401 or 403 logout the user and move the user to the login
         if (status === 401 || status === 403) {
-            // await logout();
             console.log("Axios Private Error");
         }
         return Promise.reject(error);

@@ -9,7 +9,7 @@ const Login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const { setAuthenticated, setLoading, login } = useContext(AuthContext);
+    const { setAuthenticated, setLoading, userLogin } = useContext(AuthContext);
     const [eyeClose, setEyeClose] = useState(true);
     const location = useLocation();
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Login = () => {
 
     const handleLogin = async (data) => {
         const { email, password } = data;
-        login(email, password)
+        userLogin(email, password)
             .then(({ data }) => {
                 localStorage.setItem('accessToken', data.accessToken);
                 localStorage.setItem('userId', data.id);
