@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from './../../providers/AuthProvider';
 import { useForm } from 'react-hook-form';
 import HelmetAsync from './../../components/HelmetAsync/HelmetAsync';
-import { TbEye, TbEyeClosed } from 'react-icons/tb';
+import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -50,14 +50,14 @@ const Login = () => {
                                 <input {...register("email", { required: true })} type="email" placeholder="email" name="email" className="input input-bordered" />
                                 {errors.email?.type === 'required' && <span className="text-error">Email is required !!</span>}
                             </div>
-                            <div className="mt-2 form-control">
+                            <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
                                 <div className="relative flex items-center">
                                     <input {...register("password", { required: true })} type={eyeClose ? 'password' : 'text'} placeholder="password" name="password" className="w-full input input-bordered" />
                                     <p onClick={() => setEyeClose(!eyeClose)} className="absolute right-2 btn btn-xs">
-                                        {eyeClose ? <TbEyeClosed className="text-2xl" /> : <TbEye className="text-2xl" />}
+                                        {eyeClose ? <RiEyeCloseLine className="text-2xl" /> : <RiEyeLine className="text-2xl" />}
                                     </p>
                                 </div>
                                 {errors.password?.type === 'required' && <span className="text-error">Password is required !!</span>}

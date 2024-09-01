@@ -13,12 +13,11 @@ const Register = () => {
     const [eyeCloseOne, setEyeCloseOne] = useState(true);
     const [eyeCloseTwo, setEyeCloseTwo] = useState(true);
 
-
     const pwd = watch("password");
     const rePwd = watch("confirmPassword");
 
     const location = useLocation();
-    const destination = location.state?.from?.pathname || "/";
+    const destination = location?.state?.from?.pathname || "/";
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -27,7 +26,6 @@ const Register = () => {
                 position: "center",
                 icon: "info",
                 title: "Already Registered !!",
-                text: `Hey "${user?.displayName}", you already registered`,
                 showConfirmButton: false,
                 timer: 1500
             });
@@ -36,19 +34,21 @@ const Register = () => {
     }, [location, navigate, user]);
 
     const handleUserRegister = (data) => {
-        console.log(data);
+        const formData = new FormData();
+        formData.append('image', data.photo[0]);
         const user = {
             name: data.name,
             email: data.email,
             password: data.password,
             phone: data.phone,
-            image: data.photo,
             address: data.address,
+            image: data.photo[0],
             gender: data.gender,
             dob: data.dob,
             role: "customer",
         };
-        userRegister(user)
+        console.log(user);
+        userRegister(user, formData)
             .then(res => {
                 console.log(res);
                 const currentUser = res.user;
@@ -101,7 +101,39 @@ const Register = () => {
                                     <span className="text-error">Name is required !!</span>
                                 </label>}
                             </div>
-                            <div className="form-control">
+                            <div className="form-control mt-1">
+                                <label className="label">
+                                    <span className="label-text">Email</span>
+                                </label>
+                                <input {...register("email", {
+                                    required: true
+                                })}
+                                    type="email"
+                                    placeholder="email"
+                                    name="email"
+                                    className="input input-bordered"
+                                />
+                                {errors.email?.type === 'required' && <label className="label">
+                                    <span className="text-error">Email is required !!</span>
+                                </label>}
+                            </div>
+                            <div className="form-control mt-1">
+                                <label className="label">
+                                    <span className="label-text">Phone</span>
+                                </label>
+                                <input {...register("phone", {
+                                    required: true
+                                })}
+                                    type="text"
+                                    placeholder="phone"
+                                    name="phone"
+                                    className="input input-bordered"
+                                />
+                                {errors.phone?.type === 'required' && <label className="label">
+                                    <span className="text-error">Phone is required !!</span>
+                                </label>}
+                            </div>
+                            <div className="form-control mt-1">
                                 <label className="label">
                                     <span className="label-text">Photo</span>
                                 </label>
@@ -114,22 +146,7 @@ const Register = () => {
                                     <span className="text-error">Photo is required !!</span>
                                 </label>}
                             </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Date of Birth</span>
-                                </label>
-                                <input {...register("dob", { required: true })}
-                                    type="date"
-                                    placeholder="date of birth"
-                                    name="dob"
-                                    pattern="\d{4}-\d{2}-\d{2}"
-                                    className="input input-bordered"
-                                />
-                                {errors.dob?.type === 'required' && <label className="label">
-                                    <span className="text-error">Date of Birth is required !!</span>
-                                </label>}
-                            </div>
-                            <div className="form-control">
+                            <div className="form-control mt-1">
                                 <label className="label">
                                     <span className="label-text">Gender</span>
                                 </label>
@@ -148,44 +165,43 @@ const Register = () => {
                                     <span className="text-error">Gender is required !!</span>
                                 </label>}
                             </div>
-                            <div className="form-control">
+                            <div className="form-control mt-1">
                                 <label className="label">
-                                    <span className="label-text">Phone</span>
+                                    <span className="label-text">Date of Birth</span>
                                 </label>
-                                <input {...register("phone", {
-                                    required: true
-                                })}
+                                <input {...register("dob", { required: true })}
+                                    type="date"
+                                    placeholder="date of birth"
+                                    name="dob"
+                                    // pattern="\d{4}-\d{2}-\d{2}"
+                                    className="input input-bordered"
+                                />
+                                {errors.dob?.type === 'required' && <label className="label">
+                                    <span className="text-error">Date of Birth is required !!</span>
+                                </label>}
+                            </div>
+                            <div className="form-control mt-1">
+                                <label className="label">
+                                    <span className="label-text">Shipping Address</span>
+                                </label>
+                                <textarea {...register("address", { required: true })}
                                     type="text"
-                                    placeholder="phone"
-                                    name="phone"
-                                    className="input input-bordered"
+                                    placeholder="address"
+                                    name="address"
+                                    className="textarea textarea-bordered"
                                 />
-                                {errors.phone?.type === 'required' && <label className="label">
-                                    <span className="text-error">Phone is required !!</span>
+                                {errors.address?.type === 'required' && <label className="label">
+                                    <span className="text-error">Address is required !!</span>
                                 </label>}
                             </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Email</span>
-                                </label>
-                                <input {...register("email", {
-                                    required: true
-                                })}
-                                    type="email"
-                                    placeholder="email"
-                                    name="email"
-                                    className="input input-bordered"
-                                />
-                                {errors.email?.type === 'required' && <label className="label">
-                                    <span className="text-error">Email is required !!</span>
-                                </label>}
-                            </div>
-                            <div className="form-control">
+                            <div className="form-control mt-1">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
+                                {/* Pattern for validation
+                                pattern: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,}$/ */}
                                 <div className="relative flex items-center">
-                                    <input {...register("password", { required: true, minLength: 6, pattern: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,}$/ })}
+                                    <input {...register("password", { required: true, minLength: 6 })}
                                         type={(eyeCloseOne) ? 'password' : 'text'}
                                         placeholder="password"
                                         name="password"
@@ -200,9 +216,9 @@ const Register = () => {
                                 </div>
                                 {errors.password?.type === 'required' && <span className="text-error">Password is required !!</span>}
                                 {errors.password?.type === 'minLength' && <span className="text-error">Password must be 6 character !!</span>}
-                                {errors.password?.type === 'pattern' && <span className="text-error">At least one upper case, one lower case, one number and one special character is required !!</span>}
+                                {/* {errors.password?.type === 'pattern' && <span className="text-error">At least one upper case, one lower case, one number and one special character is required !!</span>} */}
                             </div>
-                            <div className="form-control">
+                            <div className="form-control mt-1">
                                 <label className="label">
                                     <span className="label-text">Confirm Password</span>
                                 </label>
@@ -221,7 +237,7 @@ const Register = () => {
                                     </p>
                                 </div>
                                 {errors.confirmPassword?.type === 'required' && <span className="text-error">Confirm Password is required !!</span>}
-                                {pwd == rePwd || <span className="text-error">Password is not matched !!</span>}
+                                {pwd === rePwd || <span className="text-error">Password is not matched !!</span>}
                             </div>
                             <div className="mt-6 form-control">
                                 <button className="btn btn-neutral" type="submit">Register</button>

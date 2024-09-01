@@ -16,9 +16,13 @@ const AuthProvider = ({ children }) => {
     const [authenticated, setAuthenticated] = useState(!!accessToken);
     const [user, setUser] = useState(null);
 
-    const userRegister = async (user) => {
+    const userRegister = async (user, formData) => {
         setLoading(true);
-        return await axiosPublic.post('/auth/register', { user })
+        return await axiosPublic.post('/auth/register', user, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        })
     }
 
     const userLogin = async (email, password) => {
