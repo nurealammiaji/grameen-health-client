@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiLoginCircleFill, RiLogoutCircleRFill, RiUser3Fill, RiMenu2Line, RiCloseLargeLine } from "react-icons/ri";
+import { RiLoginCircleFill, RiUser3Fill, RiShoppingBag3Fill, RiMenu2Line, RiCloseLargeLine } from "react-icons/ri";
 
 const Navbar = () => {
 
@@ -13,17 +13,19 @@ const Navbar = () => {
         logout();
     }
 
-    const pageLinks = <>
-        <li><NavLink to={"/terms"}>Terms</NavLink></li>
+    const pageLinks = <ul className="menu menu-horizontal px-1">
+        <li><Link to={"/terms"}>Terms</Link></li>
         <li>
-            <a>Parent</a>
-            <ul className="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-            </ul>
+            <details>
+                <summary>Parent</summary>
+                <ul className="p-2">
+                    <li><a>Submenu 1</a></li>
+                    <li><a>Submenu 2</a></li>
+                </ul>
+            </details>
         </li>
         <li><a>Item 3</a></li>
-    </>
+    </ul>;
 
     const categoryLinks = <>
         <li><NavLink to={"/terms"}>Cat Terms</NavLink></li>
@@ -39,9 +41,10 @@ const Navbar = () => {
 
     return (
         <nav>
-            <div className="navbar bg-base-200 fixed z-50">
+            {/* First Navbar */}
+            <nav className="bg-base-200 fixed z-50 flex w-full items-center justify-between py-5 px-2 lg:p-3 border-2 border-t-0 border-l-0 border-r-0">
                 {/* Mobile Category */}
-                <div>
+                <div className="items-center flex">
                     <details className="dropdown" >
                         <summary tabIndex={0} role="button" className="btn btn-sm lg:hidden" onClick={() => setMenuToggle(!menuToggle)} >
                             {
@@ -54,51 +57,55 @@ const Navbar = () => {
                             {categoryLinks}
                         </ul>
                     </details>
-                    <Link to={"/"} className="min-w-full lg:min-w-max font-bold text-success lg:text-lg">Grameen Health</Link>
+                    <Link to={"/"} className="font-bold text-success lg:text-2xl ml-2">Grameen Health</Link>
                 </div>
                 {/* Search Desktop */}
-                <div className="ml-10 hidden lg:block">
-                    <label className="input input-sm input-bordered flex items-center gap-2">
-                        <input type="text" className="grow" placeholder="Search" />
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            className="h-4 w-4 opacity-70">
-                            <path
-                                fillRule="evenodd"
-                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                clipRule="evenodd" />
-                        </svg>
-                    </label>
+                <div className="join hidden lg:flex">
+                    <select className="select select-bordered select-success join-item">
+                        <option value={null}>All</option>
+                        <option>Equipments</option>
+                        <option>Medicines</option>
+                        <option>Health</option>
+                    </select>
+                    <div>
+                        <div>
+                            <input className="input input-bordered input-success join-item" placeholder="Search" />
+                        </div>
+                    </div>
+                    <button className="btn join-item btn-success text-white">Search</button>
                 </div>
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
-                        <li><a>Item 1</a></li>
-                        <li>
-                            <details>
-                                <summary>Parent</summary>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li><a>Item 3</a></li>
-                    </ul>
-                </div>
-                <div className="navbar-end">
+                <div>
+                    <button className="btn btn-sm btn-ghost lg:btn-md text-success"><RiShoppingBag3Fill className="text-2xl lg:text-4xl" /></button>
                     {
                         (user) ?
-                            <div className="flex items-center">
-                                <button className="mr-2 btn btn-sm"><RiUser3Fill className="font-bold text-success" /><span className="hidden md:block">{user.email}</span></button>
-                                <button onClick={handleLogout} className="btn btn-sm"><RiLogoutCircleRFill className="font-bold text-error" /><span className="hidden md:block">Logout</span></button>
-                            </div> :
-                            <Link to={"/login"} className="btn btn-sm"><RiLoginCircleFill className="font-bold text-success" /><span className="hidden md:block">Login</span></Link>
+
+                            <button className="btn btn-sm lg:btn-md btn-ghost text-success"><RiUser3Fill className="text-2xl lg:text-4xl" /></button> :
+                            <Link to={"/login"} className="btn lg:btn-md btn-ghost text-success text-lg font-bold"><RiLoginCircleFill className="text-2xl lg:text-4xl hidden lg:block" /><RiUser3Fill className="text-2xl lg:hidden" /><span className="hidden lg:block">Login / Register</span></Link>
                     }
                 </div>
+            </nav>
+            <div>
+                <br /><br /><br />
             </div>
-            <br /><br /><br />
+            {/* Second Navbar */}
+            <nav className="bg-base-200 flex w-full items-center justify-around p-1">
+                <details className="dropdown hidden lg:flex" >
+                    <summary tabIndex={0} role="button" className="btn" onClick={() => setCategoryToggle(!categoryToggle)} >
+                        {
+                            (categoryToggle) ?
+                                <RiMenu2Line className="text-2xl" /> :
+                                <RiCloseLargeLine className="text-2xl" />
+                        }
+                        <span className="text-lg font-bold ml-2">Shop by Category</span>
+                    </summary>
+                    <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        {categoryLinks}
+                    </ul>
+                </details>
+                <div className="">
+                    {pageLinks}
+                </div>
+            </nav>
         </nav>
     )
 }
