@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiLoginCircleFill, RiUser3Fill, RiShoppingBag3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiTimerFill } from "react-icons/ri";
+import { RiLoginCircleFill, RiUser3Fill, RiShoppingBag3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiBox3Fill, RiStore3Fill, RiShieldUserFill, RiAlarmFill } from "react-icons/ri";
 
 const Navbar = () => {
 
@@ -14,18 +14,19 @@ const Navbar = () => {
     }
 
     const pageLinks = <ul className="px-1 menu menu-horizontal">
-        <li><Link to={"/"} className="text-white">< RiTimerFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Campaigns</span></Link></li>
-        <li><Link to={"/"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Order Tracking</span></Link></li>
+        <li><Link to={"/"} className="text-white"><RiAlarmFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold sm:block">Campaigns</span></Link></li>
+        <li><Link to={"/"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold sm:block">Order Tracking</span></Link></li>
+        <li><Link to={"/"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold sm:block">Products</span></Link></li>
         <li>
             <details>
-                <summary className="font-semibold text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden ml-1 font-semibold lg:block">Dashboard</span></summary>
+                <summary className="font-semibold text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold sm:block">Dashboard</span></summary>
                 <ul className="p-2">
-                <li><Link to={"/"}><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
-                <li><Link to={"/"}><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
+                    <li><Link to={"/"}><RiShieldUserFill className="text-xl lg:text-2xl" /><span className="hidden font-semibold sm:block">Admin</span></Link></li>
+                    <li><Link to={"/"}><RiStore3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold sm:block">Merchant</span></Link></li>
+                    <li><Link to={"/"}><RiUser3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold sm:block">Customer</span></Link></li>
                 </ul>
             </details>
         </li>
-        <li><Link to={"/"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
     </ul>;
 
     const categoryLinks = <>
@@ -43,11 +44,11 @@ const Navbar = () => {
     return (
         <nav>
             {/* First Navbar */}
-            <nav className="fixed z-50 flex items-center justify-between w-full px-2 py-5 bg-green-100 border-2 border-t-0 border-l-0 border-r-0 lg:p-3">
+            <nav className="fixed z-50 flex items-center justify-between w-full px-2 py-5 border-2 border-t-0 border-l-0 border-r-0 bg-base-200 lg:p-3">
                 {/* Mobile Category */}
                 <div className="flex items-center">
                     <details className="dropdown" >
-                        <summary tabIndex={0} role="button" className="btn btn-sm lg:hidden" onClick={() => setMenuToggle(!menuToggle)} >
+                        <summary tabIndex={0} role="button" className="btn btn-sm md:hidden" onClick={() => setMenuToggle(!menuToggle)} >
                             {
                                 (menuToggle) ?
                                     <RiMenu2Line className="text-2xl" /> :
@@ -61,8 +62,8 @@ const Navbar = () => {
                     <Link to={"/"} className="ml-2 font-bold text-success lg:text-2xl">Grameen Health</Link>
                 </div>
                 {/* Search Desktop */}
-                <div className="hidden join lg:flex">
-                    <select className="select select-bordered select-success join-item">
+                <div className="hidden join md:flex">
+                    <select className="select select-bordered select-success md:select-sm lg:select-md join-item">
                         <option value={null}>All</option>
                         <option>Equipments</option>
                         <option>Medicines</option>
@@ -70,13 +71,38 @@ const Navbar = () => {
                     </select>
                     <div>
                         <div>
-                            <input className="input input-bordered input-success join-item" placeholder="Search" />
+                            <input className="input input-bordered input-success md:input-sm lg:input-md join-item" placeholder="Search" />
                         </div>
                     </div>
-                    <button className="text-white btn join-item btn-success">Search</button>
+                    <button className="text-white btn join-item btn-success md:btn-sm lg:btn-md">Search</button>
                 </div>
                 <div className="flex items-center">
-                    <div className="indicator">
+                    {/* Theme Changer */}
+                    <div>
+                        <label className="swap swap-rotate btn btn-circle btn-sm text-success">
+                            {/* this hidden checkbox controls the state */}
+                            <input type="checkbox" className="theme-controller" value="forest" />
+
+                            {/* sun icon */}
+                            <svg
+                                className="w-10 h-10 fill-current swap-off"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
+                            </svg>
+
+                            {/* moon icon */}
+                            <svg
+                                className="w-10 h-10 fill-current swap-on"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
+                            </svg>
+                        </label>
+                    </div>
+                    <div className="mx-5 indicator">
                         <span className="indicator-item indicator-bottom badge">0</span>
                         <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
                             <Link to={"/cart"} tabIndex={0} role="button" className="text-success"><RiShoppingBag3Fill className="text-2xl lg:text-4xl" /></Link>
@@ -99,7 +125,7 @@ const Navbar = () => {
                                     <li><a>Logout</a></li>
                                 </ul>
                             </div> :
-                            <div className="ml-5 dropdown dropdown-hover dropdown-bottom dropdown-end">
+                            <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
                                 <Link to={"/login"} tabIndex={0} role="button" className="flex items-center text-success"><RiLoginCircleFill className="text-2xl lg:text-4xl" /><span className="hidden ml-2 font-semibold xl:block">Login / Register</span></Link>
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                                     <li><Link to={"/login"}>Login</Link></li>
@@ -114,14 +140,14 @@ const Navbar = () => {
             </div>
             {/* Second Navbar */}
             <nav className="flex items-center justify-around w-full p-1 bg-success">
-                <details className="hidden dropdown lg:flex" >
+                <details className="hidden dropdown md:flex" >
                     <summary tabIndex={0} role="button" className="text-white btn-success btn" onClick={() => setCategoryToggle(!categoryToggle)} >
                         {
                             (categoryToggle) ?
                                 <RiMenu2Line className="text-2xl" /> :
                                 <RiCloseLargeLine className="text-2xl" />
                         }
-                        <span className="ml-2 text-lg font-bold">Shop by Category</span>
+                        <span className="font-bold lg:ml-2 lg:text-lg">Categories</span>
                     </summary>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         {categoryLinks}
