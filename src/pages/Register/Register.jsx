@@ -77,14 +77,14 @@ const Register = () => {
 
     return (
         <div>
-            <br /><br />
+            <br /><br /><br /><br />
             <HelmetAsync title={"Register"} />
-            <div className="min-h-screen hero">
-                <div className="p-10 mx-auto my-auto shadow-2xl md:w-6/12 hero-content rounded-3xl">
+            <div>
+                <div className="w-11/12 p-10 mx-auto my-auto border shadow-2xl rounded-3xl md:w-6/12">
                     <div className="mx-auto md:w-10/12">
                         <form onSubmit={handleSubmit(handleUserRegister)}>
                             <div className="text-center">
-                                <h3 className="text-2xl font-semibold">Register</h3>
+                                <h3 className="text-2xl font-semibold text-success">Register</h3>
                             </div>
                             <br />
                             <div className="form-control">
@@ -101,7 +101,7 @@ const Register = () => {
                                     <span className="text-error">Name is required !!</span>
                                 </label>}
                             </div>
-                            <div className="form-control mt-1">
+                            <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
@@ -117,7 +117,7 @@ const Register = () => {
                                     <span className="text-error">Email is required !!</span>
                                 </label>}
                             </div>
-                            <div className="form-control mt-1">
+                            <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Phone</span>
                                 </label>
@@ -133,7 +133,7 @@ const Register = () => {
                                     <span className="text-error">Phone is required !!</span>
                                 </label>}
                             </div>
-                            <div className="form-control mt-1">
+                            <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Photo</span>
                                 </label>
@@ -146,7 +146,7 @@ const Register = () => {
                                     <span className="text-error">Photo is required !!</span>
                                 </label>}
                             </div>
-                            <div className="form-control mt-1">
+                            <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Gender</span>
                                 </label>
@@ -165,7 +165,7 @@ const Register = () => {
                                     <span className="text-error">Gender is required !!</span>
                                 </label>}
                             </div>
-                            <div className="form-control mt-1">
+                            <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Date of Birth</span>
                                 </label>
@@ -180,7 +180,7 @@ const Register = () => {
                                     <span className="text-error">Date of Birth is required !!</span>
                                 </label>}
                             </div>
-                            <div className="form-control mt-1">
+                            <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Shipping Address</span>
                                 </label>
@@ -194,7 +194,7 @@ const Register = () => {
                                     <span className="text-error">Address is required !!</span>
                                 </label>}
                             </div>
-                            <div className="form-control mt-1">
+                            <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
@@ -218,7 +218,7 @@ const Register = () => {
                                 {errors.password?.type === 'minLength' && <span className="text-error">Password must be 6 character !!</span>}
                                 {/* {errors.password?.type === 'pattern' && <span className="text-error">At least one upper case, one lower case, one number and one special character is required !!</span>} */}
                             </div>
-                            <div className="form-control mt-1">
+                            <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Confirm Password</span>
                                 </label>
@@ -240,7 +240,7 @@ const Register = () => {
                                 {pwd === rePwd || <span className="text-error">Password is not matched !!</span>}
                             </div>
                             <div className="mt-6 form-control">
-                                <button className="btn btn-neutral" type="submit">Register</button>
+                                <button className="text-white btn btn-success" type="submit">Register</button>
                             </div>
                         </form>
                         <div className="flex items-center justify-center mt-3">

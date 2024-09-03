@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiLoginCircleFill, RiUser3Fill, RiShoppingBag3Fill, RiMenu2Line, RiCloseLargeLine } from "react-icons/ri";
+import { RiLoginCircleFill, RiUser3Fill, RiShoppingBag3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiTimerFill } from "react-icons/ri";
 
 const Navbar = () => {
 
@@ -13,18 +13,19 @@ const Navbar = () => {
         logout();
     }
 
-    const pageLinks = <ul className="menu menu-horizontal px-1">
-        <li><Link to={"/terms"}>Terms</Link></li>
+    const pageLinks = <ul className="px-1 menu menu-horizontal">
+        <li><Link to={"/"} className="text-white">< RiTimerFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Campaigns</span></Link></li>
+        <li><Link to={"/"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Order Tracking</span></Link></li>
         <li>
             <details>
-                <summary>Parent</summary>
+                <summary className="font-semibold text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden ml-1 font-semibold lg:block">Dashboard</span></summary>
                 <ul className="p-2">
-                    <li><a>Submenu 1</a></li>
-                    <li><a>Submenu 2</a></li>
+                <li><Link to={"/"}><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
+                <li><Link to={"/"}><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
                 </ul>
             </details>
         </li>
-        <li><a>Item 3</a></li>
+        <li><Link to={"/"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
     </ul>;
 
     const categoryLinks = <>
@@ -42,9 +43,9 @@ const Navbar = () => {
     return (
         <nav>
             {/* First Navbar */}
-            <nav className="bg-base-200 fixed z-50 flex w-full items-center justify-between py-5 px-2 lg:p-3 border-2 border-t-0 border-l-0 border-r-0">
+            <nav className="fixed z-50 flex items-center justify-between w-full px-2 py-5 bg-green-100 border-2 border-t-0 border-l-0 border-r-0 lg:p-3">
                 {/* Mobile Category */}
-                <div className="items-center flex">
+                <div className="flex items-center">
                     <details className="dropdown" >
                         <summary tabIndex={0} role="button" className="btn btn-sm lg:hidden" onClick={() => setMenuToggle(!menuToggle)} >
                             {
@@ -57,10 +58,10 @@ const Navbar = () => {
                             {categoryLinks}
                         </ul>
                     </details>
-                    <Link to={"/"} className="font-bold text-success lg:text-2xl ml-2">Grameen Health</Link>
+                    <Link to={"/"} className="ml-2 font-bold text-success lg:text-2xl">Grameen Health</Link>
                 </div>
                 {/* Search Desktop */}
-                <div className="join hidden lg:flex">
+                <div className="hidden join lg:flex">
                     <select className="select select-bordered select-success join-item">
                         <option value={null}>All</option>
                         <option>Equipments</option>
@@ -72,15 +73,39 @@ const Navbar = () => {
                             <input className="input input-bordered input-success join-item" placeholder="Search" />
                         </div>
                     </div>
-                    <button className="btn join-item btn-success text-white">Search</button>
+                    <button className="text-white btn join-item btn-success">Search</button>
                 </div>
-                <div>
-                    <button className="btn btn-sm btn-ghost lg:btn-md text-success"><RiShoppingBag3Fill className="text-2xl lg:text-4xl" /></button>
+                <div className="flex items-center">
+                    <div className="indicator">
+                        <span className="indicator-item indicator-bottom badge">0</span>
+                        <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
+                            <Link to={"/cart"} tabIndex={0} role="button" className="text-success"><RiShoppingBag3Fill className="text-2xl lg:text-4xl" /></Link>
+                            <div
+                                tabIndex={0}
+                                className="dropdown-content card card-compact bg-white z-[1] w-64 p-2 shadow">
+                                <div className="card-body">
+                                    <h3 className="card-title">Shopping Cart</h3>
+                                    <p>you can use any element as a dropdown.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {
                         (user) ?
-
-                            <button className="btn btn-sm lg:btn-md btn-ghost text-success"><RiUser3Fill className="text-2xl lg:text-4xl" /></button> :
-                            <Link to={"/login"} className="btn lg:btn-md btn-ghost text-success text-lg font-bold"><RiLoginCircleFill className="text-2xl lg:text-4xl hidden lg:block" /><RiUser3Fill className="text-2xl lg:hidden" /><span className="hidden lg:block">Login / Register</span></Link>
+                            <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
+                                <Link to={"/customer"} tabIndex={0} role="button" className="btn btn-sm btn-ghost lg:btn-md text-success"><RiUser3Fill className="text-2xl lg:text-4xl" /></Link>
+                                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                    <li><a>Profile</a></li>
+                                    <li><a>Logout</a></li>
+                                </ul>
+                            </div> :
+                            <div className="ml-5 dropdown dropdown-hover dropdown-bottom dropdown-end">
+                                <Link to={"/login"} tabIndex={0} role="button" className="flex items-center text-success"><RiLoginCircleFill className="text-2xl lg:text-4xl" /><span className="hidden ml-2 font-semibold xl:block">Login / Register</span></Link>
+                                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                    <li><Link to={"/login"}>Login</Link></li>
+                                    <li><Link to={"/register"}>Register</Link></li>
+                                </ul>
+                            </div>
                     }
                 </div>
             </nav>
@@ -88,15 +113,15 @@ const Navbar = () => {
                 <br /><br /><br />
             </div>
             {/* Second Navbar */}
-            <nav className="bg-base-200 flex w-full items-center justify-around p-1">
-                <details className="dropdown hidden lg:flex" >
-                    <summary tabIndex={0} role="button" className="btn" onClick={() => setCategoryToggle(!categoryToggle)} >
+            <nav className="flex items-center justify-around w-full p-1 bg-success">
+                <details className="hidden dropdown lg:flex" >
+                    <summary tabIndex={0} role="button" className="text-white btn-success btn" onClick={() => setCategoryToggle(!categoryToggle)} >
                         {
                             (categoryToggle) ?
                                 <RiMenu2Line className="text-2xl" /> :
                                 <RiCloseLargeLine className="text-2xl" />
                         }
-                        <span className="text-lg font-bold ml-2">Shop by Category</span>
+                        <span className="ml-2 text-lg font-bold">Shop by Category</span>
                     </summary>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         {categoryLinks}

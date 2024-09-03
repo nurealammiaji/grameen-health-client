@@ -51,7 +51,7 @@ const Footer = () => {
                     </div>
                 </aside>
                 <nav className="md:place-self-center md:justify-self-end">
-                    <div className="grid grid-flow-col gap-4">
+                    <div className="grid grid-flow-col gap-4 text-white">
                         <a>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

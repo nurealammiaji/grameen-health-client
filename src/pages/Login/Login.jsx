@@ -35,12 +35,12 @@ const Login = () => {
         <div>
             <br /><br /><br /><br />
             <HelmetAsync title={"Login"} />
-            <div className="hero">
-                <div className="p-10 mx-auto my-auto shadow-2xl rounded-3xl md:w-6/12 hero-content">
+            <div>
+                <div className="w-11/12 p-10 mx-auto my-auto border shadow-2xl rounded-3xl md:w-6/12">
                     <div className="mx-auto md:w-10/12">
                         <form onSubmit={handleSubmit(handleLogin)}>
                             <div className="text-center">
-                                <h3 className="text-2xl font-semibold">Login</h3>
+                                <h3 className="text-3xl font-bold text-success">Login</h3>
                             </div>
                             <br />
                             <div className="form-control">
@@ -63,7 +63,7 @@ const Login = () => {
                                 {errors.password?.type === 'required' && <span className="text-error">Password is required !!</span>}
                             </div>
                             <div className="mt-6 form-control">
-                                <button className="btn btn-neutral" type="submit">Login</button>
+                                <button className="text-white btn btn-success" type="submit">Login</button>
                             </div>
                         </form>
                         <div className="flex items-center justify-center mt-3">
