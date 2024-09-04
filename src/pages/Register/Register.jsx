@@ -84,7 +84,7 @@ const Register = () => {
                     <div className="mx-auto md:w-10/12">
                         <form onSubmit={handleSubmit(handleUserRegister)}>
                             <div className="text-center">
-                                <h3 className="text-2xl font-semibold text-success">Register</h3>
+                                <h3 className="text-3xl font-bold text-success">Register</h3>
                             </div>
                             <br />
                             <div className="form-control">

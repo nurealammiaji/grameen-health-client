@@ -12,7 +12,7 @@ import './styles.css';
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
-export default function Carousel() {
+const Carousel = () => {
   return (
     <>
       <Swiper
@@ -42,3 +42,5 @@ export default function Carousel() {
     </>
   );
 }
+
+export default Carousel;
