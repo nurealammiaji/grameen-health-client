@@ -1,11 +1,15 @@
 import React from 'react'
+import Carousel from '../Carousel/Carousel'
 
 const Hero = () => {
     return (
         <div className="lg:flex">
-            <div className="w-[100%] hidden lg:block lg:w-[20%] bg-red-500 h-[500px]">Category</div>
-            <div className="w-[100%] lg:w-[60%] bg-green-500 h-[500px]">Slider</div>
-            <div className="w-[100%] lg:w-[20%] bg-blue-500 h-[500px]">Adds</div>
+            <div className="w-[100%] lg:w-[70%] h-[500px]">
+                <Carousel />
+            </div>
+            <div className="w-[100%] lg:w-[30%] h-[500px]">
+                Advertise
+            </div>
         </div>
     )
 }

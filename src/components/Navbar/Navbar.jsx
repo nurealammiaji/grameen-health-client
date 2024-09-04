@@ -14,16 +14,16 @@ const Navbar = () => {
     }
 
     const pageLinks = <ul className="px-1 menu menu-horizontal">
-        <li><Link to={"/"} className="text-white"><RiAlarmFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold sm:block">Campaigns</span></Link></li>
-        <li><Link to={"/"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold sm:block">Order Tracking</span></Link></li>
-        <li><Link to={"/"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold sm:block">Products</span></Link></li>
+        <li><Link to={"/"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Products</span></Link></li>
+        <li><Link to={"/"} className="text-white"><RiAlarmFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Campaigns</span></Link></li>
+        <li><Link to={"/"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Order Tracking</span></Link></li>
         <li>
             <details>
-                <summary className="font-semibold text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold sm:block">Dashboard</span></summary>
+                <summary className="font-semibold text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Dashboard</span></summary>
                 <ul className="p-2">
-                    <li><Link to={"/"}><RiShieldUserFill className="text-xl lg:text-2xl" /><span className="hidden font-semibold sm:block">Admin</span></Link></li>
-                    <li><Link to={"/"}><RiStore3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold sm:block">Merchant</span></Link></li>
-                    <li><Link to={"/"}><RiUser3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold sm:block">Customer</span></Link></li>
+                    <li><Link to={"/"}><RiShieldUserFill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Admin</span></Link></li>
+                    <li><Link to={"/"}><RiStore3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Merchant</span></Link></li>
+                    <li><Link to={"/"}><RiUser3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Customer</span></Link></li>
                 </ul>
             </details>
         </li>
@@ -44,7 +44,7 @@ const Navbar = () => {
     return (
         <nav>
             {/* First Navbar */}
-            <nav className="fixed z-50 flex items-center justify-between w-full px-2 py-5 border-2 border-t-0 border-l-0 border-r-0 bg-base-200 lg:p-3">
+            <nav className="fixed z-50 flex items-center justify-between w-full px-2 py-5 bg-base-200 lg:p-3">
                 {/* Mobile Category */}
                 <div className="flex items-center">
                     <details className="dropdown" >
@@ -59,7 +59,8 @@ const Navbar = () => {
                             {categoryLinks}
                         </ul>
                     </details>
-                    <Link to={"/"} className="ml-2 font-bold text-success lg:text-2xl">Grameen Health</Link>
+                    <Link to={"/"} className="hidden ml-2 font-bold text-success md:block lg:text-2xl">Grameen Health</Link>
+                    <Link to={"/"} className="ml-2 text-2xl font-bold text-success md:hidden">GH</Link>
                 </div>
                 {/* Search Desktop */}
                 <div className="hidden join md:flex">
@@ -105,7 +106,7 @@ const Navbar = () => {
                     <div className="mx-5 indicator">
                         <span className="indicator-item indicator-bottom badge">0</span>
                         <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
-                            <Link to={"/cart"} tabIndex={0} role="button" className="text-success"><RiShoppingBag3Fill className="text-2xl lg:text-4xl" /></Link>
+                            <Link to={"/cart"} tabIndex={0} role="button" className="text-success"><RiShoppingBag3Fill className="text-3xl lg:text-4xl" /></Link>
                             <div
                                 tabIndex={0}
                                 className="dropdown-content card card-compact bg-white z-[1] w-64 p-2 shadow">
@@ -119,14 +120,14 @@ const Navbar = () => {
                     {
                         (user) ?
                             <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
-                                <Link to={"/customer"} tabIndex={0} role="button" className="btn btn-sm btn-ghost lg:btn-md text-success"><RiUser3Fill className="text-2xl lg:text-4xl" /></Link>
+                                <Link to={"/customer"} tabIndex={0} role="button" className="btn btn-sm btn-ghost lg:btn-md text-success"><RiUser3Fill className="text-3xl lg:text-4xl" /></Link>
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                                     <li><a>Profile</a></li>
                                     <li><a>Logout</a></li>
                                 </ul>
                             </div> :
                             <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
-                                <Link to={"/login"} tabIndex={0} role="button" className="flex items-center text-success"><RiLoginCircleFill className="text-2xl lg:text-4xl" /><span className="hidden ml-2 font-semibold xl:block">Login / Register</span></Link>
+                                <Link to={"/login"} tabIndex={0} role="button" className="flex items-center text-success"><RiLoginCircleFill className="text-3xl lg:text-4xl" /><span className="hidden ml-2 font-semibold xl:block">Login / Register</span></Link>
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                                     <li><Link to={"/login"}>Login</Link></li>
                                     <li><Link to={"/register"}>Register</Link></li>
@@ -139,9 +140,27 @@ const Navbar = () => {
                 <br /><br /><br />
             </div>
             {/* Second Navbar */}
-            <nav className="flex items-center justify-around w-full p-1 bg-success">
+            {/* <nav className="flex items-center justify-around w-full p-1 bg-success">
                 <details className="hidden dropdown md:flex" >
-                    <summary tabIndex={0} role="button" className="text-white btn-success btn" onClick={() => setCategoryToggle(!categoryToggle)} >
+                    <summary tabIndex={0} role="button" className="text-white md:btn-sm lg:btn-md btn btn-outline" onClick={() => setCategoryToggle(!categoryToggle)} >
+                        {
+                            (categoryToggle) ?
+                                <RiMenu2Line className="text-2xl" /> :
+                                <RiCloseLargeLine className="text-2xl" />
+                        }
+                        <span className="font-bold lg:ml-2 lg:text-lg">Categories</span>
+                    </summary>
+                    <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        {categoryLinks}
+                    </ul>
+                </details>
+                <div className="">
+                    {pageLinks}
+                </div>
+            </nav> */}
+            <nav className="fixed flex items-center justify-around w-full p-1 bg-success z-[10]">
+                <details className="hidden dropdown md:flex" >
+                    <summary tabIndex={0} role="button" className="text-white sm:btn-sm md:btn-md btn btn-outline" onClick={() => setCategoryToggle(!categoryToggle)} >
                         {
                             (categoryToggle) ?
                                 <RiMenu2Line className="text-2xl" /> :
@@ -157,6 +176,7 @@ const Navbar = () => {
                     {pageLinks}
                 </div>
             </nav>
+            <div className="mt-[64px] md:mt-[70px]"></div>
         </nav>
     )
 }
