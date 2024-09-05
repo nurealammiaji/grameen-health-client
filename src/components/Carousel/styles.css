@@ -6,9 +6,15 @@
   .swiper-slide {
       text-align: center;
       font-size: 18px;
-      /* background: #fff; */
+      background: #fff;
+      border: 2px solid transparent;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -ms-border-radius: 15px;
+      -o-border-radius: 15px;
 
-      /* Center slide text vertically */
+      /*Centerslidetextvertically*/
       display: flex;
       justify-content: center;
       align-items: center;

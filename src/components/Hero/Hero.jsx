@@ -4,10 +4,10 @@ import Carousel from '../Carousel/Carousel'
 const Hero = () => {
     return (
         <div className="lg:flex">
-            <div className="w-[100%] lg:w-[70%] h-[500px]">
+            <div className="w-[100%] lg:w-[70%] h-[500px] p-5 border">
                 <Carousel />
             </div>
-            <div className="w-[100%] lg:w-[30%] h-[500px]">
+            <div className="w-[100%] lg:w-[30%] h-[500px] p-5 border">
                 Advertise
             </div>
         </div>
