@@ -16,9 +16,9 @@ const AuthProvider = ({ children }) => {
     const [authenticated, setAuthenticated] = useState(!!accessToken);
     const [user, setUser] = useState(null);
 
-    const userRegister = async (user, formData) => {
+    const userRegister = async (formData) => {
         setLoading(true);
-        return await axiosPublic.post('/auth/register', user, formData, {
+        return await axiosPublic.post('/auth/register', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }
@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
         if (accessToken && userId) {
             setAuthenticated(true);
             const auth = async () => {
-                await axiosPrivate.get(`/auth/user/${userId}`)
+                await axiosPrivate.get(`/users/${userId}`)
                     .then((res) => {
                         const currentUser = res.data;
                         if (currentUser) {

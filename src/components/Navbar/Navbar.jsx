@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiBox3Fill, RiStore3Fill, RiShieldUserFill, RiMegaphoneFill, RiUserReceived2Fill, RiShoppingCart2Fill } from "react-icons/ri";
+import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiBox3Fill, RiStore3Fill, RiShieldUserFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill } from "react-icons/ri";
 import icon from "../../assets/icon.png";
 
 const Navbar = () => {
@@ -15,8 +15,8 @@ const Navbar = () => {
     }
 
     const pageLinks = <ul className="px-1 menu menu-horizontal">
+        <li><Link to={"/"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Campaigns</span></Link></li>
         <li><Link to={"/"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Products</span></Link></li>
-        <li><Link to={"/"} className="text-white"><RiMegaphoneFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Campaigns</span></Link></li>
         <li><Link to={"/"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Order Tracking</span></Link></li>
         <li>
             <details>
@@ -102,7 +102,7 @@ const Navbar = () => {
                         </label>
                     </div>
                     <div className="mx-5 indicator">
-                        <span className="indicator-item indicator-end p-1 badge">0</span>
+                        <span className="indicator-item indicator-end badge bg-lime-500 text-white">0</span>
                         <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
                             <Link to={"/cart"} tabIndex={0} role="button" className="text-success"><RiShoppingCart2Fill className="text-3xl lg:text-4xl" /></Link>
                             <div

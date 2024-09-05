@@ -9,9 +9,10 @@ import HelmetAsync from './../../components/HelmetAsync/HelmetAsync';
 const Register = () => {
 
     const { user, userRegister, setUser, setAuthenticated } = useContext(AuthContext);
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
     const [eyeCloseOne, setEyeCloseOne] = useState(true);
     const [eyeCloseTwo, setEyeCloseTwo] = useState(true);
+    const [image, setImage] = useState(null);
 
     const pwd = watch("password");
     const rePwd = watch("confirmPassword");
@@ -20,60 +21,73 @@ const Register = () => {
     const destination = location?.state?.from?.pathname || "/";
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (user && location?.pathname === "/register") {
+    // useEffect(() => {
+    //     if (user && location?.pathname === "/register") {
+    //         Swal.fire({
+    //             position: "center",
+    //             icon: "info",
+    //             title: "Already Registered !!",
+    //             showConfirmButton: false,
+    //             timer: 1500
+    //         });
+    //         navigate("/", { replace: true });
+    //     }
+    // }, [location, navigate, user]);
+
+    const handleUserRegister = async (data) => {
+        try {
+            const formData = new FormData();
+            formData.append('username', data.username);
+            formData.append('email', data.email);
+            formData.append('password', data.password);
+
+            if (image) {
+                formData.append('image', image);
+            }
+
+            userRegister(formData)
+                .then(res => {
+                    console.log(res);
+                    console.log('User registered:', response.data);
+                    const currentUser = res.user;
+                    setUser(currentUser);
+                    setAuthenticated(true);
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Registered Successfully !",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    reset();
+                    navigate(destination, { replace: true });
+                })
+                .catch(error => {
+                    console.log(error);
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: `${error}`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                })
+
+        } catch (error) {
+            console.error('Error registering user:', error);
             Swal.fire({
                 position: "center",
-                icon: "info",
-                title: "Already Registered !!",
+                icon: "error",
+                title: `${error}`,
                 showConfirmButton: false,
                 timer: 1500
             });
-            navigate("/", { replace: true });
         }
-    }, [location, navigate, user]);
+    };
 
-    const handleUserRegister = (data) => {
-        const formData = new FormData();
-        formData.append('image', data.photo[0]);
-        const user = {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            phone: data.phone,
-            address: data.address,
-            image: data.photo[0],
-            gender: data.gender,
-            dob: data.dob,
-            role: "customer",
-        };
-        console.log(user);
-        userRegister(user, formData)
-            .then(res => {
-                console.log(res);
-                const currentUser = res.user;
-                setUser(currentUser);
-                setAuthenticated(true);
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Registered Successfully !",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                navigate(destination, { replace: true });
-            })
-            .catch(error => {
-                console.log(error);
-                Swal.fire({
-                    position: "center",
-                    icon: "error",
-                    title: `${error}`,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            })
-    }
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]);
+    };
 
     return (
         <div>
@@ -117,7 +131,7 @@ const Register = () => {
                                     <span className="text-error">Email is required !!</span>
                                 </label>}
                             </div>
-                            <div className="mt-1 form-control">
+                            {/* <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Phone</span>
                                 </label>
@@ -132,21 +146,19 @@ const Register = () => {
                                 {errors.phone?.type === 'required' && <label className="label">
                                     <span className="text-error">Phone is required !!</span>
                                 </label>}
-                            </div>
+                            </div> */}
                             <div className="mt-1 form-control">
                                 <label className="label">
-                                    <span className="label-text">Photo</span>
+                                    <span className="label-text">Image</span>
                                 </label>
-                                <input {...register("photo", { required: true })}
+                                <input
                                     type="file"
-                                    name="photo"
+                                    onChange={handleImageChange}
+                                    name="image"
                                     className="file-input file-input-bordered"
                                 />
-                                {errors.photo?.type === 'required' && <label className="label">
-                                    <span className="text-error">Photo is required !!</span>
-                                </label>}
                             </div>
-                            <div className="mt-1 form-control">
+                            {/* <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Gender</span>
                                 </label>
@@ -164,8 +176,8 @@ const Register = () => {
                                 {errors.gender?.type === 'required' && <label className="label">
                                     <span className="text-error">Gender is required !!</span>
                                 </label>}
-                            </div>
-                            <div className="mt-1 form-control">
+                            </div> */}
+                            {/* <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Date of Birth</span>
                                 </label>
@@ -179,8 +191,8 @@ const Register = () => {
                                 {errors.dob?.type === 'required' && <label className="label">
                                     <span className="text-error">Date of Birth is required !!</span>
                                 </label>}
-                            </div>
-                            <div className="mt-1 form-control">
+                            </div> */}
+                            {/* <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Shipping Address</span>
                                 </label>
@@ -193,7 +205,7 @@ const Register = () => {
                                 {errors.address?.type === 'required' && <label className="label">
                                     <span className="text-error">Address is required !!</span>
                                 </label>}
-                            </div>
+                            </div> */}
                             <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
