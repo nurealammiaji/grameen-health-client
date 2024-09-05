@@ -21,23 +21,23 @@ const Register = () => {
     const destination = location?.state?.from?.pathname || "/";
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if (user && location?.pathname === "/register") {
-    //         Swal.fire({
-    //             position: "center",
-    //             icon: "info",
-    //             title: "Already Registered !!",
-    //             showConfirmButton: false,
-    //             timer: 1500
-    //         });
-    //         navigate("/", { replace: true });
-    //     }
-    // }, [location, navigate, user]);
+    useEffect(() => {
+        if (user && location?.pathname === "/register") {
+            Swal.fire({
+                position: "center",
+                icon: "info",
+                title: "Already Registered !!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            navigate("/", { replace: true });
+        }
+    }, [location, navigate, user]);
 
     const handleUserRegister = async (data) => {
         try {
             const formData = new FormData();
-            formData.append('username', data.username);
+            formData.append('name', data.name);
             formData.append('email', data.email);
             formData.append('password', data.password);
 
@@ -45,11 +45,16 @@ const Register = () => {
                 formData.append('image', image);
             }
 
-            userRegister(formData)
-                .then(res => {
-                    console.log(res);
-                    console.log('User registered:', response.data);
-                    const currentUser = res.user;
+            console.log(data);
+            console.log(formData);
+
+            await userRegister(formData)
+                .then(({data}) => {
+                    console.log(data);
+                    const currentUser = data.user;
+                    console.log({currentUser});
+                    localStorage.setItem('accessToken', data.accessToken);
+                    localStorage.setItem('userId', data.id);
                     setUser(currentUser);
                     setAuthenticated(true);
                     Swal.fire({
@@ -59,10 +64,9 @@ const Register = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    reset();
                     navigate(destination, { replace: true });
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.log(error);
                     Swal.fire({
                         position: "center",
@@ -87,6 +91,7 @@ const Register = () => {
 
     const handleImageChange = (e) => {
         setImage(e.target.files[0]);
+        console.log(e);
     };
 
     return (

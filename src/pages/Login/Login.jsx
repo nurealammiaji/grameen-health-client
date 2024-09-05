@@ -1,19 +1,33 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from './../../providers/AuthProvider';
 import { useForm } from 'react-hook-form';
 import HelmetAsync from './../../components/HelmetAsync/HelmetAsync';
 import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const { setAuthenticated, setLoading, userLogin } = useContext(AuthContext);
+    const { setAuthenticated, setLoading, userLogin, user } = useContext(AuthContext);
     const [eyeClose, setEyeClose] = useState(true);
     const location = useLocation();
     const navigate = useNavigate();
-    const from = location?.state?.from?.pathname || "/";
+    const destination = location?.state?.from?.pathname || "/";
+
+    useEffect(() => {
+        if (user && location?.pathname === "/login") {
+            Swal.fire({
+                position: "center",
+                icon: "info",
+                title: "Already Logged In !!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            navigate(destination, { replace: true });
+        }
+    }, [location, navigate, user]);
 
     const handleLogin = async (data) => {
         const { email, password } = data;
@@ -23,7 +37,7 @@ const Login = () => {
                 localStorage.setItem('userId', data.id);
                 setAuthenticated(true);
                 setLoading(false);
-                navigate(from, { replace: true });
+                navigate(destination, { replace: true });
             })
             .catch((err) => {
                 console.error(err);

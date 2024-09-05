@@ -49,7 +49,7 @@ const Navbar = () => {
                 {/* Mobile Category */}
                 <div className="flex items-center">
                     <details className="dropdown" >
-                        <summary tabIndex={0} role="button" className="btn btn-sm md:hidden btn-success mr-2" onClick={() => setMenuToggle(!menuToggle)} >
+                        <summary tabIndex={0} role="button" className="mr-2 btn btn-sm md:hidden btn-success" onClick={() => setMenuToggle(!menuToggle)} >
                             {
                                 (menuToggle) ?
                                     <RiMenu2Line className="text-2xl" /> :
@@ -60,7 +60,7 @@ const Navbar = () => {
                             {categoryLinks}
                         </ul>
                     </details>
-                    <Link to={"/"} className="font-bold text-success md:flex lg:text-2xl items-center"><img src={icon} className="w-10 h-10 md:w-8 md:h-8 text-2xl font-bold text-success" alt="Grameen Health Icon" /><span className="ml-2 text-2xl font-bold text-success md:block hidden">Grameen Health</span></Link>
+                    <Link to={"/"} className="items-center font-bold text-success md:flex lg:text-2xl"><img src={icon} className="w-10 h-10 text-2xl font-bold md:w-8 md:h-8 text-success" alt="Grameen Health Icon" /><span className="hidden ml-2 text-2xl font-bold text-success md:block">Grameen Health</span></Link>
                 </div>
                 {/* Search Desktop */}
                 <div className="hidden join md:flex">
@@ -102,7 +102,7 @@ const Navbar = () => {
                         </label>
                     </div>
                     <div className="mx-5 indicator">
-                        <span className="indicator-item indicator-end badge bg-lime-500 text-white">0</span>
+                        <span className="text-white indicator-item indicator-end indicator-top badge bg-lime-500">0</span>
                         <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
                             <Link to={"/cart"} tabIndex={0} role="button" className="text-success"><RiShoppingCart2Fill className="text-3xl lg:text-4xl" /></Link>
                             <div
@@ -118,7 +118,7 @@ const Navbar = () => {
                     {
                         (user) ?
                             <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
-                                <Link to={"/profile"} tabIndex={0} role="button" className="text-success flex items-center"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{user?.email}</span></Link>
+                                <Link to={"/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{user?.email}</span></Link>
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                                     <li className="p-4 text-center xl:hidden">{user?.email}</li>
                                     <li><Link to={"/profile"}>Profile</Link></li>
