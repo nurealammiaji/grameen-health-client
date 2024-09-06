@@ -152,7 +152,8 @@ const Register = () => {
                                     <span className="text-error">Phone is required !!</span>
                                 </label>}
                             </div> */}
-                            <div className="mt-1 form-control">
+                            {/* Image Upload */}
+                            {/* <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Image</span>
                                 </label>
@@ -162,7 +163,7 @@ const Register = () => {
                                     name="image"
                                     className="file-input file-input-bordered"
                                 />
-                            </div>
+                            </div> */}
                             {/* <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Gender</span>

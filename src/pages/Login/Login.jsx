@@ -37,6 +37,13 @@ const Login = () => {
                 localStorage.setItem('userId', data.id);
                 setAuthenticated(true);
                 setLoading(false);
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Logged In Successfully !",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate(destination, { replace: true });
             })
             .catch((err) => {
