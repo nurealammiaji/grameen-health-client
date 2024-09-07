@@ -10,7 +10,7 @@ const Login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const { setAuthenticated, setLoading, userLogin, user } = useContext(AuthContext);
+    const { setAuthenticated, setLoading, loading, userLogin, user } = useContext(AuthContext);
     const [eyeClose, setEyeClose] = useState(true);
     const location = useLocation();
     const navigate = useNavigate();
@@ -31,25 +31,55 @@ const Login = () => {
 
     const handleLogin = async (data) => {
         const { email, password } = data;
-        userLogin(email, password)
-            .then(({ data }) => {
-                localStorage.setItem('accessToken', data.accessToken);
-                localStorage.setItem('userId', data.id);
-                setAuthenticated(true);
-                setLoading(false);
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Logged In Successfully !",
-                    showConfirmButton: false,
-                    timer: 1500
+        try {
+            setLoading(true);
+            await userLogin(email, password)
+                .then(({ data }) => {
+                    localStorage.setItem('accessToken', data.accessToken);
+                    localStorage.setItem('userId', data.id);
+                    setAuthenticated(true);
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Logged In Successfully !",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate(destination, { replace: true });
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        // Server responded with a status other than 200 range
+                        console.error('Server responded with:', error.response.status);
+                    } else if (error.request) {
+                        // Request was made but no response received
+                        console.error('No response received:', error.request);
+                    } else {
+                        // Something happened in setting up the request
+                        console.error('Error setting up request:', error.message);
+                    }
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: `${error.message}`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    setLoading(false);
                 });
-                navigate(destination, { replace: true });
-            })
-            .catch((err) => {
-                console.error(err);
-                setLoading(false);
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: `${error.message}`,
+                showConfirmButton: false,
+                timer: 1500
             });
+            setLoading(false);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -84,7 +114,7 @@ const Login = () => {
                                 {errors.password?.type === 'required' && <span className="text-error">Password is required !!</span>}
                             </div>
                             <div className="mt-6 form-control">
-                                <button className="text-white btn btn-success" type="submit">Login</button>
+                                <button className="text-white btn btn-success" type="submit">{(loading ? <><span className="loading loading-spinner text-white"></span><span className="ml-2">Processing ...</span></> : "Login")}</button>
                             </div>
                         </form>
                         <div className="flex items-center justify-center mt-3">

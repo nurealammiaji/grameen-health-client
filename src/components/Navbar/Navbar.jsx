@@ -1,17 +1,19 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiBox3Fill, RiStore3Fill, RiShieldUserFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome2Fill, RiHome3Fill, RiHome4Fill, RiHome5Line, RiHome5Fill, RiHome6Fill, RiHome8Fill } from "react-icons/ri";
+import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiBox3Fill, RiStore3Fill, RiShieldUserFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill } from "react-icons/ri";
 import icon from "../../assets/icon.png";
+import useUser from "../../hooks/useUser";
 
 const Navbar = () => {
 
-    const { user, logout } = useContext(AuthContext);
+    const { user, logout, authenticated } = useContext(AuthContext);
     const [menuToggle, setMenuToggle] = useState(true);
     const [categoryToggle, setCategoryToggle] = useState(true);
+    const [isUserLoading, userData, refetchUser] = useUser();
 
     const handleLogout = () => {
-        logout();
+        logout()
     }
 
     const pageLinks = <ul className="px-1 menu menu-horizontal">
@@ -23,9 +25,9 @@ const Navbar = () => {
             <details>
                 <summary className="font-semibold text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Dashboard</span></summary>
                 <ul className="p-2">
-                    <li><Link to={"/admin/dashboard"}><RiShieldUserFill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Admin</span></Link></li>
-                    <li><Link to={"/merchant/dashboard"}><RiStore3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Merchant</span></Link></li>
-                    <li><Link to={"/customer/dashboard"}><RiUser3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Customer</span></Link></li>
+                    <li><Link to={"/dashboard/admin"}><RiShieldUserFill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Admin</span></Link></li>
+                    <li><Link to={"/dashboard/merchant"}><RiStore3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Merchant</span></Link></li>
+                    <li><Link to={"/dashboard/customer"}><RiUser3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Customer</span></Link></li>
                 </ul>
             </details>
         </li>
@@ -111,9 +113,9 @@ const Navbar = () => {
                         </div>
                     </div>
                     {
-                        (user) ?
+                        (user && userData) ?
                             <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
-                                <Link to={"/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{user?.email}</span></Link>
+                                <Link to={"/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{userData?.email}</span></Link>
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                                     <li className="p-4 text-center xl:hidden">{user?.email}</li>
                                     <li><Link to={"/profile"}>Profile</Link></li>

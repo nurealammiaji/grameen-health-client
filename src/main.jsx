@@ -15,11 +15,11 @@ createRoot(document.getElementById('root')).render(
     <HelmetProvider>
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={AllRoutes} >
+          <RouterProvider router={AllRoutes}>
             <App />
           </RouterProvider>
         </QueryClientProvider>
       </AuthProvider>
     </HelmetProvider>
   </StrictMode>,
-)
+);

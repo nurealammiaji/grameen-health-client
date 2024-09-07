@@ -8,7 +8,7 @@ import HelmetAsync from './../../components/HelmetAsync/HelmetAsync';
 
 const Register = () => {
 
-    const { user, userRegister, setUser, setAuthenticated } = useContext(AuthContext);
+    const { user, userRegister, setUser, setAuthenticated, loading, setLoading } = useContext(AuthContext);
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
     const [eyeCloseOne, setEyeCloseOne] = useState(true);
     const [eyeCloseTwo, setEyeCloseTwo] = useState(true);
@@ -36,6 +36,7 @@ const Register = () => {
 
     const handleUserRegister = async (data) => {
         try {
+            setLoading(true);
             const formData = new FormData();
             formData.append('name', data.name);
             formData.append('email', data.email);
@@ -49,10 +50,10 @@ const Register = () => {
             console.log(formData);
 
             await userRegister(formData)
-                .then(({data}) => {
+                .then(({ data }) => {
                     console.log(data);
                     const currentUser = data.user;
-                    console.log({currentUser});
+                    console.log({ currentUser });
                     localStorage.setItem('accessToken', data.accessToken);
                     localStorage.setItem('userId', data.id);
                     setUser(currentUser);
@@ -67,14 +68,24 @@ const Register = () => {
                     navigate(destination, { replace: true });
                 })
                 .catch((error) => {
-                    console.log(error);
+                    if (error.response) {
+                        // Server responded with a status other than 200 range
+                        console.error('Server responded with:', error.response.status);
+                    } else if (error.request) {
+                        // Request was made but no response received
+                        console.error('No response received:', error.request);
+                    } else {
+                        // Something happened in setting up the request
+                        console.error('Error setting up request:', error.message);
+                    }
                     Swal.fire({
                         position: "center",
                         icon: "error",
-                        title: `${error}`,
+                        title: `${error.message}`,
                         showConfirmButton: false,
                         timer: 1500
                     });
+                    setLoading(false);
                 })
 
         } catch (error) {
@@ -82,10 +93,13 @@ const Register = () => {
             Swal.fire({
                 position: "center",
                 icon: "error",
-                title: `${error}`,
+                title: `${error.message}`,
                 showConfirmButton: false,
                 timer: 1500
             });
+            setLoading(false);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -164,6 +178,7 @@ const Register = () => {
                                     className="file-input file-input-bordered"
                                 />
                             </div> */}
+                            {/* Gender */}
                             {/* <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Gender</span>
@@ -183,6 +198,7 @@ const Register = () => {
                                     <span className="text-error">Gender is required !!</span>
                                 </label>}
                             </div> */}
+                            {/* Date of Birth */}
                             {/* <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Date of Birth</span>
@@ -198,6 +214,7 @@ const Register = () => {
                                     <span className="text-error">Date of Birth is required !!</span>
                                 </label>}
                             </div> */}
+                            {/* Shipping Address */}
                             {/* <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Shipping Address</span>
@@ -258,7 +275,7 @@ const Register = () => {
                                 {pwd === rePwd || <span className="text-error">Password is not matched !!</span>}
                             </div>
                             <div className="mt-6 form-control">
-                                <button className="text-white btn btn-success" type="submit">Register</button>
+                                <button className="text-white btn btn-success" type="submit">{(loading ? <><span className="loading loading-spinner text-white"></span><span className="ml-2">Processing ...</span></> : "Register")}</button>
                             </div>
                         </form>
                         <div className="flex items-center justify-center mt-3">
