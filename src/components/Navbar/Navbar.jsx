@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiBox3Fill, RiStore3Fill, RiShieldUserFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill } from "react-icons/ri";
+import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiBox3Fill, RiStore3Fill, RiShieldUserFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome2Fill, RiHome3Fill, RiHome4Fill, RiHome5Line, RiHome5Fill, RiHome6Fill, RiHome8Fill } from "react-icons/ri";
 import icon from "../../assets/icon.png";
 
 const Navbar = () => {
@@ -15,16 +15,17 @@ const Navbar = () => {
     }
 
     const pageLinks = <ul className="px-1 menu menu-horizontal">
-        <li><Link to={"/"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Campaigns</span></Link></li>
-        <li><Link to={"/"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Products</span></Link></li>
-        <li><Link to={"/"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Order Tracking</span></Link></li>
+        <li><Link to={"/"} className="text-white"><RiHome8Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Home</span></Link></li>
+        <li><Link to={"/campaign"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Campaigns</span></Link></li>
+        <li><Link to={"/products"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Products</span></Link></li>
+        <li><Link to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Order Tracking</span></Link></li>
         <li>
             <details>
                 <summary className="font-semibold text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Dashboard</span></summary>
                 <ul className="p-2">
-                    <li><Link to={"/"}><RiShieldUserFill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Admin</span></Link></li>
-                    <li><Link to={"/"}><RiStore3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Merchant</span></Link></li>
-                    <li><Link to={"/"}><RiUser3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Customer</span></Link></li>
+                    <li><Link to={"/admin/dashboard"}><RiShieldUserFill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Admin</span></Link></li>
+                    <li><Link to={"/merchant/dashboard"}><RiStore3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Merchant</span></Link></li>
+                    <li><Link to={"/customer/dashboard"}><RiUser3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Customer</span></Link></li>
                 </ul>
             </details>
         </li>
@@ -64,12 +65,6 @@ const Navbar = () => {
                 </div>
                 {/* Search Desktop */}
                 <div className="hidden join md:flex">
-                    <select className="select select-bordered select-success md:select-sm lg:select-md join-item">
-                        <option value={null}>All</option>
-                        <option>Equipments</option>
-                        <option>Medicines</option>
-                        <option>Health</option>
-                    </select>
                     <div>
                         <div>
                             <input className="input input-bordered input-success md:input-sm lg:input-md join-item" placeholder="Search" />

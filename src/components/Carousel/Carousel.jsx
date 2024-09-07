@@ -11,8 +11,32 @@ import './styles.css';
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Link } from 'react-router-dom';
 
 const Carousel = () => {
+
+  const slides = [
+    {
+      image: "https://www.supplychainbrain.com/ext/resources/2022/10/19/MEDICAL-DEVICE-HOME-DELIVERY-iStock-1250431727.jpg",
+      link: "/terms"
+    },
+    {
+      image: "https://hospitalsmagazine.com/wp-content/uploads/2021/05/Single-use-medical-devices.jpg",
+      link: "/terms"
+    },
+    {
+      image: "https://d2jx2rerrg6sh3.cloudfront.net/images/Article_Images/ImageForArticle_22588_16539156642301393.jpg",
+      link: "/sugar-machine"
+    },
+    {
+      image: "https://www.massdevice.com/wp-content/uploads/2021/05/goddard-sponsored-hero-image-june2021.jpg",
+      link: "/terms"
+    },
+    {
+      image: "https://www.massdevice.com/wp-content/uploads/2021/05/goddard-sponsored-hero-image-june2021.jpg",
+      link: "/terms"
+    },
+  ]
   return (
     <>
       <Swiper
@@ -29,15 +53,16 @@ const Carousel = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        {
+          (slides) &&
+          slides.map((slide, index) => (
+            <SwiperSlide key={index}>
+              <Link to={slide.link} className="swiper-slide">
+                <img src={slide.image} alt="" />
+              </Link>
+            </SwiperSlide>
+          ))
+        }
       </Swiper>
     </>
   );

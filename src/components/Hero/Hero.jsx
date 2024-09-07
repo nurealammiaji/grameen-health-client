@@ -3,7 +3,7 @@ import Carousel from '../Carousel/Carousel'
 
 const Hero = () => {
     return (
-        <div className="lg:flex">
+        <div className="flex-row-reverse lg:flex">
             <div className="w-[100%] lg:w-[70%] h-[500px] p-5 border">
                 <Carousel />
             </div>
