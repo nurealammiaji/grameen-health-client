@@ -17,17 +17,17 @@ const Navbar = () => {
     }
 
     const pageLinks = <ul className="px-1 menu menu-horizontal">
-        <li><Link to={"/"} className="text-white"><RiHome8Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Home</span></Link></li>
-        <li><Link to={"/campaign"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Campaigns</span></Link></li>
-        <li><Link to={"/products"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Products</span></Link></li>
-        <li><Link to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Order Tracking</span></Link></li>
+        <li><Link to={"/"} className="text-white"><RiHome8Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Home</span></Link></li>
+        <li><Link to={"/campaign"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Campaigns</span></Link></li>
+        <li><Link to={"/products"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Products</span></Link></li>
+        <li><Link to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Order Tracking</span></Link></li>
         <li>
             <details>
-                <summary className="font-semibold text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold md:block">Dashboard</span></summary>
+                <summary className="font-semibold text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></summary>
                 <ul className="p-2">
-                    <li><Link to={"/dashboard/admin"}><RiShieldUserFill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Admin</span></Link></li>
-                    <li><Link to={"/dashboard/merchant"}><RiStore3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Merchant</span></Link></li>
-                    <li><Link to={"/dashboard/customer"}><RiUser3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold md:block">Customer</span></Link></li>
+                    <li><Link to={"/dashboard/admin"}><RiShieldUserFill className="text-xl lg:text-2xl" /><span className="hidden font-semibold lg:block">Admin</span></Link></li>
+                    <li><Link to={"/dashboard/merchant"}><RiStore3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold lg:block">Merchant</span></Link></li>
+                    <li><Link to={"/dashboard/customer"}><RiUser3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold lg:block">Customer</span></Link></li>
                 </ul>
             </details>
         </li>
