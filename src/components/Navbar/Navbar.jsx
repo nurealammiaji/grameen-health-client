@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiBox3Fill, RiStore3Fill, RiShieldUserFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill } from "react-icons/ri";
+import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiStore3Fill, RiShieldUserFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill } from "react-icons/ri";
 import icon from "../../assets/icon.png";
 import useUser from "../../hooks/useUser";
 
@@ -19,18 +19,20 @@ const Navbar = () => {
     const pageLinks = <ul className="px-1 menu menu-horizontal">
         <li><Link to={"/"} className="text-white"><RiHome8Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Home</span></Link></li>
         <li><Link to={"/campaign"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Campaigns</span></Link></li>
-        <li><Link to={"/products"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Products</span></Link></li>
         <li><Link to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Order Tracking</span></Link></li>
-        <li>
-            <details>
-                <summary className="font-semibold text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></summary>
-                <ul className="p-2">
-                    <li><Link to={"/dashboard/admin"}><RiShieldUserFill className="text-xl lg:text-2xl" /><span className="hidden font-semibold lg:block">Admin</span></Link></li>
-                    <li><Link to={"/dashboard/merchant"}><RiStore3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold lg:block">Merchant</span></Link></li>
-                    <li><Link to={"/dashboard/customer"}><RiUser3Fill className="text-xl lg:text-2xl" /><span className="hidden font-semibold lg:block">Customer</span></Link></li>
-                </ul>
-            </details>
-        </li>
+        <li><Link to={"/contact"} className="text-white"><RiPhoneFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Contact</span></Link></li>
+        {
+            (user && userData?.role === "admin") &&
+            <li><Link to={"/dashboard/admin"} className="text-white" ><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
+        }
+        {
+            (user && userData?.role === "merchant") &&
+            <li><Link to={"/dashboard/merchant"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
+        }
+        {
+            (user && userData?.role === "customer") &&
+            <li><Link to={"/dashboard/customer"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
+        }
     </ul>;
 
     const categoryLinks = <>
@@ -66,12 +68,28 @@ const Navbar = () => {
                     <Link to={"/"} className="items-center font-bold text-success md:flex lg:text-2xl"><img src={icon} className="w-10 h-10 text-2xl font-bold md:w-8 md:h-8 text-success" alt="Grameen Health Icon" /><span className="hidden ml-2 text-2xl font-bold text-success md:block">Grameen Health</span></Link>
                 </div>
                 {/* Search Desktop */}
-                <div className="hidden join md:flex">
+                {/* <div className="hidden join md:flex">
                     <div>
                         <div>
                             <input className="input input-bordered input-success md:input-sm lg:input-md join-item" placeholder="Search" />
                         </div>
                     </div>
+                    <button className="text-white btn join-item btn-success md:btn-sm lg:btn-md">Search</button>
+                </div> */}
+                <div className="hidden join md:flex">
+                    <label className="input input-bordered md:input-sm lg:input-md flex items-center gap-2 join-item">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 16 16"
+                            fill="currentColor"
+                            className="h-4 w-4 opacity-70">
+                            <path
+                                fillRule="evenodd"
+                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                clipRule="evenodd" />
+                        </svg>
+                        <input type="text" className="grow" placeholder="Search items" />
+                    </label>
                     <button className="text-white btn join-item btn-success md:btn-sm lg:btn-md">Search</button>
                 </div>
                 <div className="flex items-center">
@@ -101,7 +119,7 @@ const Navbar = () => {
                     <div className="mx-5 indicator">
                         <span className="text-white indicator-item indicator-end indicator-top badge bg-lime-500">0</span>
                         <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
-                            <Link to={"/cart"} tabIndex={0} role="button" className="text-success"><RiShoppingCart2Fill className="text-3xl lg:text-4xl" /></Link>
+                            <Link to={"/dashboard/customer/cart"} tabIndex={0} role="button" className="text-success"><RiShoppingCart2Fill className="text-3xl lg:text-4xl" /></Link>
                             <div
                                 tabIndex={0}
                                 className="dropdown-content card card-compact bg-base-100 z-[1] w-64 p-2 shadow">
@@ -115,10 +133,34 @@ const Navbar = () => {
                     {
                         (user && userData) ?
                             <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
-                                <Link to={"/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{userData?.email}</span></Link>
+                                {
+                                    (userData?.role === "admin") &&
+                                    <Link to={"/dashboard/admin/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{userData?.email}</span></Link>
+                                }
+                                {
+                                    (userData?.role === "merchant") &&
+                                    <Link to={"/dashboard/merchant/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{userData?.email}</span></Link>
+                                }
+                                {
+                                    (userData?.role === "customer") &&
+                                    <Link to={"/dashboard/customer/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{userData?.email}</span></Link>
+                                }
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                                     <li className="p-4 text-center xl:hidden">{user?.email}</li>
-                                    <li><Link to={"/profile"}>Profile</Link></li>
+                                    <li>
+                                        {
+                                            (userData?.role === "admin") &&
+                                            <Link to={"/dashboard/admin/profile"}>Profile</Link>
+                                        }
+                                        {
+                                            (userData?.role === "merchant") &&
+                                            <Link to={"/dashboard/merchant/profile"}>Profile</Link>
+                                        }
+                                        {
+                                            (userData?.role === "customer") &&
+                                            <Link to={"/dashboard/customer/profile"}>Profile</Link>
+                                        }
+                                    </li>
                                     <li><button onClick={handleLogout}>Logout</button></li>
                                 </ul>
                             </div> :

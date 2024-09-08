@@ -13,6 +13,14 @@ import Customer from "../pages/Dashboard/Customer/Customer";
 import CustomerRoute from "./CustomerRoute";
 import MerchantRoute from "./MerchantRoute";
 import AdminRoute from "./AdminRoute";
+import CustomerProfile from "../pages/Dashboard/Customer/CustomerProfile/CustomerProfile";
+import CustomerCart from "../pages/Dashboard/Customer/CustomerCart/CustomerCart";
+import CustomerOrders from "../pages/Dashboard/Customer/CustomerOrders/CustomerOrders";
+import CustomerPayments from "../pages/Dashboard/Customer/CustomerPayments/CustomerPayments";
+import Campaign from "../pages/Campaign/Campaign";
+import Search from "../pages/Search/Search";
+import Tracking from "../pages/Tracking/Tacking"
+import Contact from "../pages/Contact/Contact";
 
 const AllRoutes = createBrowserRouter([
     {
@@ -33,6 +41,22 @@ const AllRoutes = createBrowserRouter([
                 element: <Login />
             },
             {
+                path: "/campaign",
+                element: <Campaign />
+            },
+            {
+                path: "/search",
+                element: <Search />
+            },
+            {
+                path: "/tracking",
+                element: <Tracking />
+            },
+            {
+                path: "/contact",
+                element: <Contact />
+            },
+            {
                 path: "/terms",
                 element: <PrivateRoute><TermsConditions /></PrivateRoute>
             }
@@ -43,18 +67,37 @@ const AllRoutes = createBrowserRouter([
         element: <PrivateRoute><Dashboard /></PrivateRoute>,
         errorElement: <ErrorBoundary />,
         children: [
+            // Admin Routes
             {
                 path: "/dashboard/admin",
                 element: <PrivateRoute><AdminRoute><Admin /></AdminRoute></PrivateRoute>
             },
+            // Merchant Routes
             {
                 path: "/dashboard/merchant",
                 element: <PrivateRoute><MerchantRoute><Merchant /></MerchantRoute></PrivateRoute>
             },
+            // Customer Routes
             {
                 path: "/dashboard/customer",
                 element: <PrivateRoute><CustomerRoute><Customer /></CustomerRoute></PrivateRoute>
-            }
+            },
+            {
+                path: "/dashboard/customer/cart",
+                element: <PrivateRoute><CustomerRoute><CustomerCart /></CustomerRoute></PrivateRoute>
+            },
+            {
+                path: "/dashboard/customer/profile",
+                element: <PrivateRoute><CustomerRoute><CustomerProfile /></CustomerRoute></PrivateRoute>
+            },
+            {
+                path: "/dashboard/customer/orders",
+                element: <PrivateRoute><CustomerRoute><CustomerOrders /></CustomerRoute></PrivateRoute>
+            },
+            {
+                path: "/dashboard/customer/payments",
+                element: <PrivateRoute><CustomerRoute><CustomerPayments /></CustomerRoute></PrivateRoute>
+            },
         ]
     }
 ]);
