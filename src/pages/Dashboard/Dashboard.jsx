@@ -2,10 +2,11 @@ import React, { useContext } from 'react'
 import HelmetAsync from '../../components/HelmetAsync/HelmetAsync'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import icon from '../../assets/icon.png'
-import { RiBox3Fill, RiFileList3Fill, RiHome8Fill, RiHomeGearFill, RiLogoutCircleRFill, RiMapPinFill, RiPhoneFill, RiPieChart2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiUser3Fill } from 'react-icons/ri'
+import { RiBox3Fill, RiFileList3Fill, RiHome8Fill, RiLogoutCircleRFill, RiMapPinFill, RiPhoneFill, RiPieChart2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiUser3Fill } from 'react-icons/ri'
 import { TbCoinTakaFilled } from "react-icons/tb";
 import useUser from '../../hooks/useUser'
 import { AuthContext } from '../../providers/AuthProvider'
+import Swal from 'sweetalert2'
 
 const Dashboard = () => {
 
@@ -14,6 +15,13 @@ const Dashboard = () => {
 
     const handleLogout = () => {
         logout()
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Logged Out !!",
+            showConfirmButton: false,
+            timer: 1500
+        });
     }
 
     return (
@@ -63,7 +71,7 @@ const Dashboard = () => {
                                             <li className="tooltip tooltip-bottom" data-tip={"User Profile"}>
                                                 {
                                                     (userData?.role === "admin") &&
-                                                    <Link to={"/dashboard/admin/profile"} className="flex items-center mr-3 btn btn-success btn-outline"><RiUser3Fill className="text-xl" /><span className="hidden ml-1 font-semibold lg:block text-xl">{userData?.name}</span></Link>
+                                                    <Link to={"/dashboard/admin/profile"} className="flex items-center mr-3 btn-sm btn-success btn-outline"><RiUser3Fill className="text-xl" /><span className="hidden ml-1 font-semibold lg:block text-xl">{userData?.name}</span></Link>
                                                 }
                                                 {
                                                     (userData?.role === "merchant") &&
@@ -71,10 +79,10 @@ const Dashboard = () => {
                                                 }
                                                 {
                                                     (userData?.role === "customer") &&
-                                                    <Link to={"/dashboard/customer/profile"} className="flex items-center mr-3 btn btn-success btn-outline"><RiUser3Fill className="text-xl" /><span className="hidden ml-1 font-semibold lg:block text-xl">{userData?.name}</span></Link>
+                                                    <Link to={"/dashboard/customer/profile"} className="flex items-center mr-3 btn border-2 btn-success btn-outline"><RiUser3Fill className="text-xl" /><span className="hidden ml-1 font-semibold lg:block text-xl">{userData?.name}</span></Link>
                                                 }
                                             </li>
-                                            <li className="tooltip tooltip-bottom" data-tip={"Logout"}><button onClick={handleLogout} className="btn btn-error btn-outline btn-circle"><RiLogoutCircleRFill className="text-4xl" /></button></li>
+                                            <li className="tooltip tooltip-bottom" data-tip={"Logout"}><button onClick={handleLogout} className="btn border-2 btn-error btn-outline btn-circle"><RiLogoutCircleRFill className="text-4xl" /></button></li>
                                         </>
                                     }
                                 </ul>
@@ -128,7 +136,7 @@ const Dashboard = () => {
                             <li><Link to={"/"} className="text-white"><RiHome8Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">Home</span></Link></li>
                             <li><Link to={"/campaign"} className="text-white"><RiTimerFlashFill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">Campaigns</span></Link></li>
                             <li><Link to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="font-semibold">Tracking</span></Link></li>
-                            <li><Link to={"/products"} className="text-white"><RiPhoneFill className="text-2xl lg:text-3xl" /><span className="font-semibold">Contact</span></Link></li>
+                            <li><Link to={"/contact"} className="text-white"><RiPhoneFill className="text-2xl lg:text-3xl" /><span className="font-semibold">Contact</span></Link></li>
                         </ul>
                     </div>
                 </div>

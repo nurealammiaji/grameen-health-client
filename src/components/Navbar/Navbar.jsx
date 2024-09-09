@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiStore3Fill, RiShieldUserFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill } from "react-icons/ri";
+import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill, RiSearch2Fill } from "react-icons/ri";
 import icon from "../../assets/icon.png";
 import useUser from "../../hooks/useUser";
+import SearchDropdown from "../SearchDropdown/SearchDropdown";
+import SearchDrawer from "../SearchDrawer/SearchDrawer";
 
 const Navbar = () => {
 
@@ -13,7 +15,14 @@ const Navbar = () => {
     const [isUserLoading, userData, refetchUser] = useUser();
 
     const handleLogout = () => {
-        logout()
+        logout();
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Logged Out !!",
+            showConfirmButton: false,
+            timer: 1500
+        });
     }
 
     const pageLinks = <ul className="px-1 menu menu-horizontal">
@@ -68,30 +77,9 @@ const Navbar = () => {
                     <Link to={"/"} className="items-center font-bold text-success md:flex lg:text-2xl"><img src={icon} className="w-10 h-10 text-2xl font-bold md:w-8 md:h-8 text-success" alt="Grameen Health Icon" /><span className="hidden ml-2 text-2xl font-bold text-success md:block">Grameen Health</span></Link>
                 </div>
                 {/* Search Desktop */}
-                {/* <div className="hidden join md:flex">
-                    <div>
-                        <div>
-                            <input className="input input-bordered input-success md:input-sm lg:input-md join-item" placeholder="Search" />
-                        </div>
-                    </div>
-                    <button className="text-white btn join-item btn-success md:btn-sm lg:btn-md">Search</button>
-                </div> */}
-                <div className="hidden join md:flex">
-                    <label className="input input-bordered md:input-sm lg:input-md flex items-center gap-2 join-item">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            className="h-4 w-4 opacity-70">
-                            <path
-                                fillRule="evenodd"
-                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                clipRule="evenodd" />
-                        </svg>
-                        <input type="text" className="grow" placeholder="Search items" />
-                    </label>
-                    <button className="text-white btn join-item btn-success md:btn-sm lg:btn-md">Search</button>
-                </div>
+                <SearchDropdown />
+                {/* Search Mobile */}
+                <label htmlFor="search-drawer" className="drawer-button"><RiSearch2Fill className="text-2xl" /> </label>
                 <div className="flex items-center">
                     {/* Theme Changer */}
                     <div>

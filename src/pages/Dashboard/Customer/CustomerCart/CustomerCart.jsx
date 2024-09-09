@@ -1,8 +1,12 @@
 import React from 'react'
+import HelmetAsync from '../../../../components/HelmetAsync/HelmetAsync'
 
 const CustomerCart = () => {
     return (
-        <div>CustomerCart</div>
+        <div>
+            <HelmetAsync title={"Cart"} />
+            CustomerCart
+        </div>
     )
 }
 

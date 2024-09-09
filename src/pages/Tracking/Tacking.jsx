@@ -1,8 +1,12 @@
 import React from 'react'
+import HelmetAsync from '../../components/HelmetAsync/HelmetAsync'
 
 const Tacking = () => {
     return (
-        <div>Tacking</div>
+        <div>
+            <HelmetAsync title={"Tracking"} />
+            Tacking
+        </div>
     )
 }
 
