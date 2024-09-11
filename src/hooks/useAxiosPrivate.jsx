@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosPrivate = axios.create({
     // baseURL: 'http://localhost:5000/api/v1'
-    // baseURL: 'https://server.grameen.com.bd/api/v1'
+    // baseURL: 'https://backend.grameen.com.bd/api/v1'
     baseURL: 'https://grameenhealth.vercel.app/api/v1'
 })
 

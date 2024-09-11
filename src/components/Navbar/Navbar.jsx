@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill, RiSearch2Fill } from "react-icons/ri";
+import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill, RiSearch2Fill, RiFunctionFill } from "react-icons/ri";
 import icon from "../../assets/icon.png";
 import useUser from "../../hooks/useUser";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
 import SearchDrawer from "../SearchDrawer/SearchDrawer";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
 
@@ -171,7 +172,7 @@ const Navbar = () => {
                     <summary tabIndex={0} role="button" className="text-white sm:btn-sm lg:btn-md btn btn-outline" onClick={() => setCategoryToggle(!categoryToggle)} >
                         {
                             (categoryToggle) ?
-                                <RiMenu2Line className="text-2xl" /> :
+                                <RiFunctionFill className="text-2xl" /> :
                                 <RiCloseLargeLine className="text-2xl" />
                         }
                         <span className="font-bold lg:ml-2 lg:text-lg">Categories</span>

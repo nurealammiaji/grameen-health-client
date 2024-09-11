@@ -10,7 +10,7 @@ const MerchantRoute = ({ children }) => {
     if (isUserLoading) {
         return <>
             <br /><br />
-            <div className="flex items-center justify-center my-auto mx-auto">
+            <div className="flex items-center justify-center mx-auto my-auto">
                 <button className="btn">
                     <span className="loading loading-spinner text-success"></span>
                     Loading ...

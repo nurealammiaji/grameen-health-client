@@ -2,11 +2,12 @@ import React, { useContext } from 'react'
 import HelmetAsync from '../../components/HelmetAsync/HelmetAsync'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import icon from '../../assets/icon.png'
-import { RiBox3Fill, RiFileList3Fill, RiHome8Fill, RiLogoutCircleRFill, RiMapPinFill, RiPhoneFill, RiPieChart2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiUser3Fill } from 'react-icons/ri'
+import { RiBox3Fill, RiCarouselView, RiFileList3Fill, RiFunctionFill, RiHome8Fill, RiLogoutCircleRFill, RiMapPinFill, RiPhoneFill, RiPieChart2Fill, RiShieldUserFill, RiShoppingCart2Fill, RiStore3Fill, RiTimerFlashFill, RiUser2Fill, RiUser3Fill } from 'react-icons/ri'
 import { TbCoinTakaFilled } from "react-icons/tb";
 import useUser from '../../hooks/useUser'
 import { AuthContext } from '../../providers/AuthProvider'
 import Swal from 'sweetalert2'
+import { FaUsers } from 'react-icons/fa'
 
 const Dashboard = () => {
 
@@ -68,29 +69,26 @@ const Dashboard = () => {
                                     {
                                         (userData) &&
                                         <>
-                                            <li className="tooltip tooltip-bottom" data-tip={"User Profile"}>
+                                            <li className="tooltip tooltip-bottom" data-tip={"Profile"}>
                                                 {
                                                     (userData?.role === "admin") &&
-                                                    <Link to={"/dashboard/admin/profile"} className="flex items-center mr-3 btn-sm btn-success btn-outline"><RiUser3Fill className="text-xl" /><span className="hidden ml-1 font-semibold lg:block text-xl">{userData?.name}</span></Link>
+                                                    <Link to={"/dashboard/admin/profile"} className="flex items-center mr-3 border-2 btn btn-success btn-outline">< RiShieldUserFill className="text-2xl" /><span className="hidden ml-1 text-xl font-semibold lg:block">{userData?.name}</span></Link>
                                                 }
                                                 {
                                                     (userData?.role === "merchant") &&
-                                                    <Link to={"/dashboard/merchant/profile"} className="flex items-center mr-3 btn btn-success btn-outline"><RiUser3Fill className="text-xl" /><span className="hidden ml-1 font-semibold lg:block text-xl">{userData?.name}</span></Link>
+                                                    <Link to={"/dashboard/merchant/profile"} className="flex items-center mr-3 border-2 btn btn-success btn-outline"><RiUser2Fill className="text-xl" /><span className="hidden ml-1 text-xl font-semibold lg:block">{userData?.name}</span></Link>
                                                 }
                                                 {
                                                     (userData?.role === "customer") &&
-                                                    <Link to={"/dashboard/customer/profile"} className="flex items-center mr-3 btn border-2 btn-success btn-outline"><RiUser3Fill className="text-xl" /><span className="hidden ml-1 font-semibold lg:block text-xl">{userData?.name}</span></Link>
+                                                    <Link to={"/dashboard/customer/profile"} className="flex items-center mr-3 border-2 btn btn-success btn-outline"><RiUser3Fill className="text-2xl" /><span className="hidden ml-1 text-xl font-semibold lg:block">{userData?.name}</span></Link>
                                                 }
                                             </li>
-                                            <li className="tooltip tooltip-bottom" data-tip={"Logout"}><button onClick={handleLogout} className="btn border-2 btn-error btn-outline btn-circle"><RiLogoutCircleRFill className="text-4xl" /></button></li>
+                                            <li className="tooltip tooltip-bottom" data-tip={"Logout"}><button onClick={handleLogout} className="border-2 btn btn-error btn-outline btn-circle"><RiLogoutCircleRFill className="text-4xl" /></button></li>
                                         </>
                                     }
                                 </ul>
                             </div>
                         </div>
-                        {/* <div className="mt-4">
-                            <br /><br />
-                        </div> */}
                         {/* Page content here */}
                         <div className="p-5">
                             <Outlet />
@@ -122,12 +120,35 @@ const Dashboard = () => {
                                 </Link>
                             }
                             {
+                                (userData && userData?.role === "admin") &&
+                                <>
+                                    <li><NavLink to={"/dashboard/admin/profile"} className="text-white">< RiShieldUserFill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">Profile</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/users"} className="text-white"><FaUsers className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">Manage Users</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/stores"} className="text-white"><RiStore3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">Manage Stores</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/orders"} className="text-white"><RiFileList3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">Manage Orders</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/sliders"} className="text-white"><RiCarouselView className="text-2xl lg:text-3xl" /><span className="font-semibold">Manage Sliders</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/products"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">Manage Products</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/payments"} className="text-white"><TbCoinTakaFilled className="text-2xl lg:text-3xl" /><span className="font-semibold">Manage Payments</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/categories"} className="text-white"><RiFunctionFill className="text-2xl lg:text-3xl" /><span className="font-semibold">Manage Categories</span></NavLink></li>
+                                </>
+                            }
+                            {
+                                (userData && userData?.role === "merchant") &&
+                                <>
+                                    <li><NavLink to={"/dashboard/merchant/profile"} className="text-white"><RiUser2Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">Profile</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/merchant/store"} className="text-white"><RiStore3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">My Store</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/merchant/payments"} className="text-white"><TbCoinTakaFilled className="text-2xl lg:text-3xl" /><span className="font-semibold">My Payments</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/merchant/orders"} className="text-white"><RiFileList3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">Manage Orders</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/merchant/products"} className="text-white"><RiBox3Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">Manage Products</span></NavLink></li>
+                                </>
+                            }
+                            {
                                 (userData && userData?.role === "customer") &&
                                 <>
-                                    <li><NavLink to={"/dashboard/customer/cart"} className="text-white"><RiShoppingCart2Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">Cart</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/customer/profile"} className="text-white"><RiUser3Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">Profile</span></NavLink></li>
-                                    <li><NavLink to={"/dashboard/customer/orders"} className="text-white"><RiFileList3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">Orders</span></NavLink></li>
-                                    <li><NavLink to={"/dashboard/customer/payments"} className="text-white"><TbCoinTakaFilled className="text-2xl lg:text-3xl" /><span className="font-semibold">Payments</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/customer/cart"} className="text-white"><RiShoppingCart2Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">My Cart</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/customer/orders"} className="text-white"><RiFileList3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">My Orders</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/customer/payments"} className="text-white"><TbCoinTakaFilled className="text-2xl lg:text-3xl" /><span className="font-semibold">My Payments</span></NavLink></li>
                                 </>
                             }
                             <div className="">

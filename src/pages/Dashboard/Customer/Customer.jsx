@@ -23,24 +23,23 @@ const Customer = () => {
             </div>
             <br /><br /><br />
             <div className="text-center">
-                <div className="stats stats-vertical lg:stats-horizontal shadow">
+                <div className="shadow stats stats-vertical lg:stats-horizontal">
                     <Link to={"/dashboard/customer/cart"} className="stat w-52 h-52">
-                        <div className="stat-title mt-5 flex justify-center"><RiShoppingCart2Fill className="mr-3 text-2xl" /><span className="text-xl">Cart</span></div>
+                        <div className="flex justify-center mt-5 stat-title"><RiShoppingCart2Fill className="mr-3 text-2xl" /><span className="text-xl">Cart</span></div>
                         <div className="stat-value">0</div>
                         <div className="stat-desc">Products</div>
                     </Link>
                     <Link to={"/dashboard/customer/orders"} className="stat w-52 h-52">
-                        <div className="stat-title mt-5 flex justify-center"><RiFileList3Fill className="mr-3 text-2xl" /><span className="text-xl">Orders</span></div>
+                        <div className="flex justify-center mt-5 stat-title"><RiFileList3Fill className="mr-3 text-2xl" /><span className="text-xl">Orders</span></div>
                         <div className="stat-value">0</div>
                         <div className="stat-desc">{userData?.createdAt?.slice(0, 10)} - {year}-{(day < 10) ? `0${day}` : day}-{(month < 10) ? `0${month}` : month}</div>
                     </Link>
                     <Link to={"/dashboard/customer/payments"} className="stat w-52 h-52">
-                        <div className="stat-title mt-5 flex justify-center"><TbCoinTakaFilled className="mr-3 text-3xl" /><span className="text-xl">Payments</span></div>
+                        <div className="flex justify-center mt-5 stat-title"><TbCoinTakaFilled className="mr-3 text-3xl" /><span className="text-xl">Payments</span></div>
                         <div className="stat-value">0</div>
                         <div className="stat-desc">{userData?.createdAt?.slice(0, 10)} - {year}-{(day < 10) ? `0${day}` : day}-{(month < 10) ? `0${month}` : month}</div>                    </Link>
                 </div>
             </div>
-
         </div>
     )
 }
