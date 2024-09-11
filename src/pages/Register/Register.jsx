@@ -39,7 +39,7 @@ const Register = () => {
             setLoading(true);
             const formData = new FormData();
             formData.append('name', data.name);
-            formData.append('email', data.email);
+            formData.append('phone', data.phone);
             formData.append('password', data.password);
 
             if (image) {
@@ -134,7 +134,7 @@ const Register = () => {
                                     <span className="text-error">Name is required !!</span>
                                 </label>}
                             </div>
-                            <div className="mt-1 form-control">
+                            {/* <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
@@ -149,23 +149,29 @@ const Register = () => {
                                 {errors.email?.type === 'required' && <label className="label">
                                     <span className="text-error">Email is required !!</span>
                                 </label>}
-                            </div>
-                            {/* <div className="mt-1 form-control">
-                                <label className="label">
-                                    <span className="label-text">Phone</span>
-                                </label>
-                                <input {...register("phone", {
-                                    required: true
-                                })}
-                                    type="text"
-                                    placeholder="phone"
-                                    name="phone"
-                                    className="input input-bordered"
-                                />
-                                {errors.phone?.type === 'required' && <label className="label">
-                                    <span className="text-error">Phone is required !!</span>
-                                </label>}
                             </div> */}
+                            <div className="mt-1 form-control">
+                                <label className="label">
+                                    <span className="label-text">Mobile</span>
+                                </label>
+                                <label className="input input-bordered flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        shapeRendering="geometricPrecision" textRendering="geometricPrecision" imageRendering="optimizeQuality" fillRule="evenodd" clipRule="evenodd" viewBox="0 0 512 356.18" className="w-8"><g fillRule="nonzero"><path fill="#006A4E" d="M28.137 0H483.86C499.337 0 512 12.663 512 28.14v299.9c0 15.477-12.663 28.14-28.14 28.14H28.137C12.663 356.18 0 343.517 0 328.04V28.14C0 12.663 12.663 0 28.137 0z" /><path fill="#F42A41" d="M345.047 178.09c0-65.572-53.157-118.729-118.729-118.729-65.573 0-118.729 53.157-118.729 118.729s53.156 118.729 118.729 118.729c65.572 0 118.729-53.157 118.729-118.729z" /></g></svg>
+                                    <span>+88</span>
+                                    <input {...register("phone", {
+                                        required: true, pattern: /^0\d{10}$/
+                                    })}
+                                        type="text"
+                                        placeholder="01726581454"
+                                        name="phone"
+                                        className="grow w-full"
+                                    />
+                                </label>
+                                {errors.phone?.type === 'required' && <label className="label">
+                                    <span className="text-error">Mobile number is required !!</span>
+                                </label>}
+                                {errors.phone?.type === 'pattern' && <span className="text-error mt-1">Valid mobile number is required !!</span>}
+                            </div>
                             {/* Image Upload */}
                             {/* <div className="mt-1 form-control">
                                 <label className="label">
@@ -236,7 +242,7 @@ const Register = () => {
                                 {/* Pattern for validation
                                 pattern: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,}$/ */}
                                 <div className="relative flex items-center">
-                                    <input {...register("password", { required: true, minLength: 6 })}
+                                    <input {...register("password", { required: true, minLength: 6, pattern: /^\d{6,}$/ })}
                                         type={(eyeCloseOne) ? 'password' : 'text'}
                                         placeholder="password"
                                         name="password"
@@ -253,7 +259,8 @@ const Register = () => {
                                 {errors.password?.type === 'minLength' && <span className="text-error">Password must be 6 character !!</span>}
                                 {/* {errors.password?.type === 'pattern' && <span className="text-error">At least one upper case, one lower case, one number and one special character is required !!</span>} */}
                             </div>
-                            <div className="mt-1 form-control">
+                            {/* Confirm Password */}
+                            {/* <div className="mt-1 form-control">
                                 <label className="label">
                                     <span className="label-text">Confirm Password</span>
                                 </label>
@@ -273,7 +280,7 @@ const Register = () => {
                                 </div>
                                 {errors.confirmPassword?.type === 'required' && <span className="text-error">Confirm Password is required !!</span>}
                                 {pwd === rePwd || <span className="text-error">Password is not matched !!</span>}
-                            </div>
+                            </div> */}
                             <div className="mt-6 form-control">
                                 <button className="text-white btn btn-success" type="submit">{(loading ? <><span className="loading loading-spinner text-white"></span><span className="ml-2">Processing ...</span></> : "Register")}</button>
                             </div>

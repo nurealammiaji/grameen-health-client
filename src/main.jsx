@@ -7,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import AllRoutes from './routes/AllRoutes.jsx';
 import AuthProvider from './providers/AuthProvider.jsx';
+import UtilityProvider from './providers/UtilityProvider.jsx';
 
 const queryClient = new QueryClient();
 
@@ -14,11 +15,13 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HelmetProvider>
       <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={AllRoutes}>
-            <App />
-          </RouterProvider>
-        </QueryClientProvider>
+        <UtilityProvider>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={AllRoutes}>
+              <App />
+            </RouterProvider>
+          </QueryClientProvider>
+        </UtilityProvider>
       </AuthProvider>
     </HelmetProvider>
   </StrictMode>,

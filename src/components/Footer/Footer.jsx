@@ -1,5 +1,6 @@
 import React from 'react'
 import icon from "../../assets/icon.png";
+import SearchDrawer from '../SearchDrawer/SearchDrawer';
 
 const Footer = () => {
     return (
@@ -81,6 +82,7 @@ const Footer = () => {
                     </div>
                 </nav>
             </footer>
+            <SearchDrawer />
         </div>
     )
 }

@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill, RiSearch2Fill, RiFunctionFill } from "react-icons/ri";
+import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill, RiSearch2Fill, RiFunctionFill, RiSearchFill, RiSearchLine } from "react-icons/ri";
 import icon from "../../assets/icon.png";
 import useUser from "../../hooks/useUser";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
-import SearchDrawer from "../SearchDrawer/SearchDrawer";
 import Swal from "sweetalert2";
 
 const Navbar = () => {
@@ -79,9 +78,11 @@ const Navbar = () => {
                 </div>
                 {/* Search Desktop */}
                 <SearchDropdown />
-                {/* Search Mobile */}
-                <label htmlFor="search-drawer" className="drawer-button"><RiSearch2Fill className="text-2xl" /> </label>
                 <div className="flex items-center">
+                    {/* Search Mobile */}
+                    <div className="mr-5">
+                        <label htmlFor="search-drawer" className="drawer-button btn btn-sm md:hidden p-1 btn-ghost"><RiSearchLine className="text-3xl font-bold text-success" /> </label>
+                    </div>
                     {/* Theme Changer */}
                     <div>
                         <label className="swap swap-rotate btn btn-circle btn-sm text-success">
@@ -124,18 +125,18 @@ const Navbar = () => {
                             <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
                                 {
                                     (userData?.role === "admin") &&
-                                    <Link to={"/dashboard/admin/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{userData?.email}</span></Link>
+                                    <Link to={"/dashboard/admin/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{userData?.phone}</span></Link>
                                 }
                                 {
                                     (userData?.role === "merchant") &&
-                                    <Link to={"/dashboard/merchant/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{userData?.email}</span></Link>
+                                    <Link to={"/dashboard/merchant/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{userData?.phone}</span></Link>
                                 }
                                 {
                                     (userData?.role === "customer") &&
-                                    <Link to={"/dashboard/customer/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{userData?.email}</span></Link>
+                                    <Link to={"/dashboard/customer/profile"} tabIndex={0} role="button" className="flex items-center text-success"><RiUser3Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{userData?.phone}</span></Link>
                                 }
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                                    <li className="p-4 text-center xl:hidden">{user?.email}</li>
+                                    <li className="p-4 text-center xl:hidden">{user?.phone}</li>
                                     <li>
                                         {
                                             (userData?.role === "admin") &&

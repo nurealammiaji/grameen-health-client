@@ -2,7 +2,7 @@ import React from 'react'
 
 const SearchDrawer = () => {
     return (
-        <div className="drawer drawer-end">
+        <div style={{zIndex: 1000}} className="drawer drawer-end">
             <input id="search-drawer" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
                 {/* Page content here */}

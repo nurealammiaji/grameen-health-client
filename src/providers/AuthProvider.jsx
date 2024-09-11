@@ -25,9 +25,9 @@ const AuthProvider = ({ children }) => {
         })
     }
 
-    const userLogin = async (email, password) => {
+    const userLogin = async (phone, password) => {
         setLoading(true);
-        return await axiosPublic.post('/auth/login', { email, password })
+        return await axiosPublic.post('/auth/login', { phone, password })
     };
 
     const logout = () => {
