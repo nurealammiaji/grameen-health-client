@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill, RiSearch2Fill, RiFunctionFill, RiSearchFill, RiSearchLine } from "react-icons/ri";
+import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill, RiFunctionFill, } from "react-icons/ri";
+import { FaSearch } from "react-icons/fa";
 import icon from "../../assets/icon.png";
 import useUser from "../../hooks/useUser";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
@@ -75,14 +76,14 @@ const Navbar = () => {
                         </ul>
                     </details>
                     <Link to={"/"} className="items-center font-bold text-success md:flex lg:text-2xl"><img src={icon} className="w-10 h-10 text-2xl font-bold md:w-8 md:h-8 text-success" alt="Grameen Health Icon" /><span className="hidden ml-2 text-2xl font-bold text-success md:block">Grameen Health</span></Link>
+                    {/* Search Mobile */}
+                    <div className="ml-5">
+                        <label htmlFor="search-drawer" className="drawer-button btn btn-sm md:hidden p-1 btn-ghost"><FaSearch className="text-2xl font-bold text-success" /> </label>
+                    </div>
                 </div>
                 {/* Search Desktop */}
                 <SearchDropdown />
                 <div className="flex items-center">
-                    {/* Search Mobile */}
-                    <div className="mr-5">
-                        <label htmlFor="search-drawer" className="drawer-button btn btn-sm md:hidden p-1 btn-ghost"><RiSearchLine className="text-3xl font-bold text-success" /> </label>
-                    </div>
                     {/* Theme Changer */}
                     <div>
                         <label className="swap swap-rotate btn btn-circle btn-sm text-success">

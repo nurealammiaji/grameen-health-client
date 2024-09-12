@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import AllRoutes from './routes/AllRoutes.jsx';
 import AuthProvider from './providers/AuthProvider.jsx';
 import UtilityProvider from './providers/UtilityProvider.jsx';
+import ProductProvider from './providers/ProductProvider.jsx';
 
 const queryClient = new QueryClient();
 
@@ -16,11 +17,13 @@ createRoot(document.getElementById('root')).render(
     <HelmetProvider>
       <AuthProvider>
         <UtilityProvider>
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={AllRoutes}>
-              <App />
-            </RouterProvider>
-          </QueryClientProvider>
+          <ProductProvider>
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider router={AllRoutes}>
+                <App />
+              </RouterProvider>
+            </QueryClientProvider>
+          </ProductProvider>
         </UtilityProvider>
       </AuthProvider>
     </HelmetProvider>

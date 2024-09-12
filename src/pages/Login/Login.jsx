@@ -130,15 +130,35 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <div className="relative flex items-center">
-                                    <input {...register("password", {
-                                        required: true, pattern: /^\d{6,}$/
-                                    })} type={eyeClose ? 'password' : 'text'} placeholder="password" name="password" className="w-full input input-bordered" />
-                                    <p onClick={() => setEyeClose(!eyeClose)} className="absolute right-2 btn btn-xs">
-                                        {eyeClose ? <RiEyeCloseLine className="text-2xl" /> : <RiEyeLine className="text-2xl" />}
-                                    </p>
-                                </div>
+                                <label className="flex items-center gap-2 input input-bordered">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 16 16"
+                                        fill="currentColor"
+                                        className="w-8 h-6 opacity-70">
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
+                                            clipRule="evenodd" />
+                                    </svg>
+                                    <div className="relative flex items-center w-full">
+                                        <input {...register("password", { required: true, minLength: 6, pattern: /^\d{6,}$/ })}
+                                            type={(eyeClose) ? 'password' : 'text'}
+                                            placeholder="password"
+                                            name="password"
+                                            className="w-full grow"
+                                        />
+                                        <p onClick={() => setEyeClose(!eyeClose)} className="absolute right-0 btn btn-xs">
+                                            {
+                                                (eyeClose) ?
+                                                    <RiEyeCloseLine className="text-2xl" /> : <RiEyeLine className="text-2xl" />
+                                            }
+                                        </p>
+                                    </div>
+                                </label>
                                 {errors.password?.type === 'required' && <span className="text-error">Password is required !!</span>}
+                                {errors.password?.type === 'minLength' && <span className="text-error">Password must be 6 character !!</span>}
+                                {/* {errors.password?.type === 'pattern' && <span className="text-error">At least one upper case, one lower case, one number and one special character is required !!</span>} */}
                             </div>
                             <div className="mt-6 form-control">
                                 <button className="text-white btn btn-success" type="submit">{(loading ? <><span className="loading loading-spinner text-white"></span><span className="ml-2">Processing ...</span></> : "Login")}</button>
