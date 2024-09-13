@@ -7,6 +7,7 @@ import icon from "../../assets/icon.png";
 import useUser from "../../hooks/useUser";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
 import Swal from "sweetalert2";
+import { ProductContext } from "../../providers/ProductProvider";
 
 const Navbar = () => {
 
@@ -14,6 +15,7 @@ const Navbar = () => {
     const [menuToggle, setMenuToggle] = useState(true);
     const [categoryToggle, setCategoryToggle] = useState(true);
     const [isUserLoading, userData, refetchUser] = useUser();
+    const { product } = useContext(ProductContext);
 
     const handleLogout = () => {
         logout();
@@ -27,10 +29,12 @@ const Navbar = () => {
     }
 
     const pageLinks = <ul className="px-1 menu menu-horizontal">
-        <li><Link to={"/"} className="text-white"><RiHome8Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Home</span></Link></li>
-        <li><Link to={"/campaign"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Campaigns</span></Link></li>
-        <li><Link to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Order Tracking</span></Link></li>
-        <li><Link to={"/contact"} className="text-white"><RiPhoneFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Contact</span></Link></li>
+        <li className="tooltip tooltip-bottom" data-tip="Home"><Link to={"/"} className="text-white"><RiHome8Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Home</span></Link></li>
+        <li className="tooltip tooltip-bottom" data-tip="Campaigns"><Link to={"/campaign"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Campaigns</span></Link></li>
+        <li className="tooltip tooltip-bottom" data-tip="Order Tracking"><Link to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Order Tracking</span></Link></li>
+        <li className="tooltip tooltip-bottom" data-tip="Contact"><Link to={"/contact"} className="text-white"><RiPhoneFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Contact</span></Link></li>
+        {/* Search Mobile */}
+        <li className="tooltip tooltip-bottom" data-tip="Search"><label htmlFor="search-drawer" className="drawer-button md:hidden text-white"><FaSearch className="text-xl font-bold" /></label></li>
         {
             (user && userData?.role === "admin") &&
             <li><Link to={"/dashboard/admin"} className="text-white" ><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
@@ -76,16 +80,14 @@ const Navbar = () => {
                         </ul>
                     </details>
                     <Link to={"/"} className="items-center font-bold text-success md:flex lg:text-2xl"><img src={icon} className="w-10 h-10 text-2xl font-bold md:w-8 md:h-8 text-success" alt="Grameen Health Icon" /><span className="hidden ml-2 text-2xl font-bold text-success md:block">Grameen Health</span></Link>
-                    {/* Search Mobile */}
-                    <div className="ml-5">
-                        <label htmlFor="search-drawer" className="drawer-button btn btn-sm md:hidden p-1 btn-ghost"><FaSearch className="text-2xl font-bold text-success" /> </label>
-                    </div>
                 </div>
                 {/* Search Desktop */}
-                <SearchDropdown />
+                <div className="hidden md:block">
+                    <SearchDropdown />
+                </div>
                 <div className="flex items-center">
                     {/* Theme Changer */}
-                    <div>
+                    <div className="tooltip tooltip-bottom" data-tip="Change Theme">
                         <label className="swap swap-rotate btn btn-circle btn-sm text-success">
                             {/* this hidden checkbox controls the state */}
                             <input type="checkbox" className="theme-controller" value="forest" />
@@ -107,7 +109,7 @@ const Navbar = () => {
                             </svg>
                         </label>
                     </div>
-                    <div className="mx-5 indicator">
+                    <div className="mx-5 indicator tooltip tooltip-bottom" data-tip="Cart">
                         <span className="text-white indicator-item indicator-end indicator-top badge bg-lime-500">0</span>
                         <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
                             <Link to={"/dashboard/customer/cart"} tabIndex={0} role="button" className="text-success"><RiShoppingCart2Fill className="text-3xl lg:text-4xl" /></Link>
@@ -155,7 +157,7 @@ const Navbar = () => {
                                     <li><button onClick={handleLogout}>Logout</button></li>
                                 </ul>
                             </div> :
-                            <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
+                            <div className="dropdown dropdown-hover dropdown-bottom dropdown-end tooltip tooltip-bottom" data-tip="Login">
                                 <Link to={"/login"} tabIndex={0} role="button" className="flex items-center text-success"><RiUserReceived2Fill className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">Login / Register</span></Link>
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                                     <li><Link to={"/login"}>Login</Link></li>

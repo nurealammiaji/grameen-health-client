@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function SearchDropdown() {
+const SearchDropdown = ({props}) => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         const fetchResults = async () => {
+
             if (query.trim()) {
                 try {
                     const response = await axios.get('http://localhost:5000/api/search', {
@@ -27,7 +28,7 @@ function SearchDropdown() {
 
     return (
         <div className="relative">
-            <label className="input hidden input-bordered input-success md:input-sm lg:input-md md:flex items-center gap-2 join-item">
+            <label className={`input input-bordered input-success md:input-sm lg:input-md items-center gap-2 flex join-item ${props}`}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
