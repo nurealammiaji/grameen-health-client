@@ -11,6 +11,7 @@ const TestComponent = () => {
     return (
         <div>
             <p>User Data:</p>
+            <img src={`http://localhost:5000/${userData.image}`} alt="" />
             <pre>{JSON.stringify(userData, null, 2)}</pre>
             <button onClick={refetchUser} className="btn">Refetch User Data</button>
         </div>

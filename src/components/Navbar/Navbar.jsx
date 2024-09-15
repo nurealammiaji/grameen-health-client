@@ -7,7 +7,6 @@ import icon from "../../assets/icon.png";
 import useUser from "../../hooks/useUser";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
 import Swal from "sweetalert2";
-import { ProductContext } from "../../providers/ProductProvider";
 
 const Navbar = () => {
 
@@ -15,7 +14,6 @@ const Navbar = () => {
     const [menuToggle, setMenuToggle] = useState(true);
     const [categoryToggle, setCategoryToggle] = useState(true);
     const [isUserLoading, userData, refetchUser] = useUser();
-    const { product } = useContext(ProductContext);
 
     const handleLogout = () => {
         logout();
