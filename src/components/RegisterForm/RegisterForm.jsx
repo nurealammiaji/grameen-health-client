@@ -244,7 +244,7 @@ const RegisterForm = () => {
                                         clipRule="evenodd" />
                                 </svg>
                                 <div className="relative flex items-center w-full">
-                                    <input {...register("password", { required: true, minLength: 6, pattern: /^\d{6,}$/ })}
+                                    <input {...register("password", { required: true, minLength: 6, pattern: /.{6}$/ })}
                                         type={(eyeCloseOne) ? 'password' : 'text'}
                                         placeholder="password"
                                         name="password"
@@ -260,7 +260,7 @@ const RegisterForm = () => {
                             </label>
                             {errors.password?.type === 'required' && <span className="text-error">Password is required !!</span>}
                             {errors.password?.type === 'minLength' && <span className="text-error">Password must be 6 character !!</span>}
-                            {/* {errors.password?.type === 'pattern' && <span className="text-error">At least one upper case, one lower case, one number and one special character is required !!</span>} */}
+                            {errors.password?.type === 'pattern' && <span className="text-error">Any type of character is required !!</span>}
                         </div>
                         {/* Confirm Password */}
                         {/* <div className="mt-1 form-control">
