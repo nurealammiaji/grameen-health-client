@@ -35,15 +35,15 @@ const Navbar = () => {
         <li className="tooltip tooltip-bottom" data-tip="Search"><label htmlFor="search-drawer" className="drawer-button md:hidden text-white"><FaSearch className="text-xl font-bold" /></label></li>
         {
             (user && userData?.role === "admin") &&
-            <li><Link to={"/dashboard/admin"} className="text-white" ><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
+            <li className="tooltip tooltip-bottom" data-tip="Dashboard"><Link to={"/dashboard/admin"} className="text-white" ><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
         }
         {
             (user && userData?.role === "merchant") &&
-            <li><Link to={"/dashboard/merchant"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
+            <li className="tooltip tooltip-bottom" data-tip="Dashboard"><Link to={"/dashboard/merchant"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
         }
         {
             (user && userData?.role === "customer") &&
-            <li><Link to={"/dashboard/customer"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
+            <li className="tooltip tooltip-bottom" data-tip="Dashboard"><Link to={"/dashboard/customer"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
         }
     </ul>;
 
