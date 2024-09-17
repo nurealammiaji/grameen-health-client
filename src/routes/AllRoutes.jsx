@@ -34,6 +34,7 @@ import ManageSliders from "../pages/Dashboard/Admin/ManageSliders/ManageSliders"
 import ManageProducts from "../pages/Dashboard/Admin/ManageProducts/ManageProducts";
 import ManagePayments from "../pages/Dashboard/Admin/ManagePayments/ManagePayments";
 import ManageCategories from "../pages/Dashboard/Admin/ManageCategories/ManageCategories";
+import Order from "../pages/Order/Order";
 
 const AllRoutes = createBrowserRouter([
     // Public Routes
@@ -73,10 +74,14 @@ const AllRoutes = createBrowserRouter([
             {
                 path: "/terms",
                 element: <PrivateRoute><TermsConditions /></PrivateRoute>
+            },
+            {
+                path: "/order",
+                element: <PrivateRoute><Order /></PrivateRoute>
             }
         ]
     },
-    // Private Routes
+    // Dashboard Routes
     {
         path: "/dashboard",
         element: <PrivateRoute><Dashboard /></PrivateRoute>,
