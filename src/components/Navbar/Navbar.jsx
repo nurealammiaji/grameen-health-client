@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill, RiFunctionFill, } from "react-icons/ri";
+import { RiUser3Fill, RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiUserReceived2Fill, RiShoppingCart2Fill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill } from "react-icons/ri";
 import { FaSearch } from "react-icons/fa";
 import icon from "../../assets/icon.png";
 import useUser from "../../hooks/useUser";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
 import Swal from "sweetalert2";
+import { TbCategoryFilled } from "react-icons/tb";
 
 const Navbar = () => {
 
@@ -32,7 +33,7 @@ const Navbar = () => {
         <li className="tooltip tooltip-bottom" data-tip="Order Tracking"><Link to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Order Tracking</span></Link></li>
         <li className="tooltip tooltip-bottom" data-tip="Contact"><Link to={"/contact"} className="text-white"><RiPhoneFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Contact</span></Link></li>
         {/* Search Mobile */}
-        <li className="tooltip tooltip-bottom" data-tip="Search"><label htmlFor="search-drawer" className="drawer-button md:hidden text-white"><FaSearch className="text-xl font-bold" /></label></li>
+        <li className="tooltip tooltip-bottom" data-tip="Search"><label htmlFor="search-drawer" className="text-white drawer-button md:hidden"><FaSearch className="text-xl font-bold" /></label></li>
         {
             (user && userData?.role === "admin") &&
             <li className="tooltip tooltip-bottom" data-tip="Dashboard"><Link to={"/dashboard/admin"} className="text-white" ><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
@@ -170,14 +171,14 @@ const Navbar = () => {
             </div>
             {/* Second Navbar */}
             <nav className="fixed flex items-center justify-around w-full p-1 bg-success z-[10]">
-                <details className="hidden dropdown md:flex" >
-                    <summary tabIndex={0} role="button" className="text-white sm:btn-sm lg:btn-md btn btn-outline" onClick={() => setCategoryToggle(!categoryToggle)} >
+                <details className="hidden dropdown md:flex tooltip tooltip-bottom" data-tip="Categories">
+                    <summary tabIndex={0} role="button" className="flex items-center text-white sm:btn-sm lg:btn-md btn btn-outline" onClick={() => setCategoryToggle(!categoryToggle)} >
                         {
                             (categoryToggle) ?
-                                <RiFunctionFill className="text-2xl" /> :
+                                <TbCategoryFilled className="text-2xl" /> :
                                 <RiCloseLargeLine className="text-2xl" />
                         }
-                        <span className="font-bold lg:ml-2 lg:text-lg">Categories</span>
+                        <span className="font-bold lg:text-lg">Categories</span>
                     </summary>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         {categoryLinks}
