@@ -1,6 +1,6 @@
 import React from 'react'
 import HelmetAsync from './../../components/HelmetAsync/HelmetAsync';
-import OrderForm from '../../components/orderForm/orderForm';
+import OrderForm from '../../components/OrderForm/OrderForm';
 
 const Order = () => {
     return (

@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
         if (accessToken && userId) {
             setAuthenticated(true);
             const auth = async () => {
-                await axiosPrivate.get(`/users/get/${userId}`)
+                await axiosPrivate.get(`/users/read/${userId}`)
                     .then((res) => {
                         const currentUser = res.data;
                         if (currentUser) {

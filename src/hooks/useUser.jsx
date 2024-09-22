@@ -12,7 +12,7 @@ const useUser = () => {
         queryKey: ['users', userId],
         enabled: !!authenticated && !!userId,
         queryFn: async () => {
-            const res = await axiosPrivate.get(`/users/get/${userId}`)
+            const res = await axiosPrivate.get(`/users/read/${userId}`)
             return res.data;
         },
     })
