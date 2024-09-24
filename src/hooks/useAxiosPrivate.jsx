@@ -28,6 +28,8 @@ const useAxiosPrivate = () => {
         // for 401 or 403 logout the user and move the user to the login
         if (status === 401 || status === 403) {
             console.log("Axios Private Error");
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('userId');
         }
         return Promise.reject(error);
     })
