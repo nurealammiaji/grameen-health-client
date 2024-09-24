@@ -8,6 +8,7 @@ import useUser from '../../hooks/useUser'
 import { AuthContext } from '../../providers/AuthProvider'
 import Swal from 'sweetalert2'
 import { FaUsers } from 'react-icons/fa'
+import ThemeChangerTwo from '../../components/ThemeChangerTwo/ThemeChangerTwo'
 
 const Dashboard = () => {
 
@@ -119,6 +120,10 @@ const Dashboard = () => {
                                     <span className="ml-4 font-bold lg:text-2xl">Dashboard</span>
                                 </Link>
                             }
+                            {/* Theme Changer */}
+                            {/* <div className="mx-auto my-8">
+                                <ThemeChangerTwo />
+                            </div> */}
                             {
                                 (userData && userData?.role === "admin") &&
                                 <>

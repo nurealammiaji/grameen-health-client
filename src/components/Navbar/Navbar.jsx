@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
-import { RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill, RiShoppingCart2Line, RiHeartLine, RiSunLine, RiMoonLine, RiUserReceived2Line, RiUser3Line } from "react-icons/ri";
+import { RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill, RiShoppingCart2Line, RiHeartLine, RiUserReceived2Line, RiUser3Line } from "react-icons/ri";
+import { TbCategoryFilled } from "react-icons/tb";
+import { BsSearch } from "react-icons/bs";
 import icon from "../../assets/icon.png";
 import useUser from "../../hooks/useUser";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
 import Swal from "sweetalert2";
-import { TbCategoryFilled } from "react-icons/tb";
-import { BsSearch } from "react-icons/bs";
+import ThemeChanger from "../ThemeChanger/ThemeChanger";
 
 const Navbar = () => {
 
@@ -91,14 +92,7 @@ const Navbar = () => {
                     </div>
                     {/* Theme Changer */}
                     <div className="hidden tooltip tooltip-bottom md:block" data-tip="Change Theme">
-                        <label className="swap swap-rotate text-success">
-                            {/* this hidden checkbox controls the state */}
-                            <input type="checkbox" className="theme-controller" value="forest" />
-                            {/* sun icon */}
-                            <RiSunLine className="text-3xl lg:text-4xl swap-off" />
-                            {/* moon icon */}
-                            <RiMoonLine className="text-3xl lg:text-4xl swap-on" />
-                        </label>
+                        <ThemeChanger />
                     </div>
                     {/* Wishlist */}
                     <div className="ml-3 sm:ml-5 md:ml-10 indicator tooltip tooltip-bottom" data-tip="Wishlist">
