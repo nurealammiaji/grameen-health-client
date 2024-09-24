@@ -1,6 +1,6 @@
 import React from 'react'
-import { RiCloseCircleFill, RiCloseFill } from 'react-icons/ri'
-import SearchDropdown from '../SearchDropdown/SearchDropdown'
+import { RiCloseFill } from 'react-icons/ri'
+import SearchDropdownAll from '../SearchDropdownAll/SearchDropdownAll'
 
 const SearchDrawer = () => {
     return (
@@ -13,10 +13,10 @@ const SearchDrawer = () => {
             <div className="drawer-side">
                 <label htmlFor="search-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu bg-base-200 z-[1000] text-base-content min-h-full w-60 p-4">
-                    <label htmlFor="search-drawer" aria-label="close sidebar" className="btn btn-sm p-0 btn-error absolute top-0 left-0 rounded-none"><RiCloseFill className="text-3xl text-white" /></label>
+                    <label htmlFor="search-drawer" aria-label="close sidebar" className="absolute top-0 left-0 p-0 rounded-none btn btn-sm btn-error"><RiCloseFill className="text-3xl text-white" /></label>
                     {/* Sidebar content here */}
                     <div className="mt-8">
-                        <SearchDropdown props={'w-4/6 mx-auto'} />
+                        <SearchDropdownAll props={'w-4/6'} />
                     </div>
                     <li><a>Sidebar Item 1</a></li>
                     <li><a>Sidebar Item 2</a></li>

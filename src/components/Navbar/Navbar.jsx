@@ -6,9 +6,9 @@ import { TbCategoryFilled } from "react-icons/tb";
 import { BsSearch } from "react-icons/bs";
 import icon from "../../assets/icon.png";
 import useUser from "../../hooks/useUser";
-import SearchDropdown from "../SearchDropdown/SearchDropdown";
 import Swal from "sweetalert2";
 import ThemeChanger from "../ThemeChanger/ThemeChanger";
+import SearchDropdownAll from "../SearchDropdownAll/SearchDropdownAll";
 
 const Navbar = () => {
 
@@ -81,7 +81,7 @@ const Navbar = () => {
                 </div>
                 {/* Search Desktop */}
                 <div className="hidden sm:block">
-                    <SearchDropdown />
+                    <SearchDropdownAll />
                 </div>
                 <div className="flex items-center">
                     {/* Mobile Search */}
