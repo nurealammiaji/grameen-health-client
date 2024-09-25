@@ -64,7 +64,7 @@ const SearchDropdownAll = ({ props }) => {
 
     return (
         <div className="relative" ref={dropdownRef}>
-            <label className={`input input-bordered input-success md:input-sm lg:input-md items-center gap-2 flex join-item ${props}`}>
+            <label className={`input input-bordered input-success sm:input-sm lg:input-md items-center gap-2 flex join-item ${props}`}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"

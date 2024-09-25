@@ -62,7 +62,7 @@ const Navbar = () => {
     return (
         <nav>
             {/* First Navbar */}
-            <nav className="fixed z-50 flex items-center justify-between w-full px-2 py-3 md:py-5 bg-base-200 lg:p-3">
+            <nav className="fixed top-0 z-50 flex items-center justify-between w-full px-2 py-3 md:py-5 bg-base-200 lg:p-3">
                 {/* Mobile Category */}
                 <div className="flex items-center">
                     <details className="dropdown" >
@@ -91,7 +91,7 @@ const Navbar = () => {
                         </button>
                     </div>
                     {/* Theme Changer */}
-                    <div className="hidden tooltip tooltip-bottom md:block" data-tip="Change Theme">
+                    <div className="hidden tooltip tooltip-bottom sm:block" data-tip="Change Theme">
                         <ThemeChanger />
                     </div>
                     {/* Wishlist */}
@@ -168,20 +168,14 @@ const Navbar = () => {
                     }
                 </div>
             </nav>
-            <div className="hidden mb-1 lg:mb-0 md:block">
-                <br /><br /><br />
-            </div>
-            <div className="mb-4 md:hidden">
-                <br /><br />
-            </div>
             {/* Second Navbar */}
-            <nav className="fixed flex items-center justify-around w-full bg-success z-[10]">
+            <nav className="fixed flex items-center justify-around w-full bg-success z-[10] md:top-[75px] top-[64px] lg:top-[72px]">
                 <details className="hidden dropdown md:flex tooltip tooltip-bottom" data-tip="Categories">
                     <summary tabIndex={0} role="button" className="flex items-center text-white sm:btn-sm lg:btn-md btn btn-outline" onClick={() => setCategoryToggle(!categoryToggle)} >
                         {
                             (categoryToggle) ?
-                                <TbCategoryFilled className="text-2xl" /> :
-                                <RiCloseLargeLine className="text-2xl" />
+                                <TbCategoryFilled className="lg:text-2xl" /> :
+                                <RiCloseLargeLine className="lg:text-2xl" />
                         }
                         <span className="font-bold lg:text-lg">Categories</span>
                     </summary>
@@ -193,7 +187,7 @@ const Navbar = () => {
                     {pageLinks}
                 </div>
             </nav>
-            <div className="mt-[64px] md:mt-[62px]"></div>
+            <div className="mb-[119px] md:mb-[130px] lg:mb-[133px]"></div>
         </nav>
     )
 }

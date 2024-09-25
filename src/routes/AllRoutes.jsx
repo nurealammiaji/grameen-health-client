@@ -18,6 +18,7 @@ import Customer from "../pages/Dashboard/Customer/Customer";
 import CustomerProfile from "../pages/Dashboard/Customer/CustomerProfile/CustomerProfile";
 import CustomerCart from "../pages/Dashboard/Customer/CustomerCart/CustomerCart";
 import CustomerOrders from "../pages/Dashboard/Customer/CustomerOrders/CustomerOrders";
+import CustomerWishlist from "../pages/Dashboard/Customer/CustomerWishlist/CustomerWishlist";
 import CustomerPayments from "../pages/Dashboard/Customer/CustomerPayments/CustomerPayments";
 import Merchant from "../pages/Dashboard/Merchant/Merchant";
 import MerchantProfile from "../pages/Dashboard/Merchant/MerchantProfile/MerchantProfile";
@@ -173,6 +174,10 @@ const AllRoutes = createBrowserRouter([
             {
                 path: "/dashboard/customer/orders",
                 element: <PrivateRoute><CustomerRoute><CustomerOrders /></CustomerRoute></PrivateRoute>
+            },
+            {
+                path: "/dashboard/customer/wishlist",
+                element: <PrivateRoute><CustomerRoute><CustomerWishlist /></CustomerRoute></PrivateRoute>
             },
             {
                 path: "/dashboard/customer/payments",

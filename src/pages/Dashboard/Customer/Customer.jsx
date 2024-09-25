@@ -1,8 +1,7 @@
 import React from 'react'
 import HelmetAsync from '../../../components/HelmetAsync/HelmetAsync'
 import useUser from '../../../hooks/useUser';
-import { RiFileList3Fill, RiShoppingCart2Fill } from 'react-icons/ri';
-import { TbCoinTakaFilled } from 'react-icons/tb';
+import { RiFileList3Fill, RiHeartFill, RiShoppingCart2Fill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 const Customer = () => {
@@ -29,15 +28,16 @@ const Customer = () => {
                         <div className="stat-value">0</div>
                         <div className="stat-desc">Products</div>
                     </Link>
+                    <Link to={"/dashboard/customer/wishlist"} className="stat w-52 h-52">
+                        <div className="flex justify-center mt-5 stat-title"><RiHeartFill className="mr-3 text-2xl" /><span className="text-xl">Wishlist</span></div>
+                        <div className="stat-value">0</div>
+                        <div className="stat-desc">Products</div>
+                    </Link>
                     <Link to={"/dashboard/customer/orders"} className="stat w-52 h-52">
                         <div className="flex justify-center mt-5 stat-title"><RiFileList3Fill className="mr-3 text-2xl" /><span className="text-xl">Orders</span></div>
                         <div className="stat-value">0</div>
                         <div className="stat-desc">{userData?.createdAt?.slice(0, 10)} - {year}-{(month < 10) ? `0${month}` : month}-{(day < 10) ? `0${day}` : day}</div>
                     </Link>
-                    <Link to={"/dashboard/customer/payments"} className="stat w-52 h-52">
-                        <div className="flex justify-center mt-5 stat-title"><TbCoinTakaFilled className="mr-3 text-3xl" /><span className="text-xl">Payments</span></div>
-                        <div className="stat-value">0</div>
-                        <div className="stat-desc">{userData?.createdAt?.slice(0, 10)} - {year}-{(month < 10) ? `0${month}` : month}-{(day < 10) ? `0${day}` : day}</div>                    </Link>
                 </div>
             </div>
         </div>

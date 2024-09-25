@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import HelmetAsync from '../../components/HelmetAsync/HelmetAsync'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import icon from '../../assets/icon.png'
-import { RiBox3Fill, RiCarouselView, RiFileList3Fill, RiFunctionFill, RiHome8Fill, RiLogoutCircleRFill, RiMapPinFill, RiPhoneFill, RiPieChart2Fill, RiShieldUserFill, RiShoppingCart2Fill, RiStore3Fill, RiTimerFlashFill, RiUser2Fill, RiUser3Fill } from 'react-icons/ri'
+import { RiBox3Fill, RiCarouselView, RiFileList3Fill, RiFunctionFill, RiHeartFill, RiHome8Fill, RiLogoutCircleRFill, RiMapPinFill, RiPhoneFill, RiPieChart2Fill, RiShieldUserFill, RiShoppingCart2Fill, RiStore3Fill, RiTimerFlashFill, RiUser2Fill, RiUser3Fill } from 'react-icons/ri'
 import { TbCoinTakaFilled } from "react-icons/tb";
 import useUser from '../../hooks/useUser'
 import { AuthContext } from '../../providers/AuthProvider'
@@ -153,6 +153,7 @@ const Dashboard = () => {
                                     <li><NavLink to={"/dashboard/customer/profile"} className="text-white"><RiUser3Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">Profile</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/customer/cart"} className="text-white"><RiShoppingCart2Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">My Cart</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/customer/orders"} className="text-white"><RiFileList3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">My Orders</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/customer/wishlist"} className="text-white"><RiHeartFill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">My Wishlist</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/customer/payments"} className="text-white"><TbCoinTakaFilled className="text-2xl lg:text-3xl" /><span className="font-semibold">My Payments</span></NavLink></li>
                                 </>
                             }
