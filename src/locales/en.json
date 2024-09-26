@@ -1,0 +1,19 @@
+{
+    "home": "Home",
+    "campaigns": "Campaigns",
+    "orderTracking": "Order Tracking",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "categories": "Categories",
+    "register": "Register",
+    "login": "Login",
+    "logout": "Logout",
+    "mobile": "Mobile",
+    "password": "Password",
+    "profile": "Profile",
+    "search": "Search",
+    "cart": "Cart",
+    "wishlist": "Wishlist",
+    "changeLanguage": "Change Language",
+    "changeTheme": "Change Theme"
+}

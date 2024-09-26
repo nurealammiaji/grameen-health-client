@@ -9,6 +9,8 @@ import useUser from "../../hooks/useUser";
 import Swal from "sweetalert2";
 import ThemeChanger from "../ThemeChanger/ThemeChanger";
 import SearchDropdownAll from "../SearchDropdownAll/SearchDropdownAll";
+import { useTranslation } from 'react-i18next';
+import LanguageChanger from "../LanguageChanger/LanguageChanger";
 
 const Navbar = () => {
 
@@ -16,6 +18,7 @@ const Navbar = () => {
     const [menuToggle, setMenuToggle] = useState(true);
     const [categoryToggle, setCategoryToggle] = useState(true);
     const [isUserLoading, userData, refetchUser] = useUser();
+    const { t } = useTranslation();
 
     const handleLogout = () => {
         logout();
@@ -29,21 +32,21 @@ const Navbar = () => {
     }
 
     const pageLinks = <ul className="px-1 menu menu-horizontal">
-        <li className="tooltip tooltip-bottom" data-tip="Home"><Link to={"/"} className="text-white"><RiHome8Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Home</span></Link></li>
-        <li className="tooltip tooltip-bottom" data-tip="Campaigns"><Link to={"/campaign"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Campaigns</span></Link></li>
-        <li className="tooltip tooltip-bottom" data-tip="Order Tracking"><Link to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Order Tracking</span></Link></li>
-        <li className="tooltip tooltip-bottom" data-tip="Contact"><Link to={"/contact"} className="text-white"><RiPhoneFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Contact</span></Link></li>
+        <li className="tooltip tooltip-bottom" data-tip={t('home')}><NavLink to={"/"} className="text-white"><RiHome8Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('home')}</span></NavLink></li>
+        <li className="tooltip tooltip-bottom" data-tip={t('campaigns')}><NavLink to={"/campaign"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('campaigns')}</span></NavLink></li>
+        <li className="tooltip tooltip-bottom" data-tip={t('orderTracking')}><NavLink to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('orderTracking')}</span></NavLink></li>
+        <li className="tooltip tooltip-bottom" data-tip={t('contact')}><NavLink to={"/contact"} className="text-white"><RiPhoneFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('contact')}</span></NavLink></li>
         {
             (user && userData?.role === "admin") &&
-            <li className="tooltip tooltip-bottom" data-tip="Dashboard"><Link to={"/dashboard/admin"} className="text-white" ><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
+            <li className="tooltip tooltip-bottom" data-tip={t('dashboard')}><NavLink to={"/dashboard/admin"} className="text-white" ><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('dashboard')}</span></NavLink></li>
         }
         {
             (user && userData?.role === "merchant") &&
-            <li className="tooltip tooltip-bottom" data-tip="Dashboard"><Link to={"/dashboard/merchant"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
+            <li className="tooltip tooltip-bottom" data-tip={t('dashboard')}><NavLink to={"/dashboard/merchant"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('dashboard')}</span></NavLink></li>
         }
         {
             (user && userData?.role === "customer") &&
-            <li className="tooltip tooltip-bottom" data-tip="Dashboard"><Link to={"/dashboard/customer"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">Dashboard</span></Link></li>
+            <li className="tooltip tooltip-bottom" data-tip={t('dashboard')}><NavLink to={"/dashboard/customer"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('dashboard')}</span></NavLink></li>
         }
     </ul>;
 
@@ -77,25 +80,29 @@ const Navbar = () => {
                             {categoryLinks}
                         </ul>
                     </details>
-                    <Link to={"/"} className="items-center font-bold text-success md:flex lg:text-2xl"><img src={icon} className="w-10 h-10 text-2xl font-bold md:w-8 md:h-8 text-success" alt="Grameen Health Icon" /><span className="hidden ml-2 text-2xl font-bold text-success md:block">Grameen Health</span></Link>
+                    <Link to={"/"} className="items-center font-bold text-success md:flex lg:text-2xl"><img src={icon} className="w-10 h-10 text-2xl font-bold md:w-8 md:h-8 text-success" alt="Grameen Health Icon" /><span className="hidden ml-2 text-2xl font-bold text-success md:block lg:hidden">GH</span><span className="hidden ml-2 text-2xl font-bold text-success lg:block">Grameen Health</span></Link>
                 </div>
                 {/* Search Desktop */}
                 <div className="hidden sm:block">
-                    <SearchDropdownAll />
+                    <SearchDropdownAll props={'mx-auto w-8/12 lg:w-full'} />
                 </div>
                 <div className="flex items-center">
                     {/* Mobile Search */}
-                    <div className="sm:hidden">
+                    <div className="mr-5 sm:hidden">
                         <button className="tooltip tooltip-bottom" data-tip="Search">
                             <label htmlFor="search-drawer" className="drawer-button md:hidden"><BsSearch className="text-2xl text-success" /></label>
                         </button>
+                    </div>
+                    {/* Language Changer */}
+                    <div className="mr-2 lg:mr-5">
+                        <LanguageChanger />
                     </div>
                     {/* Theme Changer */}
                     <div className="hidden tooltip tooltip-bottom sm:block" data-tip="Change Theme">
                         <ThemeChanger />
                     </div>
                     {/* Wishlist */}
-                    <div className="ml-3 sm:ml-5 md:ml-10 indicator tooltip tooltip-bottom" data-tip="Wishlist">
+                    <div className="ml-3 sm:ml-5 md:ml-10 indicator tooltip tooltip-bottom" data-tip={t('wishlist')}>
                         <span className="text-white indicator-item indicator-end indicator-top badge bg-lime-500">0</span>
                         <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
                             <Link to={"/dashboard/customer/wishlist"} tabIndex={0} role="button" className="text-success"><RiHeartLine className="text-3xl lg:text-4xl" /></Link>
@@ -103,14 +110,14 @@ const Navbar = () => {
                                 tabIndex={0}
                                 className="dropdown-content card card-compact bg-base-100 z-[1] w-64 p-2 shadow">
                                 <div className="card-body">
-                                    <h3 className="card-title">Wish List</h3>
+                                    <h3 className="card-title">{t('wishlist')}</h3>
                                     <p>you can use any element as a dropdown.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {/* Cart */}
-                    <div className="mx-3 sm:mx-5 md:mr-10 indicator tooltip tooltip-bottom" data-tip="Cart">
+                    <div className="mx-3 sm:mx-5 md:mr-10 indicator tooltip tooltip-bottom" data-tip={t('cart')}>
                         <span className="text-white indicator-item indicator-end indicator-top badge bg-lime-500">0</span>
                         <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
                             <Link to={"/dashboard/customer/cart"} tabIndex={0} role="button" className="text-success"><RiShoppingCart2Line className="text-3xl lg:text-4xl" /></Link>
@@ -118,7 +125,7 @@ const Navbar = () => {
                                 tabIndex={0}
                                 className="dropdown-content card card-compact bg-base-100 z-[1] w-64 p-2 shadow">
                                 <div className="card-body">
-                                    <h3 className="card-title">Shopping Cart</h3>
+                                    <h3 className="card-title">{t('cart')}</h3>
                                     <p>you can use any element as a dropdown.</p>
                                 </div>
                             </div>
@@ -144,25 +151,25 @@ const Navbar = () => {
                                     <li>
                                         {
                                             (userData?.role === "admin") &&
-                                            <Link to={"/dashboard/admin/profile"}>Profile</Link>
+                                            <Link to={"/dashboard/admin/profile"}>{t('profile')}</Link>
                                         }
                                         {
                                             (userData?.role === "merchant") &&
-                                            <Link to={"/dashboard/merchant/profile"}>Profile</Link>
+                                            <Link to={"/dashboard/merchant/profile"}>{t('profile')}</Link>
                                         }
                                         {
                                             (userData?.role === "customer") &&
-                                            <Link to={"/dashboard/customer/profile"}>Profile</Link>
+                                            <Link to={"/dashboard/customer/profile"}>{t('profile')}</Link>
                                         }
                                     </li>
-                                    <li><button onClick={handleLogout}>Logout</button></li>
+                                    <li><button onClick={handleLogout}>{t('logout')}</button></li>
                                 </ul>
                             </div> :
-                            <div className="dropdown dropdown-hover dropdown-bottom dropdown-end tooltip tooltip-bottom" data-tip="Login">
-                                <Link to={"/login"} tabIndex={0} role="button" className="flex items-center text-success"><RiUserReceived2Line className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">Login / Register</span></Link>
+                            <div className="dropdown dropdown-hover dropdown-bottom dropdown-end tooltip tooltip-bottom" data-tip={t('login')}>
+                                <Link to={"/login"} tabIndex={0} role="button" className="flex items-center text-success"><RiUserReceived2Line className="text-3xl lg:text-4xl xl:hidden" /><span className="hidden ml-2 font-semibold xl:block">{t('login')} / {t('register')}</span></Link>
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                                    <li><Link to={"/login"}>Login</Link></li>
-                                    <li><Link to={"/register"}>Register</Link></li>
+                                    <li><Link to={"/login"}>{t('login')}</Link></li>
+                                    <li><Link to={"/register"}>{t('register')}</Link></li>
                                 </ul>
                             </div>
                     }
@@ -170,14 +177,14 @@ const Navbar = () => {
             </nav>
             {/* Second Navbar */}
             <nav className="fixed flex items-center justify-around w-full bg-success z-[10] md:top-[75px] top-[64px] lg:top-[72px]">
-                <details className="hidden dropdown md:flex tooltip tooltip-bottom" data-tip="Categories">
+                <details className="hidden dropdown md:flex tooltip tooltip-bottom" data-tip={t('categories')}>
                     <summary tabIndex={0} role="button" className="flex items-center text-white sm:btn-sm lg:btn-md btn btn-outline" onClick={() => setCategoryToggle(!categoryToggle)} >
                         {
                             (categoryToggle) ?
                                 <TbCategoryFilled className="lg:text-2xl" /> :
                                 <RiCloseLargeLine className="lg:text-2xl" />
                         }
-                        <span className="font-bold lg:text-lg">Categories</span>
+                        <span className="font-bold lg:text-lg">{t('categories')}</span>
                     </summary>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         {categoryLinks}

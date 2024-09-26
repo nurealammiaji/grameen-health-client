@@ -1,0 +1,19 @@
+{
+    "home": "হোম",
+    "campaigns": "ক্যাম্পেইন",
+    "orderTracking": "অর্ডার ট্রেকিং",
+    "contact": "যোগাযোগ",
+    "dashboard": "ড্যাশবোর্ড",
+    "categories": "ক্যাটাগরি",
+    "register": "রেজিস্টার",
+    "login": "লগইন",
+    "logout": "লগআউট",
+    "mobile": "মোবাইল",
+    "password": "পাসওয়ার্ড",
+    "profile": "প্রোফাইল",
+    "search": "খুঁজুন",
+    "cart": "শপিং কার্ট",
+    "wishlist": "প্রিয় তালিকা",
+    "changeLanguage": "ভাষা পরিবর্তন",
+    "changeTheme": "থিম পরিবর্তন"
+}

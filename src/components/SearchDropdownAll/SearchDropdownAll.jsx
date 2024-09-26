@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const SearchDropdownAll = ({ props }) => {
     const [query, setQuery] = useState('');
@@ -13,7 +14,8 @@ const SearchDropdownAll = ({ props }) => {
     });
     const [isOpen, setIsOpen] = useState(false);
     const axiosPublic = useAxiosPublic();
-    const dropdownRef = useRef(null); // Reference for the dropdown
+    const dropdownRef = useRef(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchResults = async () => {
@@ -81,7 +83,7 @@ const SearchDropdownAll = ({ props }) => {
                     onChange={handleInputChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
-                    placeholder="Search..."
+                    placeholder={`${t('search')}...`}
                     className="grow"
                 />
             </label>
