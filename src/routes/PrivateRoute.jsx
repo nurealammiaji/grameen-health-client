@@ -2,10 +2,12 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../providers/AuthProvider'
 import { Navigate, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
 
 const PrivateRoute = ({ children }) => {
 
     const { user, loading, authenticated } = useContext(AuthContext);
+    const { t } = useTranslation();
     const location = useLocation();
 
     if (loading) {
@@ -26,7 +28,7 @@ const PrivateRoute = ({ children }) => {
         Swal.fire({
             position: "center",
             icon: "warning",
-            title: "Please Login or Register !!",
+            title: `${t('pleaseLogin')} !!`,
             showConfirmButton: false,
             timer: 1500
         });

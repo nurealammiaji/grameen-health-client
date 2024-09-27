@@ -80,7 +80,7 @@ const Navbar = () => {
                             {categoryLinks}
                         </ul>
                     </details>
-                    <Link to={"/"} className="items-center font-bold text-success md:flex lg:text-2xl"><img src={icon} className="w-10 h-10 text-2xl font-bold md:w-8 md:h-8 text-success" alt="Grameen Health Icon" /><span className="hidden ml-2 text-2xl font-bold text-success md:block lg:hidden">GH</span><span className="hidden ml-2 text-2xl font-bold text-success lg:block">Grameen Health</span></Link>
+                    <Link to={"/"} className="items-center font-bold text-success md:flex lg:text-2xl"><img src={icon} className="w-10 h-10 text-2xl font-bold md:w-8 md:h-8 text-success" alt="Grameen Health Icon" /><span className="hidden ml-2 text-2xl font-bold text-success md:block lg:hidden">GH</span><span className="hidden ml-2 text-2xl font-bold text-success lg:block">{t('grameenHealth')}</span></Link>
                 </div>
                 {/* Search Desktop */}
                 <div className="hidden sm:block">
@@ -98,7 +98,7 @@ const Navbar = () => {
                         <LanguageChanger />
                     </div>
                     {/* Theme Changer */}
-                    <div className="hidden tooltip tooltip-bottom sm:block" data-tip="Change Theme">
+                    <div className="hidden tooltip tooltip-bottom sm:block" data-tip={t('changeTheme')}>
                         <ThemeChanger />
                     </div>
                     {/* Wishlist */}

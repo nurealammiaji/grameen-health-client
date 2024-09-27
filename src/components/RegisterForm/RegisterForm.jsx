@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { useTranslation } from "react-i18next";
 
 const RegisterForm = () => {
 
@@ -12,6 +13,7 @@ const RegisterForm = () => {
     const [eyeCloseOne, setEyeCloseOne] = useState(true);
     const [eyeCloseTwo, setEyeCloseTwo] = useState(true);
     const [image, setImage] = useState(null);
+    const { t } = useTranslation();
 
     const pwd = watch("password");
     const rePwd = watch("confirmPassword");
@@ -100,12 +102,12 @@ const RegisterForm = () => {
                 <div className="mx-auto md:w-10/12">
                     <form onSubmit={handleSubmit(handleUserRegister)}>
                         <div className="text-center">
-                            <h3 className="text-3xl font-bold text-success">Register</h3>
+                            <h3 className="text-3xl font-bold text-success">{t('register')}</h3>
                         </div>
                         <br />
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Name</span>
+                                <span className="label-text">{t('name')}</span>
                             </label>
                             <label className="flex items-center gap-2 input input-bordered">
                                 <svg
@@ -118,13 +120,13 @@ const RegisterForm = () => {
                                 </svg>
                                 <input {...register("name", { required: true })}
                                     type="text"
-                                    placeholder="name"
+                                    placeholder={t('typeName')}
                                     name="name"
                                     className="w-full grow"
                                 />
                             </label>
                             {errors.name?.type === 'required' && <label className="label">
-                                <span className="text-error">Name is required !!</span>
+                                <span className="text-error">{t('requiredName')} !!</span>
                             </label>}
                         </div>
                         {/* <div className="mt-1 form-control">
@@ -145,7 +147,7 @@ const RegisterForm = () => {
                             </div> */}
                         <div className="mt-1 form-control">
                             <label className="label">
-                                <span className="label-text">Mobile</span>
+                                <span className="label-text">{t('mobile')}</span>
                             </label>
                             <label className="flex items-center gap-2 input input-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -161,9 +163,9 @@ const RegisterForm = () => {
                                 />
                             </label>
                             {errors.phone?.type === 'required' && <label className="label">
-                                <span className="text-error">Mobile number is required !!</span>
+                                <span className="text-error">{t('requiredMobile')} !!</span>
                             </label>}
-                            {errors.phone?.type === 'pattern' && <span className="mt-1 text-error">Valid mobile number is required !!</span>}
+                            {errors.phone?.type === 'pattern' && <span className="mt-1 text-error">{t('invalidMobile')} !!</span>}
                         </div>
                         {/* Image Upload */}
                         {/* <div className="mt-1 form-control">
@@ -230,7 +232,7 @@ const RegisterForm = () => {
                             </div> */}
                         <div className="mt-1 form-control">
                             <label className="label">
-                                <span className="label-text">Password</span>
+                                <span className="label-text">{t('password')}</span>
                             </label>
                             <label className="flex items-center gap-2 input input-bordered">
                                 <svg
@@ -246,7 +248,7 @@ const RegisterForm = () => {
                                 <div className="relative flex items-center w-full">
                                     <input {...register("password", { required: true, minLength: 6, pattern: /.{6}$/ })}
                                         type={(eyeCloseOne) ? 'password' : 'text'}
-                                        placeholder="password"
+                                        placeholder={t('typePassword')}
                                         name="password"
                                         className="w-full grow"
                                     />
@@ -258,8 +260,8 @@ const RegisterForm = () => {
                                     </p>
                                 </div>
                             </label>
-                            {errors.password?.type === 'required' && <span className="text-error">Password is required !!</span>}
-                            {errors.password?.type === 'minLength' && <span className="text-error">Password must be 6 character !!</span>}
+                            {errors.password?.type === 'required' && <span className="text-error">{t('requiredPassword')} !!</span>}
+                            {errors.password?.type === 'minLength' && <span className="text-error">{t('invalidPassword')} !!</span>}
                             {errors.password?.type === 'pattern' && <span className="text-error">Any type of character is required !!</span>}
                         </div>
                         {/* Confirm Password */}
@@ -285,13 +287,13 @@ const RegisterForm = () => {
                                 {pwd === rePwd || <span className="text-error">Password is not matched !!</span>}
                             </div> */}
                         <div className="mt-6 form-control">
-                            <button className="text-white btn btn-success" type="submit">{(loading ? <><span className="text-white loading loading-spinner"></span><span className="ml-2">Processing ...</span></> : "Register")}</button>
+                            <button className="text-white btn btn-success" type="submit">{(loading ? <><span className="text-white loading loading-spinner"></span><span className="ml-2">{t('processing')} ...</span></> : `${t('register')}`)}</button>
                         </div>
                     </form>
                     <div className="flex items-center justify-center mt-3">
-                        <label className="label"><span className="mr-2 text-sm">Already have an account ?</span>
+                        <label className="label"><span className="mr-2 text-sm">{t('haveAccount')} ?</span>
                             <Link to="/login" className="text-sm font-medium text-primary label-text-alt link link-hover">
-                                Login
+                                {t('login')}
                             </Link>
                         </label>
                     </div>
