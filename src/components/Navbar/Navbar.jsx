@@ -77,6 +77,16 @@ const Navbar = () => {
                             }
                         </summary>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            {/* Language Changer */}
+                            <div className="flex items-center gap-10 p-2 mx-auto mb-3 sm:hidden">
+                                <div className="mx-auto">
+                                    <LanguageChanger />
+                                </div>
+                                {/* Theme Changer */}
+                                <div className="tooltip tooltip-bottom" data-tip={t('changeTheme')}>
+                                    <ThemeChanger />
+                                </div>
+                            </div>
                             {categoryLinks}
                         </ul>
                     </details>
@@ -84,18 +94,18 @@ const Navbar = () => {
                 </div>
                 {/* Search Desktop */}
                 <div className="hidden sm:block">
-                    <SearchDropdownAll props={'mx-auto w-8/12 lg:w-full'} />
+                    <SearchDropdownAll props={'mx-auto'} />
                 </div>
                 <div className="flex items-center">
+                    {/* Language Changer */}
+                    <div className="hidden mr-5 sm:block lg:mr-10">
+                        <LanguageChanger />
+                    </div>
                     {/* Mobile Search */}
-                    <div className="mr-5 sm:hidden">
+                    <div className="ml-5 sm:hidden">
                         <button className="tooltip tooltip-bottom" data-tip="Search">
                             <label htmlFor="search-drawer" className="drawer-button md:hidden"><BsSearch className="text-2xl text-success" /></label>
                         </button>
-                    </div>
-                    {/* Language Changer */}
-                    <div className="mr-2 lg:mr-5">
-                        <LanguageChanger />
                     </div>
                     {/* Theme Changer */}
                     <div className="hidden tooltip tooltip-bottom sm:block" data-tip={t('changeTheme')}>
