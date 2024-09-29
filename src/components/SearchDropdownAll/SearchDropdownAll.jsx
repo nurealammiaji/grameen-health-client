@@ -87,7 +87,6 @@ const SearchDropdownAll = ({ props }) => {
                     className="grow"
                 />
             </label>
-
             {isOpen && (
                 <div className="absolute z-10 w-full mt-1 dropdown dropdown-open">
                     <ul className="w-full p-2 overflow-y-auto bg-white border border-gray-200 shadow-md menu dropdown-content max-h-60">
