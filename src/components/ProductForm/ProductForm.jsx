@@ -82,7 +82,7 @@ const ProductForm = () => {
 
     return (
         <div>
-            <form onSubmit={handleAddProduct} className="w-9/12 p-10 mx-auto rounded-xl bg-base-200">
+            <form onSubmit={handleAddProduct} className="p-10 mx-auto rounded-xl bg-base-200">
                 <div className="grid gap-5 md:grid-cols-2">
                     {/* Input fields for product details */}
                     <div className="w-full form-control">
@@ -109,14 +109,13 @@ const ProductForm = () => {
                         </label>
                         <input type="text" name="supplier" placeholder="Type supplier here" className="w-full input input-bordered" required />
                     </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Details</span>
-                        </label>
-                        <input type="text" name="details" placeholder="Type details here" className="w-full input input-bordered" required />
-                    </div>
                 </div>
-
+                <div className="w-full mt-5 form-control">
+                    <label className="label">
+                        <span className="label-text">Details</span>
+                    </label>
+                    <textarea rows={5} name="details" placeholder="Type details here" className="w-full textarea textarea-bordered" required />
+                </div>
                 {/* Variants Input */}
                 <div className="w-full mt-5 form-control">
                     <label className="label">
@@ -141,13 +140,13 @@ const ProductForm = () => {
                     <label className="label">
                         <span className="label-text">Image upload</span>
                     </label>
-                    <input 
-                        type="file" 
-                        name="photoURL" 
-                        multiple 
-                        onChange={handleFileChange} 
-                        className="w-full file-input file-input-bordered" 
-                        accept="image/*" 
+                    <input
+                        type="file"
+                        name="photoURL"
+                        multiple
+                        onChange={handleFileChange}
+                        className="w-full file-input file-input-bordered"
+                        accept="image/*"
                     />
                 </div>
 
@@ -155,10 +154,10 @@ const ProductForm = () => {
                 <div className="grid grid-cols-3 gap-4 mt-5">
                     {selectedFiles.map((file, index) => (
                         <div key={index} className="relative">
-                            <img 
-                                src={URL.createObjectURL(file)} 
-                                alt={`Preview ${index}`} 
-                                className="w-full h-[100px] rounded-lg" 
+                            <img
+                                src={URL.createObjectURL(file)}
+                                alt={`Preview ${index}`}
+                                className="w-full h-[100px] rounded-lg"
                             />
                         </div>
                     ))}
