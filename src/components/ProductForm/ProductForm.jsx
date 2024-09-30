@@ -1,59 +1,145 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
+import { ProductContext } from '../../providers/ProductProvider';
+import Swal from 'sweetalert2';
 
 const ProductForm = () => {
-
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { t } = useTranslation();
     const [filesWithPreview, setFilesWithPreview] = useState([]);
     const [variants, setVariants] = useState([]);
+    const { addProduct } = useContext(ProductContext);
 
     const variantOptions = ['size', 'color', 'pieces'];
 
     // Handle form submission
+    // const handleAddProduct = async (data) => {
+    //     try {
+            
+    //         console.log({ data });
+    //         const formData = new FormData();
+
+    //         formData.append('type', 'product');
+    //         formData.append('name', data.name);
+    //         formData.append('quantity', data.quantity);
+    //         formData.append('category', data.category);
+    //         formData.append('subCategory', data.subCategory);
+    //         formData.append('price', data.price);
+    //         formData.append('specialPrice', data.specialPrice);
+    //         formData.append('shop', data.shop);
+    //         formData.append('needAdvance', data.needAdvance);
+    //         formData.append('brand', data.brand);
+    //         formData.append('originCountry', data.originCountry);
+    //         formData.append('manufacturer', data.manufacturer);
+    //         formData.append('model', data.model);
+    //         formData.append('details', data.details);
+
+    //         // Append only filled variants to formData
+    //         variants.forEach((variant) => {
+    //             const variantData = {};
+    //             if (variant.type === 'size' && variant.value) variantData.size = variant.value;
+    //             if (variant.type === 'color' && variant.value) variantData.color = variant.value;
+    //             if (variant.type === 'pieces' && variant.value) variantData.pieces = variant.value;
+
+    //             // Only add to formData if variantData has properties
+    //             if (Object.keys(variantData).length > 0) {
+    //                 formData.append('variants[]', JSON.stringify(variantData));
+    //             }
+    //         });
+
+    //         filesWithPreview.forEach(item => {
+    //             formData.append('images[]', item.file);
+    //         });
+
+    //         // Reset the form and state
+    //         console.log('Form Data:', formData);
+
+    //         await addProduct(formData)
+    //             .then(({ data }) => {
+    //                 console.log(data);
+    //                 Swal.fire({
+    //                     target: document.getElementById('add_product_modal'),
+    //                     position: "center",
+    //                     icon: "success",
+    //                     title: "Added Successfully !!",
+    //                     showConfirmButton: false,
+    //                     timer: 1500
+    //                 });
+    //                 // reset();
+    //                 // setFilesWithPreview([]);
+    //                 // setVariants([]);
+    //                 console.log('Response from server:', response.data);
+    //             })
+    //             .catch((error) => {
+    //                 console.error('Error from backend:', error.response ? error.response.data : error.message);
+    //                 Swal.fire({
+    //                     target: document.getElementById('add_product_modal'),
+    //                     position: "center",
+    //                     icon: "error",
+    //                     title: `Axios: ${error.message}`,
+    //                     showConfirmButton: false,
+    //                     timer: 1500
+    //                 });
+    //                 console.log('Response from server:', response.data);
+    //             });
+    //     } catch (error) {
+    //         console.error('Error from backend:', error.response ? error.response.data : error.message);
+
+    //         Swal.fire({
+    //             target: document.getElementById('add_product_modal'),
+    //             position: "center",
+    //             icon: "error",
+    //             title: `CatchError: ${error.message}`,
+    //             showConfirmButton: false,
+    //             timer: 1500
+    //         });
+    //     }
+    // };
     const handleAddProduct = async (data) => {
-        console.log({ data });
-        const formData = new FormData();
-        formData.append('name', data.name);
-        formData.append('quantity', data.quantity);
-        formData.append('category', data.category);
-        formData.append('subCategory', data.subCategory);
-        formData.append('price', data.price);
-        formData.append('specialPrice', data.specialPrice);
-        formData.append('shop', data.shop);
-        formData.append('needAdvance', data.needAdvance);
-        formData.append('brand', data.brand);
-        formData.append('originCountry', data.originCountry);
-        formData.append('manufacturer', data.manufacturer);
-        formData.append('importer', data.importer);
-        formData.append('details', data.details);
-
-        // Append only filled variants to formData
-        variants.forEach((variant) => {
-            const variantData = {};
-            if (variant.type === 'size' && variant.value) variantData.size = variant.value;
-            if (variant.type === 'color' && variant.value) variantData.color = variant.value;
-            if (variant.type === 'pieces' && variant.value) variantData.pieces = variant.value;
-
-            // Only add to formData if variantData has properties
-            if (Object.keys(variantData).length > 0) {
-                formData.append('variants[]', JSON.stringify(variantData));
-            }
-            console.log(variantData);
-        });
-
-        filesWithPreview.forEach(item => {
-            formData.append('images[]', item.file);
-        });
-
-        // Reset the form and state
-        console.log('Form Data:', formData);
-        // reset();
-        // setFilesWithPreview([]);
-        // setVariants([]);
+        try {
+            const formData = new FormData();
+            formData.append('type', 'product');
+            formData.append('name', data.name);
+            formData.append('quantity', data.quantity);
+            formData.append('category', data.category);
+            formData.append('subCategory', data.subCategory);
+            formData.append('price', data.price);
+            formData.append('specialPrice', data.specialPrice);
+            formData.append('shop', data.shop);
+            formData.append('needAdvance', data.needAdvance);
+            formData.append('brand', data.brand);
+            formData.append('originCountry', data.originCountry);
+            formData.append('manufacturer', data.manufacturer);
+            formData.append('model', data.model);
+            formData.append('details', data.details);
+    
+            variants.forEach((variant) => {
+                const variantData = {};
+                if (variant.type === 'size' && variant.value) variantData.size = variant.value;
+                if (variant.type === 'color' && variant.value) variantData.color = variant.value;
+                if (variant.type === 'pieces' && variant.value) variantData.pieces = variant.value;
+    
+                if (Object.keys(variantData).length > 0) {
+                    formData.append('variants[]', JSON.stringify(variantData)); // Check this format with your backend
+                }
+            });
+    
+            filesWithPreview.forEach(item => {
+                formData.append('images[]', item.file);
+            });
+    
+            console.log('Form Data before sending:', Array.from(formData.entries()));
+    
+            const response = await addProduct(formData);
+            console.log('Response from server:', response.data);
+            // handle success...
+        } catch (error) {
+            console.error('Error from backend:', error.response ? error.response.data : error.message);
+        }
     };
+    
 
     // Handle file changes
     const handleFileChange = (event) => {
@@ -169,6 +255,13 @@ const ProductForm = () => {
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
+                            <span className="label-text">Model</span>
+                        </label>
+                        <input {...register("model", { required: true })} type="text" placeholder="Type model here" className="w-full input input-bordered" />
+                        {errors.model?.type === 'required' && <span className="text-error">{t('requiredModel')} !!</span>}
+                    </div>
+                    <div className="w-full form-control">
+                        <label className="label">
                             <span className="label-text">Origin Country</span>
                         </label>
                         <input {...register("originCountry", { required: true })} type="text" placeholder="Type origin country here" className="w-full input input-bordered" />
@@ -181,13 +274,7 @@ const ProductForm = () => {
                         <input {...register("manufacturer", { required: true })} type="text" placeholder="Type manufacturer here" className="w-full input input-bordered" />
                         {errors.manufacturer?.type === 'required' && <span className="text-error">{t('requiredManufacturer')} !!</span>}
                     </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Importer</span>
-                        </label>
-                        <input {...register("importer", { required: true })} type="text" placeholder="Type importer here" className="w-full input input-bordered" />
-                        {errors.importer?.type === 'required' && <span className="text-error">{t('requiredImporter')} !!</span>}
-                    </div>
+
                 </div>
 
                 <div className="w-full mt-5 form-control">
@@ -211,7 +298,7 @@ const ProductForm = () => {
                         </button>
                     </div>
                     {variants.map((variant, index) => (
-                        <div key={index} className="flex items-center my-2 w-full">
+                        <div key={index} className="flex items-center w-full my-2">
                             <select
                                 value={variant.type}
                                 onChange={(e) => handleVariantChange(index, 'type', e.target.value)}
@@ -241,7 +328,7 @@ const ProductForm = () => {
                 </div>
 
                 {/* File Upload Section */}
-                <div className="mt-5 w-full form-control">
+                <div className="w-full mt-5 form-control">
                     {/* <label htmlFor="fileUpload">Upload Images</label> */}
                     <label className="label">
                         <span className="label-text">Upload Images</span>
@@ -255,8 +342,6 @@ const ProductForm = () => {
                         className={`${filesWithPreview?.length === 5 ? "hidden" : "file-input w-full file-input-bordered"}`}
                     />
                 </div>
-
-                {console.log(filesWithPreview)}
 
                 {/* Image Previews */}
                 <div className="grid grid-cols-3 gap-4 mt-5">
