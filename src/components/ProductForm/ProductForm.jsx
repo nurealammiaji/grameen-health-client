@@ -5,16 +5,27 @@ import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
 import { ProductContext } from '../../providers/ProductProvider';
 import Swal from 'sweetalert2';
 import useShops from '../../hooks/useShops';
+import useCategories from './../../hooks/useCategories';
+import useSubCategories from './../../hooks/useSubCategories';
 
 const ProductForm = () => {
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const [isShopsLoading, shops, refetchShops] = useShops();
+    const { isCategoriesLoading, categories, refetchCategories, isError, error } = useCategories();
+    const [isSubCategoriesLoading, subCategories, refetchSubCategories] = useSubCategories();
     const { t } = useTranslation();
     const [filesWithPreview, setFilesWithPreview] = useState([]);
     const [variants, setVariants] = useState([]);
     const { addProduct } = useContext(ProductContext);
 
     const variantOptions = ['size', 'color', 'pieces'];
+
+    if (subCategories) {
+        console.log(subCategories)
+    }
+    if (categories) {
+        console.log(categories)
+    }
 
     // Handle form submission
     // const handleAddProduct = async (data) => {
@@ -36,7 +47,7 @@ const ProductForm = () => {
     //         formData.append('originCountry', data.originCountry);
     //         formData.append('manufacturer', data.manufacturer);
     //         formData.append('model', data.model);
-    //         formData.append('details', data.details);
+    //         formData.append('description', data.description);
 
     //         // Append only filled variants to formData
     //         variants.forEach((variant) => {
@@ -115,7 +126,7 @@ const ProductForm = () => {
             formData.append('originCountry', data.originCountry);
             formData.append('manufacturer', data.manufacturer);
             formData.append('model', data.model);
-            formData.append('details', data.details);
+            formData.append('description', data.description);
 
             variants.forEach((variant) => {
                 const variantData = {};
@@ -203,7 +214,12 @@ const ProductForm = () => {
                         </label>
                         <select {...register("category", { required: true })} className="w-full select select-bordered">
                             <option value="">select category</option>
-                            <option value="test">test category</option>
+                            {
+                                (categories) &&
+                                categories.map((category, index) => (
+                                    <option key={index} value={category._id}>{category.name}</option>
+                                ))
+                            }
                         </select>
                         {errors.category?.type === 'required' && <span className="text-error">{t('requiredCategory')} !!</span>}
                     </div>
@@ -213,7 +229,12 @@ const ProductForm = () => {
                         </label>
                         <select {...register("subCategory", { required: true })} className="w-full select select-bordered">
                             <option value="">select sub category</option>
-                            <option value="testSub">test sub category</option>
+                            {
+                                (subCategories) &&
+                                subCategories.map((subCategory, index) => (
+                                    <option key={index} value={subCategory._id}>{subCategory.name}</option>
+                                ))
+                            }
                         </select>
                         {errors.subCategory?.type === 'required' && <span className="text-error">{t('requiredSubCategory')} !!</span>}
                     </div>
@@ -248,7 +269,7 @@ const ProductForm = () => {
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text">Need Advance?</span>
+                            <span className="label-text">Advance Money</span>
                         </label>
                         <input {...register("advanceMoney", { required: true, min: 0 })} type="number" placeholder="Type advance money here" className="w-full input input-bordered" />
                         {errors.advanceMoney?.type === 'required' && <span className="text-error">{t('requiredAdvanceMoney')} !!</span>}
@@ -286,10 +307,10 @@ const ProductForm = () => {
 
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="label-text">Details</span>
+                        <span className="label-text">Description</span>
                     </label>
-                    <textarea {...register("details", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type details here"></textarea>
-                    {errors.details?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
+                    <textarea {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
+                    {errors.description?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
                 </div>
 
                 {/* Variants Input */}

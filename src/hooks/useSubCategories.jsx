@@ -6,7 +6,7 @@ const useSubCategories = () => {
     const axiosPublic = useAxiosPublic();
 
     const { data: subCategories, refetch: refetchSubCategories, isLoading: isSubCategoriesLoading } = useQuery({
-        queryKey: ['categories'],
+        queryKey: ['subCategories', 'read'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/subCategories/read`)
             return res.data;
