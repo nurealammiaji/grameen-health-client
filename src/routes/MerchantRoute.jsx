@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 
 const MerchantRoute = ({ children }) => {
 
-    const [isUserLoading, userData, refetchUser] = useUser();
+    const { isUserLoading, isUserError, userData, refetchUser, userError } = useUser();
 
     if (isUserLoading) {
         return <>

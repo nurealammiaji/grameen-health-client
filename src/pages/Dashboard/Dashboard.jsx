@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next'
 
 const Dashboard = () => {
 
-    const [isUserLoading, userData, refetchUser] = useUser();
+    const { isUserLoading, isUserError, userData, refetchUser, userError } = useUser();
     const { logout } = useContext(AuthContext);
     const { t } = useTranslation();
 

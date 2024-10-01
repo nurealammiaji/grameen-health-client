@@ -2,7 +2,7 @@ import React from 'react';
 import useUser from '../../hooks/useUser';
 
 const TestComponent = () => {
-    const [isUserLoading, userData, refetchUser] = useUser();
+    const { isUserLoading, isUserError, userData, refetchUser, userError } = useUser();
 
     if (isUserLoading) {
         return <div>Loading...</div>;

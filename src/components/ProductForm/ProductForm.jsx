@@ -9,10 +9,11 @@ import useCategories from './../../hooks/useCategories';
 import useSubCategories from './../../hooks/useSubCategories';
 
 const ProductForm = () => {
+
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const [isShopsLoading, shops, refetchShops] = useShops();
-    const { isCategoriesLoading, categories, refetchCategories, isError, error } = useCategories();
-    const [isSubCategoriesLoading, subCategories, refetchSubCategories] = useSubCategories();
+    const { isCategoriesLoading, categories, refetchCategories, isCategoriesError, categoriesError } = useCategories();
+    const { isSubCategoriesLoading, subCategories, refetchSubCategories, isSubCategoriesError, subCategoriesError } = useSubCategories();
     const { t } = useTranslation();
     const [filesWithPreview, setFilesWithPreview] = useState([]);
     const [variants, setVariants] = useState([]);
@@ -27,89 +28,6 @@ const ProductForm = () => {
         console.log(categories)
     }
 
-    // Handle form submission
-    // const handleAddProduct = async (data) => {
-    //     try {
-
-    //         console.log({ data });
-    //         const formData = new FormData();
-
-    //         formData.append('type', 'product');
-    //         formData.append('name', data.name);
-    //         formData.append('quantity', data.quantity);
-    //         formData.append('category', data.category);
-    //         formData.append('subCategory', data.subCategory);
-    //         formData.append('price', data.price);
-    //         formData.append('specialPrice', data.specialPrice);
-    //         formData.append('shop', data.shop);
-    //         formData.append('advanceMoney', data.advanceMoney);
-    //         formData.append('brand', data.brand);
-    //         formData.append('originCountry', data.originCountry);
-    //         formData.append('manufacturer', data.manufacturer);
-    //         formData.append('model', data.model);
-    //         formData.append('description', data.description);
-
-    //         // Append only filled variants to formData
-    //         variants.forEach((variant) => {
-    //             const variantData = {};
-    //             if (variant.type === 'size' && variant.value) variantData.size = variant.value;
-    //             if (variant.type === 'color' && variant.value) variantData.color = variant.value;
-    //             if (variant.type === 'pieces' && variant.value) variantData.pieces = variant.value;
-
-    //             // Only add to formData if variantData has properties
-    //             if (Object.keys(variantData).length > 0) {
-    //                 formData.append('variants[]', JSON.stringify(variantData));
-    //             }
-    //         });
-
-    //         filesWithPreview.forEach(item => {
-    //             formData.append('images[]', item.file);
-    //         });
-
-    //         // Reset the form and state
-    //         console.log('Form Data:', formData);
-
-    //         await addProduct(formData)
-    //             .then(({ data }) => {
-    //                 console.log(data);
-    //                 Swal.fire({
-    //                     target: document.getElementById('add_product_modal'),
-    //                     position: "center",
-    //                     icon: "success",
-    //                     title: "Added Successfully !!",
-    //                     showConfirmButton: false,
-    //                     timer: 1500
-    //                 });
-    //                 // reset();
-    //                 // setFilesWithPreview([]);
-    //                 // setVariants([]);
-    //                 console.log('Response from server:', response.data);
-    //             })
-    //             .catch((error) => {
-    //                 console.error('Error from backend:', error.response ? error.response.data : error.message);
-    //                 Swal.fire({
-    //                     target: document.getElementById('add_product_modal'),
-    //                     position: "center",
-    //                     icon: "error",
-    //                     title: `Axios: ${error.message}`,
-    //                     showConfirmButton: false,
-    //                     timer: 1500
-    //                 });
-    //                 console.log('Response from server:', response.data);
-    //             });
-    //     } catch (error) {
-    //         console.error('Error from backend:', error.response ? error.response.data : error.message);
-
-    //         Swal.fire({
-    //             target: document.getElementById('add_product_modal'),
-    //             position: "center",
-    //             icon: "error",
-    //             title: `CatchError: ${error.message}`,
-    //             showConfirmButton: false,
-    //             timer: 1500
-    //         });
-    //     }
-    // };
     const handleAddProduct = async (data) => {
         try {
             const formData = new FormData();
@@ -147,9 +65,25 @@ const ProductForm = () => {
 
             const response = await addProduct(formData);
             console.log('Response from server:', response.data);
-            // handle success...
+
+            Swal.fire({
+                target: document.getElementById('add_product_modal'),
+                position: "center",
+                icon: "success",
+                title: "Added Successfully !!",
+                showConfirmButton: false,
+                timer: 1500
+            });
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
+            Swal.fire({
+                target: document.getElementById('add_product_modal'),
+                position: "center",
+                icon: "error",
+                title: `Axios: ${error.message}`,
+                showConfirmButton: false,
+                timer: 1500
+            });
         }
     };
 

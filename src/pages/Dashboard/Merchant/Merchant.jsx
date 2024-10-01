@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const Merchant = () => {
 
-    const [isUserLoading, userData, refetchUser] = useUser();
+    const { isUserLoading, isUserError, userData, refetchUser, userError } = useUser();
     const { t } = useTranslation();
 
     const date = new Date();

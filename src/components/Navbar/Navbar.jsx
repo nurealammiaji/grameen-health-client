@@ -17,7 +17,7 @@ const Navbar = () => {
     const { user, logout, authenticated } = useContext(AuthContext);
     const [menuToggle, setMenuToggle] = useState(true);
     const [categoryToggle, setCategoryToggle] = useState(true);
-    const [isUserLoading, userData, refetchUser] = useUser();
+    const { isUserLoading, isUserError, userData, refetchUser, userError } = useUser();
     const { t } = useTranslation();
 
     const handleLogout = () => {
