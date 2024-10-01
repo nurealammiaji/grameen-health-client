@@ -4,9 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
 import { ProductContext } from '../../providers/ProductProvider';
 import Swal from 'sweetalert2';
+import useShops from '../../hooks/useShops';
 
 const ProductForm = () => {
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
+    const [isShopsLoading, shops, refetchShops] = useShops();
     const { t } = useTranslation();
     const [filesWithPreview, setFilesWithPreview] = useState([]);
     const [variants, setVariants] = useState([]);
@@ -17,7 +19,7 @@ const ProductForm = () => {
     // Handle form submission
     // const handleAddProduct = async (data) => {
     //     try {
-            
+
     //         console.log({ data });
     //         const formData = new FormData();
 
@@ -29,7 +31,7 @@ const ProductForm = () => {
     //         formData.append('price', data.price);
     //         formData.append('specialPrice', data.specialPrice);
     //         formData.append('shop', data.shop);
-    //         formData.append('needAdvance', data.needAdvance);
+    //         formData.append('advanceMoney', data.advanceMoney);
     //         formData.append('brand', data.brand);
     //         formData.append('originCountry', data.originCountry);
     //         formData.append('manufacturer', data.manufacturer);
@@ -108,30 +110,30 @@ const ProductForm = () => {
             formData.append('price', data.price);
             formData.append('specialPrice', data.specialPrice);
             formData.append('shop', data.shop);
-            formData.append('needAdvance', data.needAdvance);
+            formData.append('advanceMoney', data.advanceMoney);
             formData.append('brand', data.brand);
             formData.append('originCountry', data.originCountry);
             formData.append('manufacturer', data.manufacturer);
             formData.append('model', data.model);
             formData.append('details', data.details);
-    
+
             variants.forEach((variant) => {
                 const variantData = {};
                 if (variant.type === 'size' && variant.value) variantData.size = variant.value;
                 if (variant.type === 'color' && variant.value) variantData.color = variant.value;
                 if (variant.type === 'pieces' && variant.value) variantData.pieces = variant.value;
-    
+
                 if (Object.keys(variantData).length > 0) {
                     formData.append('variants[]', JSON.stringify(variantData)); // Check this format with your backend
                 }
             });
-    
+
             filesWithPreview.forEach(item => {
                 formData.append('images[]', item.file);
             });
-    
+
             console.log('Form Data before sending:', Array.from(formData.entries()));
-    
+
             const response = await addProduct(formData);
             console.log('Response from server:', response.data);
             // handle success...
@@ -139,7 +141,7 @@ const ProductForm = () => {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
         }
     };
-    
+
 
     // Handle file changes
     const handleFileChange = (event) => {
@@ -235,7 +237,12 @@ const ProductForm = () => {
                         </label>
                         <select {...register("shop", { required: true })} className="w-full select select-bordered">
                             <option value="">Select shop</option>
-                            <option value="testShop">test shop</option>
+                            {
+                                (shops) &&
+                                shops.map((shop, index) => (
+                                    <option key={index} value={shop._id}>{shop.name}</option>
+                                ))
+                            }
                         </select>
                         {errors.shop?.type === 'required' && <span className="text-error">{t('requiredShop')} !!</span>}
                     </div>
@@ -243,8 +250,8 @@ const ProductForm = () => {
                         <label className="label">
                             <span className="label-text">Need Advance?</span>
                         </label>
-                        <input {...register("needAdvance", { required: true, min: 0 })} type="number" placeholder="Type advance here" className="w-full input input-bordered" />
-                        {errors.needAdvance?.type === 'required' && <span className="text-error">{t('requiredAdvance')} !!</span>}
+                        <input {...register("advanceMoney", { required: true, min: 0 })} type="number" placeholder="Type advance money here" className="w-full input input-bordered" />
+                        {errors.advanceMoney?.type === 'required' && <span className="text-error">{t('requiredAdvanceMoney')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
@@ -313,6 +320,7 @@ const ProductForm = () => {
                             <input
                                 type="text"
                                 value={variant.value}
+                                {...register('variants')}
                                 onChange={(e) => handleVariantChange(index, 'value', e.target.value)}
                                 className="w-2/3 mr-2 input input-bordered"
                                 placeholder={`Enter ${variant.type}`}
@@ -338,6 +346,7 @@ const ProductForm = () => {
                         id="fileUpload"
                         multiple
                         accept="image/*"
+                        {...register('images')}
                         onChange={handleFileChange}
                         className={`${filesWithPreview?.length === 5 ? "hidden" : "file-input w-full file-input-bordered"}`}
                     />
