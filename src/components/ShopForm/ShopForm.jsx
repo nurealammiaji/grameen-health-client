@@ -33,17 +33,7 @@ const ShopForm = () => {
             const formData = new FormData();
             formData.append('type', 'shop');
             formData.append('name', data.name);
-            formData.append('quantity', data.quantity);
             formData.append('category', data.category);
-            formData.append('subCategory', data.subCategory);
-            formData.append('price', data.price);
-            formData.append('specialPrice', data.specialPrice);
-            formData.append('shop', data.shop);
-            formData.append('advanceMoney', data.advanceMoney);
-            formData.append('brand', data.brand);
-            formData.append('originCountry', data.originCountry);
-            formData.append('manufacturer', data.manufacturer);
-            formData.append('model', data.model);
             formData.append('description', data.description);
 
             variants.forEach((variant) => {
@@ -58,7 +48,7 @@ const ShopForm = () => {
             });
 
             filesWithPreview.forEach(item => {
-                formData.append('images[]', item.file);
+                formData.append('shopBanners[]', item.file);
             });
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
@@ -129,21 +119,14 @@ const ShopForm = () => {
                 <div className="grid gap-5 md:grid-cols-2">
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text">Product Name</span>
+                            <span className="label-text">Shop Name</span>
                         </label>
                         <input {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
                         {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text">Quantity</span>
-                        </label>
-                        <input {...register("quantity", { required: true, min: 1 })} type="number" min={1} placeholder="Type quantity here" className="w-full input input-bordered" />
-                        {errors.quantity?.type === 'required' && <span className="text-error">{t('requiredQuantity')} !!</span>}
-                    </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Category</span>
+                            <span className="label-text">Owner / Merchant</span>
                         </label>
                         <select {...register("category", { required: true })} className="w-full select select-bordered">
                             <option value="">select category</option>
@@ -156,88 +139,7 @@ const ShopForm = () => {
                         </select>
                         {errors.category?.type === 'required' && <span className="text-error">{t('requiredCategory')} !!</span>}
                     </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Sub Category</span>
-                        </label>
-                        <select {...register("subCategory", { required: true })} className="w-full select select-bordered">
-                            <option value="">select sub category</option>
-                            {
-                                (subCategories) &&
-                                subCategories.map((subCategory, index) => (
-                                    <option key={index} value={subCategory._id}>{subCategory.name}</option>
-                                ))
-                            }
-                        </select>
-                        {errors.subCategory?.type === 'required' && <span className="text-error">{t('requiredSubCategory')} !!</span>}
-                    </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Price</span>
-                        </label>
-                        <input {...register("price", { required: true, min: 0 })} type="number" min={0} placeholder="Type price here" className="w-full input input-bordered" />
-                        {errors.price?.type === 'required' && <span className="text-error">{t('requiredPrice')} !!</span>}
-                    </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Special Price</span>
-                        </label>
-                        <input {...register("specialPrice", { required: true, min: 0 })} type="number" min={0} placeholder="Type special price here" className="w-full input input-bordered" />
-                        {errors.specialPrice?.type === 'required' && <span className="text-error">{t('requiredSpecialPrice')} !!</span>}
-                    </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Shop</span>
-                        </label>
-                        <select {...register("shop", { required: true })} className="w-full select select-bordered">
-                            <option value="">Select shop</option>
-                            {
-                                (shops) &&
-                                shops.map((shop, index) => (
-                                    <option key={index} value={shop._id}>{shop.name}</option>
-                                ))
-                            }
-                        </select>
-                        {errors.shop?.type === 'required' && <span className="text-error">{t('requiredShop')} !!</span>}
-                    </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Advance Money</span>
-                        </label>
-                        <input {...register("advanceMoney", { required: true, min: 0 })} type="number" placeholder="Type advance money here" className="w-full input input-bordered" />
-                        {errors.advanceMoney?.type === 'required' && <span className="text-error">{t('requiredAdvanceMoney')} !!</span>}
-                    </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Brand Name</span>
-                        </label>
-                        <input {...register("brand", { required: true })} type="text" placeholder="Type brand here" className="w-full input input-bordered" />
-                        {errors.brand?.type === 'required' && <span className="text-error">{t('requiredBrand')} !!</span>}
-                    </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Model</span>
-                        </label>
-                        <input {...register("model", { required: true })} type="text" placeholder="Type model here" className="w-full input input-bordered" />
-                        {errors.model?.type === 'required' && <span className="text-error">{t('requiredModel')} !!</span>}
-                    </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Origin Country</span>
-                        </label>
-                        <input {...register("originCountry", { required: true })} type="text" placeholder="Type origin country here" className="w-full input input-bordered" />
-                        {errors.originCountry?.type === 'required' && <span className="text-error">{t('requiredOriginCountry')} !!</span>}
-                    </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="label-text">Manufacturer</span>
-                        </label>
-                        <input {...register("manufacturer", { required: true })} type="text" placeholder="Type manufacturer here" className="w-full input input-bordered" />
-                        {errors.manufacturer?.type === 'required' && <span className="text-error">{t('requiredManufacturer')} !!</span>}
-                    </div>
-
                 </div>
-
                 <div className="w-full mt-5 form-control">
                     <label className="label">
                         <span className="label-text">Description</span>
@@ -245,7 +147,6 @@ const ShopForm = () => {
                     <textarea {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.description?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
                 </div>
-
                 {/* Variants Input */}
                 <div className="w-full mt-5 form-control">
                     <div className="flex items-center justify-between mb-2">
@@ -293,14 +194,14 @@ const ShopForm = () => {
                 <div className="w-full mt-5 form-control">
                     {/* <label htmlFor="fileUpload">Upload Images</label> */}
                     <label className="label">
-                        <span className="label-text">Upload Images</span>
+                        <span className="label-text">Upload Shop Banners</span>
                     </label>
                     <input
                         type="file"
                         id="fileUpload"
                         multiple
                         accept="image/*"
-                        {...register('images')}
+                        {...register('shopBanners')}
                         onChange={handleFileChange}
                         className={`${filesWithPreview?.length === 5 ? "hidden" : "file-input w-full file-input-bordered"}`}
                     />
