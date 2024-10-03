@@ -28,10 +28,10 @@ const ShopForm = () => {
         console.log(categories)
     }
 
-    const handleAddProduct = async (data) => {
+    const handleAddShop = async (data) => {
         try {
             const formData = new FormData();
-            formData.append('type', 'product');
+            formData.append('type', 'shop');
             formData.append('name', data.name);
             formData.append('quantity', data.quantity);
             formData.append('category', data.category);
@@ -125,7 +125,7 @@ const ShopForm = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit(handleAddProduct)} className="p-5 mx-auto border rounded-xl bg-base-200">
+            <form onSubmit={handleSubmit(handleAddShop)} className="p-5 mx-auto border rounded-xl bg-base-200">
                 <div className="grid gap-5 md:grid-cols-2">
                     <div className="w-full form-control">
                         <label className="label">

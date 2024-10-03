@@ -1,13 +1,11 @@
-import React, { createContext } from 'react'
+import React from 'react';
+import { createContext } from 'react';
 
 export const UtilityContext = createContext();
 
 const UtilityProvider = ({ children }) => {
 
-  const utilityInfo = {
-    test: "utility",
-    
-  }
+  const utilityInfo = {}
 
   return (
     <UtilityContext.Provider value={utilityInfo}>

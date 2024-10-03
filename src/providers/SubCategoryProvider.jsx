@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { createContext } from 'react';
 
-export const SubCategoryContext = useContext();
+export const SubCategoryContext = createContext();
 
 const SubCategoryProvider = ({ children }) => {
 
