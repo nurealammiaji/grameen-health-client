@@ -10,12 +10,7 @@ const ProductProvider = ({ children }) => {
     const axiosPrivate = useAxiosPrivate();
 
     const addProduct = async (formData) => {
-        console.log({formData});
-        return await axiosPrivate.post('/products/create', formData, {
-            // headers: {
-            //     'Content-Type': 'multipart/form-data',
-            // }
-        })
+        return await axiosPrivate.post('/products/create', formData)
     }
 
     const productInfo = {

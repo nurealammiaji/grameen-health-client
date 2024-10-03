@@ -5,10 +5,10 @@ import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
 import { ProductContext } from '../../providers/ProductProvider';
 import Swal from 'sweetalert2';
 import useShops from '../../hooks/useShops';
-import useCategories from './../../hooks/useCategories';
-import useSubCategories from './../../hooks/useSubCategories';
+import useCategories from '../../hooks/useCategories';
+import useSubCategories from '../../hooks/useSubCategories';
 
-const ProductForm = () => {
+const ShopForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const [isShopsLoading, shops, refetchShops] = useShops();
@@ -67,7 +67,7 @@ const ProductForm = () => {
             console.log('Response from server:', response.data);
 
             Swal.fire({
-                target: document.getElementById('add_product_modal'),
+                target: document.getElementById('add_shop_modal'),
                 position: "center",
                 icon: "success",
                 title: "Added Successfully !!",
@@ -77,7 +77,7 @@ const ProductForm = () => {
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
             Swal.fire({
-                target: document.getElementById('add_product_modal'),
+                target: document.getElementById('add_shop_modal'),
                 position: "center",
                 icon: "error",
                 title: `Axios: ${error.message}`,
@@ -330,4 +330,4 @@ const ProductForm = () => {
     );
 };
 
-export default ProductForm;
+export default ShopForm;
