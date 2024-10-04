@@ -11,7 +11,7 @@ import useSubCategories from './../../hooks/useSubCategories';
 const ProductForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
-    const [isShopsLoading, shops, refetchShops] = useShops();
+    const { isShopsLoading,shops, refetchShops,isShopsError,shopsError } = useShops();
     const { isCategoriesLoading, categories, refetchCategories, isCategoriesError, categoriesError } = useCategories();
     const { isSubCategoriesLoading, subCategories, refetchSubCategories, isSubCategoriesError, subCategoriesError } = useSubCategories();
     const { t } = useTranslation();
@@ -293,7 +293,7 @@ const ProductForm = () => {
                 <div className="w-full mt-5 form-control">
                     {/* <label htmlFor="fileUpload">Upload Images</label> */}
                     <label className="label">
-                        <span className="label-text">Upload Images</span>
+                        <span className="label-text">Upload Images: (Max 5)</span>
                     </label>
                     <input
                         type="file"

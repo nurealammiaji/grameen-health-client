@@ -1,7 +1,7 @@
 import React from 'react';
 import { createContext } from 'react';
 
-export const PaymentContext = createContext;
+export const PaymentContext = createContext();
 
 const PaymentProvider = ({ children }) => {
 

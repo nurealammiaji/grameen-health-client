@@ -11,7 +11,7 @@ import useSubCategories from '../../hooks/useSubCategories';
 const CategoryForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
-    const [isShopsLoading, shops, refetchShops] = useShops();
+    const { isShopsLoading,shops, refetchShops,isShopsError,shopsError } = useShops();
     const { isCategoriesLoading, categories, refetchCategories, isCategoriesError, categoriesError } = useCategories();
     const { isSubCategoriesLoading, subCategories, refetchSubCategories, isSubCategoriesError, subCategoriesError } = useSubCategories();
     const { t } = useTranslation();
