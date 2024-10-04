@@ -224,7 +224,7 @@ const ShopForm = () => {
                 </div>
 
                 {/* Submit Button */}
-                <button type="submit" className="w-full mt-8 btn btn-success">{t('addProduct')}</button>
+                <button type="submit" className="w-full mt-8 btn btn-success">{t('addShop')}</button>
 
             </form>
         </div>

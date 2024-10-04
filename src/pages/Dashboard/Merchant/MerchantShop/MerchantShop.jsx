@@ -1,13 +1,13 @@
 import React from 'react';
 import HelmetAsync from '../../../../components/HelmetAsync/HelmetAsync';
 
-const ManageStores = () => {
+const MerchantShop = () => {
     return (
         <div>
-            <HelmetAsync title={"Stores"} />
-            Manage Stores
+            <HelmetAsync title={"Shop"} />
+            Merchant Shop
         </div>
     );
 };
 
-export default ManageStores;
+export default MerchantShop;

@@ -21,7 +21,7 @@ const SearchDropdownAll = ({ props }) => {
         const fetchResults = async () => {
             if (query.trim()) {
                 try {
-                    const response = await axiosPublic.get('/search', {
+                    const response = await axiosPublic.get('/searches/read', {
                         params: { query },
                     });
                     setResults(response.data);

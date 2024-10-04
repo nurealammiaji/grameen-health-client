@@ -131,7 +131,7 @@ const Dashboard = () => {
                                 <>
                                     <li><NavLink to={"/dashboard/admin/profile"} className="text-white">< RiShieldUserFill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">{t('profile')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/users"} className="text-white"><FaUsers className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">{t('manageUsers')}</span></NavLink></li>
-                                    <li><NavLink to={"/dashboard/admin/stores"} className="text-white"><RiStore3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageStores')}</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/shops"} className="text-white"><RiStore3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageShops')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/orders"} className="text-white"><RiFileList3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageOrders')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/sliders"} className="text-white"><RiCarouselView className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageSliders')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/products"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageProducts')}</span></NavLink></li>
@@ -143,7 +143,7 @@ const Dashboard = () => {
                                 (userData && userData?.role === "merchant") &&
                                 <>
                                     <li><NavLink to={"/dashboard/merchant/profile"} className="text-white"><RiUser2Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">{t('profile')}</span></NavLink></li>
-                                    <li><NavLink to={"/dashboard/merchant/store"} className="text-white"><RiStore3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('myStore')}</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/merchant/shop"} className="text-white"><RiStore3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('myShop')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/merchant/payments"} className="text-white"><TbCoinTakaFilled className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('myPayments')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/merchant/orders"} className="text-white"><RiFileList3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageOrders')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/merchant/products"} className="text-white"><RiBox3Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">{t('manageProducts')}</span></NavLink></li>

@@ -22,16 +22,16 @@ import CustomerWishlist from "../pages/Dashboard/Customer/CustomerWishlist/Custo
 import CustomerPayments from "../pages/Dashboard/Customer/CustomerPayments/CustomerPayments";
 import Merchant from "../pages/Dashboard/Merchant/Merchant";
 import MerchantProfile from "../pages/Dashboard/Merchant/MerchantProfile/MerchantProfile";
-import MerchantStore from "../pages/Dashboard/Merchant/MerchantStore/MerchantStore";
+import MerchantShop from './../pages/Dashboard/Merchant/MerchantShop/MerchantShop';
 import MerchantPayments from "../pages/Dashboard/Merchant/MerchantPayments/MerchantPayments";
 import MerchantOrders from "../pages/Dashboard/Merchant/MerchantOrders/MerchantOrders";
 import MerchantProducts from "../pages/Dashboard/Merchant/MerchantProducts/MerchantProducts";
 import Admin from "../pages/Dashboard/Admin/Admin";
 import AdminProfile from "../pages/Dashboard/Admin/AdminProfile/AdminProfile";
 import ManageOrders from "../pages/Dashboard/Admin/ManageOrders/ManageOrders";
-import ManageStores from '../pages/Dashboard/Admin/ManageStores/ManageStores';
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import ManageSliders from "../pages/Dashboard/Admin/ManageSliders/ManageSliders";
+import ManageShops from "../pages/Dashboard/Admin/ManageShops/ManageShops";
 import ManageProducts from "../pages/Dashboard/Admin/ManageProducts/ManageProducts";
 import ManagePayments from "../pages/Dashboard/Admin/ManagePayments/ManagePayments";
 import ManageCategories from "../pages/Dashboard/Admin/ManageCategories/ManageCategories";
@@ -110,8 +110,8 @@ const AllRoutes = createBrowserRouter([
                 element: <PrivateRoute><AdminRoute><ManageUsers /></AdminRoute></PrivateRoute>
             },
             {
-                path: "/dashboard/admin/stores",
-                element: <PrivateRoute><AdminRoute><ManageStores /></AdminRoute></PrivateRoute>
+                path: "/dashboard/admin/shops",
+                element: <PrivateRoute><AdminRoute><ManageShops /></AdminRoute></PrivateRoute>
             },
             {
                 path: "/dashboard/admin/orders",
@@ -147,8 +147,8 @@ const AllRoutes = createBrowserRouter([
                 element: <PrivateRoute><MerchantRoute><MerchantPayments /></MerchantRoute></PrivateRoute>
             },
             {
-                path: "/dashboard/merchant/store",
-                element: <PrivateRoute><MerchantRoute><MerchantStore /></MerchantRoute></PrivateRoute>
+                path: "/dashboard/merchant/shop",
+                element: <PrivateRoute><MerchantRoute><MerchantShop /></MerchantRoute></PrivateRoute>
             },
             {
                 path: "/dashboard/merchant/orders",
