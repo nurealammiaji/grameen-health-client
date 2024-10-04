@@ -9,12 +9,15 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import AllRoutes from './routes/AllRoutes.jsx';
 import AuthProvider from './providers/AuthProvider.jsx';
 import UtilityProvider from './providers/UtilityProvider.jsx';
-import ProductProvider from './providers/ProductProvider.jsx';
 import ShopProvider from './providers/ShopProvider.jsx';
 import CategoryProvider from './providers/CategoryProvider.jsx';
-import OrderProvider from './providers/OrderProvider.jsx';
-import UserProvider from './providers/UserProvider.jsx';
 import SubCategoryProvider from './providers/SubCategoryProvider.jsx';
+import ProductProvider from './providers/ProductProvider.jsx';
+import UserProvider from './providers/UserProvider.jsx';
+import OrderProvider from './providers/OrderProvider.jsx';
+import ReviewProvider from './providers/ReviewProvider.jsx';
+import PaymentProvider from './providers/PaymentProvider.jsx';
+import CarouselProvider from './providers/CarouselProvider.jsx';
 
 const queryClient = new QueryClient();
 
@@ -23,23 +26,29 @@ createRoot(document.getElementById('root')).render(
     <HelmetProvider>
       <AuthProvider>
         <UtilityProvider>
-          <ShopProvider>
-            <CategoryProvider>
-              <SubCategoryProvider>
-                <ProductProvider>
-                  <UserProvider>
-                    <OrderProvider>
-                      <QueryClientProvider client={queryClient}>
-                        <RouterProvider router={AllRoutes}>
-                          <App />
-                        </RouterProvider>
-                      </QueryClientProvider>
-                    </OrderProvider>
-                  </UserProvider>
-                </ProductProvider>
-              </SubCategoryProvider>
-            </CategoryProvider>
-          </ShopProvider>
+          <CarouselProvider>
+            <ShopProvider>
+              <CategoryProvider>
+                <SubCategoryProvider>
+                  <ProductProvider>
+                    <UserProvider>
+                      <OrderProvider>
+                        <PaymentProvider>
+                          <ReviewProvider>
+                            <QueryClientProvider client={queryClient}>
+                              <RouterProvider router={AllRoutes}>
+                                <App />
+                              </RouterProvider>
+                            </QueryClientProvider>
+                          </ReviewProvider>
+                        </PaymentProvider>
+                      </OrderProvider>
+                    </UserProvider>
+                  </ProductProvider>
+                </SubCategoryProvider>
+              </CategoryProvider>
+            </ShopProvider>
+          </CarouselProvider>
         </UtilityProvider>
       </AuthProvider>
     </HelmetProvider>
