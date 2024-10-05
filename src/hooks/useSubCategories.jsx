@@ -23,13 +23,7 @@ const useSubCategories = () => {
         },
     });
 
-    return {
-        isSubCategoriesLoading,
-        subCategories,
-        refetchSubCategories,
-        isSubCategoriesError,
-        subCategoriesError
-    };
+    return { isSubCategoriesLoading, subCategories, refetchSubCategories, isSubCategoriesError, subCategoriesError };
 };
 
 export default useSubCategories;

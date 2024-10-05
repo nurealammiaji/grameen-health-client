@@ -23,13 +23,7 @@ const useProducts = () => {
         },
     });
 
-    return {
-        isProductsLoading,
-        products,
-        refetchProducts,
-        isProductsError,
-        productsError
-    };
+    return { isProductsLoading, products, refetchProducts, isProductsError, productsError };
 };
 
 export default useProducts;

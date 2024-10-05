@@ -27,13 +27,7 @@ const useUser = () => {
         },
     });
 
-    return {
-        isUserLoading,
-        isUserError,
-        userData,
-        refetchUser,
-        userError
-    };
+    return { isUserLoading, isUserError, userData, refetchUser, userError };
 };
 
 export default useUser;

@@ -26,13 +26,7 @@ const useCategories = () => {
         },
     });
 
-    return {
-        isCategoriesLoading,
-        categories,
-        refetchCategories,
-        isCategoriesError,
-        categoriesError
-    };
+    return { isCategoriesLoading, categories, refetchCategories, isCategoriesError, categoriesError };
 };
 
 export default useCategories;

@@ -14,7 +14,7 @@ const useShops = () => {
         queryKey: ['shops', 'read'],
         queryFn: async () => {
             const res = await axiosPublic.get('/shops/read');
-            return res.data; // Add any necessary transformation here
+            return res.data;
         },
         staleTime: 5 * 60 * 1000, // 5 minutes
         cacheTime: 15 * 60 * 1000, // 15 minutes
@@ -23,13 +23,7 @@ const useShops = () => {
         },
     });
 
-    return {
-        isShopsLoading,
-        shops,
-        refetchShops,
-        isShopsError,
-        shopsError
-    };
+    return { isShopsLoading, shops, refetchShops, isShopsError, shopsError };
 };
 
 export default useShops;

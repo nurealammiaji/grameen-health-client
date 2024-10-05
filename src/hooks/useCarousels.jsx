@@ -26,13 +26,7 @@ const useCarousels = () => {
         },
     });
 
-    return {
-        isCarouselsLoading,
-        carousels,
-        refetchCarousels,
-        isCarouselsError,
-        carouselsError
-    };
+    return { isCarouselsLoading, carousels, refetchCarousels, isCarouselsError, carouselsError };
 };
 
 export default useCarousels;

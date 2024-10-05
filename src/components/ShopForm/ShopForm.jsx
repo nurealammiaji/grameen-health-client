@@ -2,58 +2,43 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
-import { ProductContext } from '../../providers/ProductProvider';
 import Swal from 'sweetalert2';
-import useShops from '../../hooks/useShops';
-import useCategories from '../../hooks/useCategories';
-import useSubCategories from '../../hooks/useSubCategories';
+import useMerchants from '../../hooks/useMerchants';
+import { ShopContext } from './../../providers/ShopProvider';
 
 const ShopForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
-    const { isShopsLoading,shops, refetchShops,isShopsError,shopsError } = useShops();
-    const { isCategoriesLoading, categories, refetchCategories, isCategoriesError, categoriesError } = useCategories();
-    const { isSubCategoriesLoading, subCategories, refetchSubCategories, isSubCategoriesError, subCategoriesError } = useSubCategories();
+    const { isMerchantsLoading, merchants, refetchMerchants, isMerchantsError, merchantsError } = useMerchants();
     const { t } = useTranslation();
+    const [fileWithPreview, setFileWithPreview] = useState(null);
     const [filesWithPreview, setFilesWithPreview] = useState([]);
-    const [variants, setVariants] = useState([]);
-    const { addProduct } = useContext(ProductContext);
-
-    const variantOptions = ['size', 'color', 'pieces'];
-
-    if (subCategories) {
-        console.log(subCategories)
-    }
-    if (categories) {
-        console.log(categories)
-    }
+    const { addShop } = useContext(ShopContext);
 
     const handleAddShop = async (data) => {
         try {
             const formData = new FormData();
             formData.append('type', 'shop');
             formData.append('name', data.name);
-            formData.append('category', data.category);
+            formData.append('ownerId', data.merchant);
             formData.append('description', data.description);
 
-            variants.forEach((variant) => {
-                const variantData = {};
-                if (variant.type === 'size' && variant.value) variantData.size = variant.value;
-                if (variant.type === 'color' && variant.value) variantData.color = variant.value;
-                if (variant.type === 'pieces' && variant.value) variantData.pieces = variant.value;
+            // Single Image
+            if (fileWithPreview) {
+                formData.append('shopLogo', fileWithPreview.file);
+            }
 
-                if (Object.keys(variantData).length > 0) {
-                    formData.append('variants[]', JSON.stringify(variantData)); // Check this format with your backend
-                }
-            });
+            // Multiple Images
+            if (filesWithPreview) {
+                filesWithPreview.forEach(item => {
+                    formData.append('shopBanners[]', item.file);
+                });
+            }
 
-            filesWithPreview.forEach(item => {
-                formData.append('shopBanners[]', item.file);
-            });
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
 
-            const response = await addProduct(formData);
+            const response = await addShop(formData);
             console.log('Response from server:', response.data);
 
             Swal.fire({
@@ -77,9 +62,29 @@ const ShopForm = () => {
         }
     };
 
-
-    // Handle file changes
+    // Handle file change
     const handleFileChange = (event) => {
+        const file = event.target.files[0]; // Get the first file
+        if (file) {
+            const newFileWithPreview = {
+                file,
+                preview: URL.createObjectURL(file), // Create a blob URL for preview
+            };
+            setFileWithPreview(newFileWithPreview); // Update state with the new file
+            event.target.value = ''; // Clear the input for the same file upload
+        }
+    };
+
+    // Remove image
+    const removeImage = () => {
+        if (fileWithPreview) {
+            URL.revokeObjectURL(fileWithPreview.preview); // Cleanup URL
+            setFileWithPreview(null); // Clear the file state
+        }
+    };
+
+    // Handle files changes
+    const handleFilesChange = (event) => {
         const files = Array.from(event.target.files);
         const newFilesWithPreview = files.map(file => ({
             file,
@@ -89,8 +94,8 @@ const ShopForm = () => {
         event.target.value = ''; // Clear the input for the same file upload
     };
 
-    // Remove an image
-    const removeImage = (index) => {
+    // Remove images
+    const removeImages = (index) => {
         setFilesWithPreview(prev => {
             const updatedFiles = [...prev];
             URL.revokeObjectURL(updatedFiles[index].preview); // Cleanup URL
@@ -99,102 +104,75 @@ const ShopForm = () => {
         });
     };
 
-    const handleVariantChange = (index, field, value) => {
-        const newVariants = [...variants];
-        newVariants[index][field] = value;
-        setVariants(newVariants);
-    };
-
-    const addVariant = () => {
-        setVariants([...variants, { type: 'size', value: '' }]);
-    };
-
-    const removeVariant = (index) => {
-        setVariants(variants.filter((_, i) => i !== index));
-    };
-
     return (
         <div>
             <form onSubmit={handleSubmit(handleAddShop)} className="p-5 mx-auto border rounded-xl bg-base-200">
                 <div className="grid gap-5 md:grid-cols-2">
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text">Shop Name</span>
+                            <span className="label-text font-semibold">Shop Name</span>
                         </label>
                         <input {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
                         {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text">Owner / Merchant</span>
+                            <span className="label-text font-semibold">Owner / Merchant</span>
                         </label>
-                        <select {...register("category", { required: true })} className="w-full select select-bordered">
-                            <option value="">select category</option>
+                        <select {...register("merchant", { required: true })} className="w-full select select-bordered">
+                            <option value="">select merchant</option>
                             {
-                                (categories) &&
-                                categories.map((category, index) => (
-                                    <option key={index} value={category._id}>{category.name}</option>
+                                (merchants) &&
+                                merchants.map((merchant, index) => (
+                                    <option key={index} value={merchant._id}>{merchant.name}</option>
                                 ))
                             }
                         </select>
-                        {errors.category?.type === 'required' && <span className="text-error">{t('requiredCategory')} !!</span>}
+                        {errors.category?.type === 'required' && <span className="text-error">{t('requiredMerchant')} !!</span>}
                     </div>
                 </div>
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="label-text">Description</span>
+                        <span className="label-text font-semibold">Description</span>
                     </label>
                     <textarea {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.description?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
                 </div>
-                {/* Variants Input */}
+
+                {/* Single File Upload Section */}
                 <div className="w-full mt-5 form-control">
-                    <div className="flex items-center justify-between mb-2">
-                        <label className="label">
-                            <span className="flex label-text">
-                                <span className="hidden mr-2 sm:block">Variants (Choose Type)</span>
-                            </span>
-                        </label>
-                        <button type="button" onClick={addVariant} className={`${variants.length > 0 ? "btn btn-xs btn-info" : "hidden"}`}>
-                            <RiAddBoxFill /> Add More
-                        </button>
-                    </div>
-                    {variants.map((variant, index) => (
-                        <div key={index} className="flex items-center w-full my-2">
-                            <select
-                                value={variant.type}
-                                onChange={(e) => handleVariantChange(index, 'type', e.target.value)}
-                                className="w-1/3 mr-2 select select-bordered"
-                            >
-                                {variantOptions.map((option) => (
-                                    <option key={option} value={option}>
-                                        {option.charAt(0).toUpperCase() + option.slice(1)}
-                                    </option>
-                                ))}
-                            </select>
-                            <input
-                                type="text"
-                                value={variant.value}
-                                {...register('variants')}
-                                onChange={(e) => handleVariantChange(index, 'value', e.target.value)}
-                                className="w-2/3 mr-2 input input-bordered"
-                                placeholder={`Enter ${variant.type}`}
-                            />
-                            <button type="button" onClick={() => removeVariant(index)} className="btn btn-error">
-                                <RiDeleteBin2Fill className="text-lg" />
-                            </button>
-                        </div>
-                    ))}
-                    <button type="button" onClick={addVariant} className={`${variants?.length === 0 ? "btn btn-sm btn-info" : "hidden"}`}>
-                        <RiAddBoxFill /> Add Variant
-                    </button>
+                    <label className="label">
+                        <span className="label-text font-semibold">Shop Logo {(fileWithPreview) ? <span className="text-success font-normal">(Selected: 1 Image)</span> : <span className="text-error font-normal">(Max: 1 Image)</span>}</span>
+                    </label>
+                    <input
+                        type="file"
+                        id="fileUpload"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className={`${fileWithPreview ? "hidden" : "file-input w-full file-input-bordered"}`}
+                    />
                 </div>
 
-                {/* File Upload Section */}
+                {/* Image Preview */}
+                {fileWithPreview && (
+                    <div className="grid grid-cols-3 gap-4 mt-5">
+                        <div className="relative">
+                            <img src={fileWithPreview?.preview} alt="Preview" className="w-full h-40 rounded" />
+                            <button
+                                type="button"
+                                onClick={removeImage}
+                                className="absolute top-0 right-0 p-1 text-red-500 bg-white rounded-full hover:bg-gray-200"
+                            >
+                                <RiDeleteBin2Fill />
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {/* Multiple Files Upload Section */}
                 <div className="w-full mt-5 form-control">
-                    {/* <label htmlFor="fileUpload">Upload Images</label> */}
                     <label className="label">
-                        <span className="label-text">Upload Shop Banners</span>
+                        <span className="label-text font-semibold">Shop Banners {(filesWithPreview?.length > 0) ? <span className="text-success font-normal">(Selected: {(filesWithPreview?.length > 1) ? `${filesWithPreview?.length} Images` : `${filesWithPreview?.length} Image`})</span> : <span className="text-error font-normal">(Max: 5 Images)</span>}</span>
                     </label>
                     <input
                         type="file"
@@ -202,19 +180,20 @@ const ShopForm = () => {
                         multiple
                         accept="image/*"
                         {...register('shopBanners')}
-                        onChange={handleFileChange}
+                        onChange={handleFilesChange}
                         className={`${filesWithPreview?.length === 5 ? "hidden" : "file-input w-full file-input-bordered"}`}
                     />
                 </div>
 
-                {/* Image Previews */}
-                <div className="grid grid-cols-3 gap-4 mt-5">
+                {/* Images Previews */}
+                {filesWithPreview && (
+                    <div className="grid grid-cols-3 gap-4 mt-5">
                     {filesWithPreview.map((item, index) => (
                         <div key={index} className="relative">
                             <img src={item.preview} alt={`Preview ${index}`} className="w-full h-40 rounded" />
                             <button
                                 type="button"
-                                onClick={() => removeImage(index)}
+                                onClick={() => removeImages(index)}
                                 className="absolute top-0 right-0 p-1 text-red-500 bg-white rounded-full hover:bg-gray-200"
                             >
                                 <RiDeleteBin2Fill />
@@ -222,6 +201,7 @@ const ShopForm = () => {
                         </div>
                     ))}
                 </div>
+                )}
 
                 {/* Submit Button */}
                 <button type="submit" className="w-full mt-8 btn btn-success">{t('addShop')}</button>
