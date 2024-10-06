@@ -4,22 +4,25 @@ import { useTranslation } from 'react-i18next';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import Swal from 'sweetalert2';
 import useMerchants from '../../hooks/useMerchants';
-import { CategoryContext } from '../../providers/CategoryProvider';
+import { SubCategoryContext } from '../../providers/SubCategoryProvider';
+import useCategories from '../../hooks/useCategories';
 
-const CategoryForm = () => {
+const SubCategoryForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isMerchantsLoading, merchants, refetchMerchants, isMerchantsError, merchantsError } = useMerchants();
+    const { isCategoriesLoading, categories, refetchCategories, isCategoriesError, categoriesError } = useCategories();
     const { t } = useTranslation();
     const [fileWithPreview, setFileWithPreview] = useState(null);
-    const {addCategory} = useContext(CategoryContext);
+    const { addSubCategory } = useContext(SubCategoryContext);
 
-    const handleAddCategory = async (data) => {
+    const handleAddSubCategory = async (data) => {
         try {
             const formData = new FormData();
-            formData.append('type', 'category');
+            formData.append('type', 'subCategory');
             formData.append('name', data.name);
             formData.append('status', data.status);
+            formData.append('category', data.category);
             formData.append('description', data.description);
 
             // Single Image
@@ -29,11 +32,11 @@ const CategoryForm = () => {
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
 
-            const response = await addCategory(formData);
+            const response = await addSubCategory(formData);
             console.log('Response from server:', response.data);
 
             Swal.fire({
-                target: document.getElementById('add_category_modal'),
+                target: document.getElementById('add_subCategory_modal'),
                 position: "center",
                 icon: "success",
                 title: "Added Successfully !!",
@@ -43,7 +46,7 @@ const CategoryForm = () => {
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
             Swal.fire({
-                target: document.getElementById('add_category_modal'),
+                target: document.getElementById('add_subCategory_modal'),
                 position: "center",
                 icon: "error",
                 title: `Axios: ${error.message}`,
@@ -76,18 +79,18 @@ const CategoryForm = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit(handleAddCategory)} className="p-5 mx-auto border rounded-xl bg-base-200">
-                <div className="grid gap-5 md:grid-cols-2">
+            <form onSubmit={handleSubmit(handleAddSubCategory)} className="p-5 mx-auto border rounded-xl bg-base-200">
+                <div className="w-full form-control">
+                    <label className="label">
+                        <span className="font-semibold label-text">Sub Category Name</span>
+                    </label>
+                    <input {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
+                    {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
+                </div>
+                <div className="grid gap-5 mt-5 md:grid-cols-2">
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="font-semibold label-text">Category Name</span>
-                        </label>
-                        <input {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
-                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
-                    </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="font-semibold label-text">Category Status</span>
+                            <span className="font-semibold label-text">Sub Category Status</span>
                         </label>
                         <select {...register("status", { required: true })} className="w-full select select-bordered">
                             <option className="text-slate-500" value="">select status</option>
@@ -96,6 +99,21 @@ const CategoryForm = () => {
                             <option className="font-medium text-warning" value="pending">Pending</option>
                         </select>
                         {errors.status?.type === 'required' && <span className="text-error">{t('requiredStatus')} !!</span>}
+                    </div>
+                    <div className="w-full form-control">
+                        <label className="label">
+                            <span className="font-semibold label-text">Parent Category</span>
+                        </label>
+                        <select {...register("category", { required: true })} className="w-full select select-bordered">
+                            <option value="">select category</option>
+                            {
+                                (categories) &&
+                                categories.map((category, index) => (
+                                    <option key={index} value={category._id}>{category.name}</option>
+                                ))
+                            }
+                        </select>
+                        {errors.category?.type === 'required' && <span className="text-error">{t('requiredCategory')} !!</span>}
                     </div>
                 </div>
                 <div className="w-full mt-5 form-control">
@@ -109,7 +127,7 @@ const CategoryForm = () => {
                 {/* Single File Upload Section */}
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">Category Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-error">(Max: 1 Image)</span>}</span>
+                        <span className="font-semibold label-text">Sub Category Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-error">(Max: 1 Image)</span>}</span>
                     </label>
                     <input
                         type="file"
@@ -138,11 +156,11 @@ const CategoryForm = () => {
                 )}
 
                 {/* Submit Button */}
-                <button type="submit" className="w-full mt-8 btn btn-success">{t('addCategory')}</button>
+                <button type="submit" className="w-full mt-8 btn btn-success">{t('addSubCategory')}</button>
 
             </form>
         </div>
     );
 };
 
-export default CategoryForm;
+export default SubCategoryForm;

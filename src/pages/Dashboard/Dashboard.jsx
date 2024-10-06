@@ -2,7 +2,8 @@ import React, { useContext } from 'react'
 import HelmetAsync from '../../components/HelmetAsync/HelmetAsync'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import icon from '../../assets/icon.png'
-import { RiBox3Fill, RiCarouselView, RiFileList3Fill, RiFunctionFill, RiHeartFill, RiHome8Fill, RiLogoutCircleRFill, RiMapPinFill, RiPhoneFill, RiPieChart2Fill, RiShieldUserFill, RiShoppingCart2Fill, RiStore3Fill, RiTimerFlashFill, RiUser2Fill, RiUser3Fill } from 'react-icons/ri'
+import { RiBox3Fill, RiCarouselView, RiFileList3Fill, RiHeartFill, RiHome8Fill, RiLogoutCircleRFill, RiMapPinFill, RiPhoneFill, RiPieChart2Fill, RiShieldUserFill, RiShoppingCart2Fill, RiStore3Fill, RiTimerFlashFill, RiUser2Fill, RiUser3Fill } from 'react-icons/ri';
+import { BiSolidCategory, BiSolidCategoryAlt } from 'react-icons/bi';
 import { TbCoinTakaFilled } from "react-icons/tb";
 import useUser from '../../hooks/useUser'
 import { AuthContext } from '../../providers/AuthProvider'
@@ -136,7 +137,8 @@ const Dashboard = () => {
                                     <li><NavLink to={"/dashboard/admin/sliders"} className="text-white"><RiCarouselView className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageSliders')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/products"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageProducts')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/payments"} className="text-white"><TbCoinTakaFilled className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('managePayments')}</span></NavLink></li>
-                                    <li><NavLink to={"/dashboard/admin/categories"} className="text-white"><RiFunctionFill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageCategories')}</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/categories"} className="text-white"><BiSolidCategory className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageCategories')}</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/subCategories"} className="text-white"><BiSolidCategoryAlt className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageSubCategories')}</span></NavLink></li>
                                 </>
                             }
                             {

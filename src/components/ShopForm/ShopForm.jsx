@@ -110,14 +110,14 @@ const ShopForm = () => {
                 <div className="grid gap-5 md:grid-cols-2">
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Shop Name</span>
+                            <span className="font-semibold label-text">Shop Name</span>
                         </label>
                         <input {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
                         {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Owner / Merchant</span>
+                            <span className="font-semibold label-text">Owner / Merchant</span>
                         </label>
                         <select {...register("merchant", { required: true })} className="w-full select select-bordered">
                             <option value="">select merchant</option>
@@ -133,7 +133,7 @@ const ShopForm = () => {
                 </div>
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="label-text font-semibold">Description</span>
+                        <span className="font-semibold label-text">Description</span>
                     </label>
                     <textarea {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.description?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
@@ -142,7 +142,7 @@ const ShopForm = () => {
                 {/* Single File Upload Section */}
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="label-text font-semibold">Shop Logo {(fileWithPreview) ? <span className="text-success font-normal">(Selected: 1 Image)</span> : <span className="text-error font-normal">(Max: 1 Image)</span>}</span>
+                        <span className="font-semibold label-text">Shop Logo {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-error">(Max: 1 Image)</span>}</span>
                     </label>
                     <input
                         type="file"
@@ -155,7 +155,7 @@ const ShopForm = () => {
 
                 {/* Image Preview */}
                 {fileWithPreview && (
-                    <div className="grid grid-cols-3 gap-4 mt-5">
+                    <div className="mt-5">
                         <div className="relative">
                             <img src={fileWithPreview?.preview} alt="Preview" className="w-full h-40 rounded" />
                             <button
@@ -172,7 +172,7 @@ const ShopForm = () => {
                 {/* Multiple Files Upload Section */}
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="label-text font-semibold">Shop Banners {(filesWithPreview?.length > 0) ? <span className="text-success font-normal">(Selected: {(filesWithPreview?.length > 1) ? `${filesWithPreview?.length} Images` : `${filesWithPreview?.length} Image`})</span> : <span className="text-error font-normal">(Max: 5 Images)</span>}</span>
+                        <span className="font-semibold label-text">Shop Banners {(filesWithPreview?.length > 0) ? <span className="font-normal text-success">(Selected: {(filesWithPreview?.length > 1) ? `${filesWithPreview?.length} Images` : `${filesWithPreview?.length} Image`})</span> : <span className="font-normal text-error">(Max: 5 Images)</span>}</span>
                     </label>
                     <input
                         type="file"

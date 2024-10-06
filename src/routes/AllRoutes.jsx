@@ -36,6 +36,7 @@ import ManageProducts from "../pages/Dashboard/Admin/ManageProducts/ManageProduc
 import ManagePayments from "../pages/Dashboard/Admin/ManagePayments/ManagePayments";
 import ManageCategories from "../pages/Dashboard/Admin/ManageCategories/ManageCategories";
 import Order from "../pages/Order/Order";
+import ManageSubCategories from "../pages/Dashboard/Admin/ManageSubCategories/ManageSubCategories";
 
 const AllRoutes = createBrowserRouter([
     // Public Routes
@@ -132,6 +133,10 @@ const AllRoutes = createBrowserRouter([
             {
                 path: "/dashboard/admin/categories",
                 element: <PrivateRoute><AdminRoute><ManageCategories /></AdminRoute></PrivateRoute>
+            },
+            {
+                path: "/dashboard/admin/subCategories",
+                element: <PrivateRoute><AdminRoute><ManageSubCategories /></AdminRoute></PrivateRoute>
             },
             // Merchant Routes
             {

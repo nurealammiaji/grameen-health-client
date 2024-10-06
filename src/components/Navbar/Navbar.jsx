@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
 import { RiMenu2Line, RiCloseLargeLine, RiPieChart2Fill, RiMapPinFill, RiTimerFlashFill, RiHome8Fill, RiPhoneFill, RiShoppingCart2Line, RiHeartLine, RiUserReceived2Line, RiUser3Line } from "react-icons/ri";
-import { TbCategoryFilled } from "react-icons/tb";
+import { BiSolidCategory } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
 import icon from "../../assets/icon.png";
 import useUser from "../../hooks/useUser";
@@ -191,7 +191,7 @@ const Navbar = () => {
                     <summary tabIndex={0} role="button" className="flex items-center text-white sm:btn-sm lg:btn-md btn btn-outline" onClick={() => setCategoryToggle(!categoryToggle)} >
                         {
                             (categoryToggle) ?
-                                <TbCategoryFilled className="lg:text-2xl" /> :
+                                <BiSolidCategory className="lg:text-2xl" /> :
                                 <RiCloseLargeLine className="lg:text-2xl" />
                         }
                         <span className="font-bold lg:text-lg">{t('categories')}</span>
