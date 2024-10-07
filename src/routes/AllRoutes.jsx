@@ -30,7 +30,7 @@ import Admin from "../pages/Dashboard/Admin/Admin";
 import AdminProfile from "../pages/Dashboard/Admin/AdminProfile/AdminProfile";
 import ManageOrders from "../pages/Dashboard/Admin/ManageOrders/ManageOrders";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
-import ManageSliders from "../pages/Dashboard/Admin/ManageSliders/ManageSliders";
+import ManageCarousels from "../pages/Dashboard/Admin/ManageCarousels/ManageCarousels";
 import ManageShops from "../pages/Dashboard/Admin/ManageShops/ManageShops";
 import ManageProducts from "../pages/Dashboard/Admin/ManageProducts/ManageProducts";
 import ManagePayments from "../pages/Dashboard/Admin/ManagePayments/ManagePayments";
@@ -119,8 +119,8 @@ const AllRoutes = createBrowserRouter([
                 element: <PrivateRoute><AdminRoute><ManageOrders /></AdminRoute></PrivateRoute>
             },
             {
-                path: "/dashboard/admin/sliders",
-                element: <PrivateRoute><AdminRoute><ManageSliders /></AdminRoute></PrivateRoute>
+                path: "/dashboard/admin/carousels",
+                element: <PrivateRoute><AdminRoute><ManageCarousels /></AdminRoute></PrivateRoute>
             },
             {
                 path: "/dashboard/admin/products",

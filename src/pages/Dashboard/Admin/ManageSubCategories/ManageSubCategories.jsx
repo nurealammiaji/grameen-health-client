@@ -15,13 +15,13 @@ const ManageSubCategories = () => {
             <br />
             <div className="items-center justify-around gap-5 text-center md:flex">
                 <div>
-                    <button onClick={() => document.getElementById('add_subCategory_modal').showModal()} className="btn btn-outline btn-info"><RiAddBoxFill className="text-2xl" /> Add Sub Category</button>
+                    <button onClick={() => document.getElementById('add_subCategory_modal').showModal()} className="btn btn-outline btn-info"><RiAddBoxFill className="text-2xl" />Sub Category</button>
                 </div>
                 <div className="mt-5 md:mt-0">
                     <SearchProducts />
                 </div>
                 <div className="mt-5 md:mt-0">
-                    <button disabled className="btn btn-outline btn-error"><RiDeleteBin2Fill className="text-2xl" /> Delete Sub Category</button>
+                    <button disabled className="btn btn-outline btn-error"><RiDeleteBin2Fill className="text-2xl" />Sub Category</button>
                 </div>
             </div>
             <br />

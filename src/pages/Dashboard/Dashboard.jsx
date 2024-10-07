@@ -134,9 +134,9 @@ const Dashboard = () => {
                                     <li><NavLink to={"/dashboard/admin/users"} className="text-white"><FaUsers className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">{t('manageUsers')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/shops"} className="text-white"><RiStore3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageShops')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/orders"} className="text-white"><RiFileList3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageOrders')}</span></NavLink></li>
-                                    <li><NavLink to={"/dashboard/admin/sliders"} className="text-white"><RiCarouselView className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageSliders')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/products"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageProducts')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/payments"} className="text-white"><TbCoinTakaFilled className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('managePayments')}</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/carousels"} className="text-white"><RiCarouselView className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('ManageCarousels')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/categories"} className="text-white"><BiSolidCategory className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageCategories')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/subCategories"} className="text-white"><BiSolidCategoryAlt className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageSubCategories')}</span></NavLink></li>
                                 </>
