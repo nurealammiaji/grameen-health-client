@@ -20,7 +20,8 @@ const ShopForm = () => {
             const formData = new FormData();
             formData.append('type', 'shop');
             formData.append('name', data.name);
-            formData.append('ownerId', data.merchant);
+            formData.append('merchant', data.merchant);
+            formData.append('address', data.address);
             formData.append('description', data.description);
 
             // Single Image
@@ -34,7 +35,6 @@ const ShopForm = () => {
                     formData.append('shopBanners[]', item.file);
                 });
             }
-
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
 
@@ -117,7 +117,7 @@ const ShopForm = () => {
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="font-semibold label-text">Owner / Merchant</span>
+                            <span className="font-semibold label-text">Shop Owner</span>
                         </label>
                         <select {...register("merchant", { required: true })} className="w-full select select-bordered">
                             <option value="">select merchant</option>
@@ -133,7 +133,14 @@ const ShopForm = () => {
                 </div>
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">Description</span>
+                        <span className="font-semibold label-text">Shop Address</span>
+                    </label>
+                    <textarea {...register("address", { required: true })} rows={3} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
+                    {errors.address?.type === 'required' && <span className="text-error">{t('requiredAddress')} !!</span>}
+                </div>
+                <div className="w-full mt-5 form-control">
+                    <label className="label">
+                        <span className="font-semibold label-text">Shop Description</span>
                     </label>
                     <textarea {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.description?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
@@ -188,19 +195,19 @@ const ShopForm = () => {
                 {/* Images Previews */}
                 {filesWithPreview && (
                     <div className="grid grid-cols-3 gap-4 mt-5">
-                    {filesWithPreview.map((item, index) => (
-                        <div key={index} className="relative">
-                            <img src={item.preview} alt={`Preview ${index}`} className="w-full h-40 rounded" />
-                            <button
-                                type="button"
-                                onClick={() => removeImages(index)}
-                                className="absolute top-0 right-0 p-1 text-red-500 bg-white rounded-full hover:bg-gray-200"
-                            >
-                                <RiDeleteBin2Fill />
-                            </button>
-                        </div>
-                    ))}
-                </div>
+                        {filesWithPreview.map((item, index) => (
+                            <div key={index} className="relative">
+                                <img src={item.preview} alt={`Preview ${index}`} className="w-full h-40 rounded" />
+                                <button
+                                    type="button"
+                                    onClick={() => removeImages(index)}
+                                    className="absolute top-0 right-0 p-1 text-red-500 bg-white rounded-full hover:bg-gray-200"
+                                >
+                                    <RiDeleteBin2Fill />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
                 )}
 
                 {/* Submit Button */}

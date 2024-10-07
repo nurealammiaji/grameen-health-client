@@ -2,6 +2,7 @@ import React from 'react';
 import HelmetAsync from '../../../../components/HelmetAsync/HelmetAsync';
 import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
 import AddShop from '../../../../components/AddShop/AddShop';
+import ShopLists from '../../../../components/ShopLists/ShopLists';
 
 const ManageShops = () => {
     return (
@@ -13,7 +14,7 @@ const ManageShops = () => {
             <br />
             <div className="items-center justify-around gap-5 text-center md:flex">
                 <div>
-                <button onClick={() => document.getElementById('add_shop_modal').showModal()} className="btn btn-outline btn-info"><RiAddBoxFill className="text-2xl" />Shop</button>
+                    <button onClick={() => document.getElementById('add_shop_modal').showModal()} className="btn btn-outline btn-info"><RiAddBoxFill className="text-2xl" />Shop</button>
                 </div>
                 <div className="mt-5 md:mt-0">
                     {/* <SearchProducts /> */}
@@ -24,6 +25,10 @@ const ManageShops = () => {
             </div>
             <br />
             <AddShop />
+            <br />
+            <div>
+                <ShopLists />
+            </div>
         </div>
     );
 };
