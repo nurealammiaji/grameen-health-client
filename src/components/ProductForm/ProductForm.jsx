@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import useShops from '../../hooks/useShops';
 import useCategories from './../../hooks/useCategories';
 import useSubCategories from './../../hooks/useSubCategories';
+import useProducts from './../../hooks/useProducts';
 
 const ProductForm = () => {
 
@@ -14,6 +15,7 @@ const ProductForm = () => {
     const { isShopsLoading, shops, refetchShops, isShopsError, shopsError } = useShops();
     const { isCategoriesLoading, categories, refetchCategories, isCategoriesError, categoriesError } = useCategories();
     const { isSubCategoriesLoading, subCategories, refetchSubCategories, isSubCategoriesError, subCategoriesError } = useSubCategories();
+    const { isProductsLoading, products, refetchProducts, isProductsError, productsError } = useProducts();
     const { t } = useTranslation();
     const [filesWithPreview, setFilesWithPreview] = useState([]);
     const [variants, setVariants] = useState([]);
@@ -74,6 +76,10 @@ const ProductForm = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
+
+            refetchProducts();
+            reset();
+
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
             Swal.fire({

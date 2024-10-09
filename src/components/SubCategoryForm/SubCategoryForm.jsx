@@ -6,12 +6,14 @@ import Swal from 'sweetalert2';
 import useMerchants from '../../hooks/useMerchants';
 import { SubCategoryContext } from '../../providers/SubCategoryProvider';
 import useCategories from '../../hooks/useCategories';
+import useSubCategories from '../../hooks/useSubCategories';
 
 const SubCategoryForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isMerchantsLoading, merchants, refetchMerchants, isMerchantsError, merchantsError } = useMerchants();
     const { isCategoriesLoading, categories, refetchCategories, isCategoriesError, categoriesError } = useCategories();
+    const { isSubCategoriesLoading, subCategories, refetchSubCategories, isSubCategoriesError, subCategoriesError } = useSubCategories();
     const { t } = useTranslation();
     const [fileWithPreview, setFileWithPreview] = useState(null);
     const { addSubCategory } = useContext(SubCategoryContext);
@@ -43,6 +45,10 @@ const SubCategoryForm = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
+
+            refetchSubCategories();
+            reset();
+
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
             Swal.fire({

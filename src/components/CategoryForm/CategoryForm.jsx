@@ -5,14 +5,15 @@ import { RiDeleteBin2Fill } from 'react-icons/ri';
 import Swal from 'sweetalert2';
 import useMerchants from '../../hooks/useMerchants';
 import { CategoryContext } from '../../providers/CategoryProvider';
+import useCategories from '../../hooks/useCategories';
 
 const CategoryForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
-    const { isMerchantsLoading, merchants, refetchMerchants, isMerchantsError, merchantsError } = useMerchants();
+    const { isCategoriesLoading, categories, refetchCategories, isCategoriesError, categoriesError } = useCategories();
     const { t } = useTranslation();
     const [fileWithPreview, setFileWithPreview] = useState(null);
-    const {addCategory} = useContext(CategoryContext);
+    const { addCategory } = useContext(CategoryContext);
 
     const handleAddCategory = async (data) => {
         try {
@@ -40,6 +41,10 @@ const CategoryForm = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
+
+            refetchCategories();
+            reset();
+
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
             Swal.fire({

@@ -5,11 +5,13 @@ import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
 import Swal from 'sweetalert2';
 import useMerchants from '../../hooks/useMerchants';
 import { ShopContext } from './../../providers/ShopProvider';
+import useShops from '../../hooks/useShops';
 
 const ShopForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isMerchantsLoading, merchants, refetchMerchants, isMerchantsError, merchantsError } = useMerchants();
+    const { isShopsLoading, shops, refetchShops, isShopsError, shopsError } = useShops();
     const { t } = useTranslation();
     const [fileWithPreview, setFileWithPreview] = useState(null);
     const [filesWithPreview, setFilesWithPreview] = useState([]);
@@ -27,13 +29,33 @@ const ShopForm = () => {
             // Single Image
             if (fileWithPreview) {
                 formData.append('shopLogo', fileWithPreview.file);
+            } else {
+                Swal.fire({
+                    target: document.getElementById('add_shop_modal'),
+                    position: "center",
+                    icon: "warning",
+                    title: "Need Shop Logo !!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return;
             }
 
             // Multiple Images
-            if (filesWithPreview) {
+            if (filesWithPreview.length > 0) {
                 filesWithPreview.forEach(item => {
                     formData.append('shopBanners[]', item.file);
                 });
+            } else {
+                Swal.fire({
+                    target: document.getElementById('add_shop_modal'),
+                    position: "center",
+                    icon: "warning",
+                    title: "Need Shop Banners !!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return;
             }
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
@@ -49,6 +71,12 @@ const ShopForm = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
+
+            refetchShops();
+            setFileWithPreview(null);
+            setFilesWithPreview([]);
+            reset();
+
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
             Swal.fire({
@@ -110,14 +138,14 @@ const ShopForm = () => {
                 <div className="grid gap-5 md:grid-cols-2">
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="font-semibold label-text">Shop Name</span>
+                            <span className="font-semibold label-text">Shop Name<span className="font-bold text-error">*</span></span>
                         </label>
                         <input {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
                         {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="font-semibold label-text">Shop Owner</span>
+                            <span className="font-semibold label-text">Shop Owner<span className="font-bold text-error">*</span></span>
                         </label>
                         <select {...register("merchant", { required: true })} className="w-full select select-bordered">
                             <option value="">select merchant</option>
@@ -133,14 +161,14 @@ const ShopForm = () => {
                 </div>
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">Shop Address</span>
+                        <span className="font-semibold label-text">Shop Address<span className="font-bold text-error">*</span></span>
                     </label>
                     <textarea {...register("address", { required: true })} rows={3} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.address?.type === 'required' && <span className="text-error">{t('requiredAddress')} !!</span>}
                 </div>
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">Shop Description</span>
+                        <span className="font-semibold label-text">Shop Description<span className="font-bold text-error">*</span></span>
                     </label>
                     <textarea {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.description?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
@@ -149,7 +177,7 @@ const ShopForm = () => {
                 {/* Single File Upload Section */}
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">Shop Logo {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-error">(Max: 1 Image)</span>}</span>
+                        <span className="font-semibold label-text">Shop Logo<span className="font-bold text-error">*</span> {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-info">(Max: 1 Image)</span>}</span>
                     </label>
                     <input
                         type="file"
@@ -179,7 +207,7 @@ const ShopForm = () => {
                 {/* Multiple Files Upload Section */}
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">Shop Banners {(filesWithPreview?.length > 0) ? <span className="font-normal text-success">(Selected: {(filesWithPreview?.length > 1) ? `${filesWithPreview?.length} Images` : `${filesWithPreview?.length} Image`})</span> : <span className="font-normal text-error">(Max: 5 Images)</span>}</span>
+                        <span className="font-semibold label-text">Shop Banners<span className="font-bold text-error">*</span> {(filesWithPreview?.length > 0) ? <span className="font-normal text-success">(Selected: {(filesWithPreview?.length > 1) ? `${filesWithPreview?.length} Images` : `${filesWithPreview?.length} Image`})</span> : <span className="font-normal text-info">(Max: 5 Images)</span>}</span>
                     </label>
                     <input
                         type="file"

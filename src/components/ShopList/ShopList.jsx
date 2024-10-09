@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const ShopList = ({ shop, index }) => {
+const ShopList = ({ shop, index, isSelected, onCheckboxChange, onStatusChange }) => {
 
-    const {_id, name, shopLogo, description, address, merchant, status} = shop;
+    const { _id, name, shopLogo, description, address, merchant, status } = shop;
     const server = import.meta.env.VITE_BACKEND_URL;
+
+    const handleStatusChange = (event) => {
+        const newStatus = event.target.value;
+        // Call the parent function to handle status change
+        onStatusChange(_id, newStatus);
+    };
 
     return (
         <tr>
             <th>
                 <label>
-                    <input value={_id} type="checkbox" className="checkbox" />
+                    <input value={_id} type="checkbox" className="checkbox" checked={isSelected} onChange={() => onCheckboxChange(shop._id)} />
                 </label>
             </th>
             <td>
@@ -21,7 +27,7 @@ const ShopList = ({ shop, index }) => {
                         <div className="w-12 h-12 mask mask-squircle">
                             <img
                                 src={server + shopLogo}
-                                alt="Avatar Tailwind CSS Component" />
+                                alt="Shop Logo" />
                         </div>
                     </div>
                     <div>
@@ -35,7 +41,13 @@ const ShopList = ({ shop, index }) => {
                 <br />
                 <span className="badge badge-ghost badge-sm">{merchant.phone}</span>
             </td>
-            <td>{status}</td>
+            <td>
+                <select name="status" className="font-semibold select-bordered select select-xs" defaultValue={status} onChange={handleStatusChange} >
+                    <option className="text-success" value="active">Active</option>
+                    <option className="text-error" value="inactive">Inactive</option>
+                    <option className="text-warning" value="pending">Pending</option>
+                </select>
+            </td>
             <td>
                 <button className="btn btn-xs">details</button>
             </td>
