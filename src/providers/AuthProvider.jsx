@@ -34,6 +34,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('userId');
         localStorage.removeItem('userInfo');
+        localStorage.removeItem('editShopId');
         setUser(null);
         setAuthenticated(false);
     };

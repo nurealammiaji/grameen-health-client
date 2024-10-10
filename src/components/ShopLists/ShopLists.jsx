@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import ShopList from '../ShopList/ShopList';
 import useShops from './../../hooks/useShops';
 import { ShopContext } from '../../providers/ShopProvider';
+import ShopEditForm from '../ShopEditForm/ShopEditForm';
 
 const ShopLists = () => {
 
@@ -53,6 +54,11 @@ const ShopLists = () => {
         //      .catch(error => {
         //          // Handle error
         //      });
+    };
+
+    const handleEditShop = (_id) => {
+        document.getElementById('add_shop_modal').showModal()
+
     };
 
     return (

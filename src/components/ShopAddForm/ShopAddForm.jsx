@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
 import Swal from 'sweetalert2';
 import useMerchants from '../../hooks/useMerchants';
-import { ShopContext } from './../../providers/ShopProvider';
+import { ShopContext } from '../../providers/ShopProvider';
 import useShops from '../../hooks/useShops';
 
-const ShopForm = () => {
+const ShopAddForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isMerchantsLoading, merchants, refetchMerchants, isMerchantsError, merchantsError } = useMerchants();
@@ -246,4 +246,4 @@ const ShopForm = () => {
     );
 };
 
-export default ShopForm;
+export default ShopAddForm;

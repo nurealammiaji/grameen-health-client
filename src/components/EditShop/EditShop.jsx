@@ -1,20 +1,20 @@
 import React from 'react';
 import HelmetAsync from '../HelmetAsync/HelmetAsync';
-import ShopAddForm from '../ShopAddForm/ShopAddForm';
+import ShopEditForm from '../ShopEditForm/ShopEditForm';
 
-const AddShop = () => {
+const EditShop = () => {
     return (
         <div>
-            <HelmetAsync title={"Add Shop"} />
-            <dialog id="add_shop_modal" className="modal modal-middle">
+            <HelmetAsync title={"Edit Shop"} />
+            <dialog id="edit_shop_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">
                         <div className="w-10/12 mx-auto divider divider-success">
-                            <h3 className="text-xl font-bold text-success">Add Shop</h3>
+                            <h3 className="text-xl font-bold text-success">Edit Shop</h3>
                         </div>
                     </div>
                     <div className="py-4">
-                        <ShopAddForm />
+                        <ShopEditForm />
                     </div>
                 </div>
                 <div className="fixed top-0 modal-action">
@@ -27,4 +27,4 @@ const AddShop = () => {
     );
 };
 
-export default AddShop;
+export default EditShop;

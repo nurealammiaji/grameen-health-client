@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const ShopList = ({ shop, index, isSelected, onCheckboxChange, onStatusChange }) => {
 
@@ -7,8 +7,12 @@ const ShopList = ({ shop, index, isSelected, onCheckboxChange, onStatusChange })
 
     const handleStatusChange = (event) => {
         const newStatus = event.target.value;
-        // Call the parent function to handle status change
         onStatusChange(_id, newStatus);
+    };
+
+    const handleEditShopId = (_id) => {
+        localStorage.setItem('editShopId', _id);
+        document.getElementById('edit_shop_modal').showModal();
     };
 
     return (
@@ -42,14 +46,14 @@ const ShopList = ({ shop, index, isSelected, onCheckboxChange, onStatusChange })
                 <span className="badge badge-ghost badge-sm">{merchant.phone}</span>
             </td>
             <td>
-                <select name="status" className="font-semibold select-bordered select select-xs" defaultValue={status} onChange={handleStatusChange} >
-                    <option className="text-success" value="active">Active</option>
-                    <option className="text-error" value="inactive">Inactive</option>
-                    <option className="text-warning" value="pending">Pending</option>
+                <select name="status" className="font-semibold select-bordered select select-xs select-info" defaultValue={status} onChange={handleStatusChange} >
+                    <option className="text-success font-semibold" value="active">Active</option>
+                    <option className="text-error font-semibold" value="inactive">Inactive</option>
+                    <option className="text-warning font-semibold" value="pending">Pending</option>
                 </select>
             </td>
             <td>
-                <button className="btn btn-xs">details</button>
+                <button onClick={() => handleEditShopId(_id)} className="btn btn-xs btn-info btn-outline">Details</button>
             </td>
         </tr>
     );
