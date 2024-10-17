@@ -37,6 +37,10 @@ import ManagePayments from "../pages/Dashboard/Admin/ManagePayments/ManagePaymen
 import ManageCategories from "../pages/Dashboard/Admin/ManageCategories/ManageCategories";
 import Order from "../pages/Order/Order";
 import ManageSubCategories from "../pages/Dashboard/Admin/ManageSubCategories/ManageSubCategories";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import ViewShop from "../pages/Dashboard/Admin/ManageShops/ViewShop/ViewShop";
+
+const axiosPrivate = useAxiosPrivate();
 
 const AllRoutes = createBrowserRouter([
     // Public Routes
@@ -113,6 +117,10 @@ const AllRoutes = createBrowserRouter([
             {
                 path: "/dashboard/admin/shops",
                 element: <PrivateRoute><AdminRoute><ManageShops /></AdminRoute></PrivateRoute>
+            }, {
+                path: "/dashboard/admin/shops/:id",
+                element: <PrivateRoute><AdminRoute><ViewShop /></AdminRoute></PrivateRoute>,
+                loader: async ({ params }) => await axiosPrivate.get(`/shops/read/${params.id}`)
             },
             {
                 path: "/dashboard/admin/orders",

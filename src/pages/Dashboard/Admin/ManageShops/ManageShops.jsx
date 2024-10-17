@@ -6,7 +6,6 @@ import ShopLists from '../../../../components/ShopLists/ShopLists';
 import { ShopContext } from '../../../../providers/ShopProvider';
 import Swal from 'sweetalert2';
 import useShops from '../../../../hooks/useShops';
-import EditShop from '../../../../components/EditShop/EditShop';
 
 const ManageShops = () => {
 
@@ -67,7 +66,6 @@ const ManageShops = () => {
             </div>
             <br />
             <AddShop />
-            <EditShop />
             <br />
             <div>
                 <ShopLists />

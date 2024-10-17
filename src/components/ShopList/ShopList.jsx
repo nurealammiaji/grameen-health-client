@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ShopList = ({ shop, index, isSelected, onCheckboxChange, onStatusChange }) => {
 
@@ -53,7 +54,9 @@ const ShopList = ({ shop, index, isSelected, onCheckboxChange, onStatusChange })
                 </select>
             </td>
             <td>
-                <button onClick={() => handleEditShopId(_id)} className="btn btn-xs btn-info btn-outline">Details</button>
+                {/* <button onClick={() => handleEditShopId(_id)} className="btn btn-xs btn-info btn-outline">Details</button> */}
+                <Link to={`/dashboard/admin/shops/${_id}`} className="btn btn-xs btn-info btn-outline">Details</Link>
+
             </td>
         </tr>
     );

@@ -104,23 +104,23 @@ const Dashboard = () => {
                             {/* Sidebar content here */}
                             {
                                 (userData && userData?.role === "admin") &&
-                                <Link to={"/dashboard/admin"} className="flex items-center px-6 py-4 mx-auto mb-10 font-bold text-center bg-white rounded-full lg:text-2xl text-success">
-                                    <RiPieChart2Fill className="text-3xl" />
-                                    <span className="ml-4 font-bold lg:text-2xl">{t('dashboard')}</span>
+                                <Link to={"/dashboard/admin"} className="flex items-center px-3 py-2 md:px-6 md:py-4 mx-auto mb-10 font-bold text-center bg-white rounded-full lg:text-2xl text-success">
+                                    <RiPieChart2Fill className="text-2xl md:text-3xl" />
+                                    <span className="ml-2 md:ml-4 font-bold md:text-2xl">{t('dashboard')}</span>
                                 </Link>
                             }
                             {
                                 (userData && userData?.role === "merchant") &&
-                                <Link to={"/dashboard/merchant"} className="flex items-center px-6 py-4 mx-auto mb-10 font-bold text-center bg-white rounded-full lg:text-2xl text-success">
-                                    <RiPieChart2Fill className="text-3xl" />
-                                    <span className="ml-4 font-bold lg:text-2xl">{t('dashboard')}</span>
+                                <Link to={"/dashboard/merchant"} className="flex items-center px-3 py-2 md:px-6 md:py-4 mx-auto mb-10 font-bold text-center bg-white rounded-full lg:text-2xl text-success">
+                                    <RiPieChart2Fill className="text-2xl md:text-3xl" />
+                                    <span className="ml-2 md:ml-4 font-bold md:text-2xl">{t('dashboard')}</span>
                                 </Link>
                             }
                             {
                                 (userData && userData?.role === "customer") &&
-                                <Link to={"/dashboard/customer"} className="flex items-center px-6 py-4 mx-auto mb-10 font-bold text-center bg-white rounded-full lg:text-2xl text-success">
-                                    <RiPieChart2Fill className="text-3xl" />
-                                    <span className="ml-4 font-bold lg:text-2xl">{t('dashboard')}</span>
+                                <Link to={"/dashboard/customer"} className="flex items-center px-3 py-2 md:px-6 md:py-4 mx-auto mb-10 font-bold text-center bg-white rounded-full lg:text-2xl text-success">
+                                    <RiPieChart2Fill className="text-2xl md:text-3xl" />
+                                    <span className="ml-2 md:ml-4 font-bold md:text-2xl">{t('dashboard')}</span>
                                 </Link>
                             }
                             {/* Theme Changer */}
