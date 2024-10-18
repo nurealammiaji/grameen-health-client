@@ -16,7 +16,7 @@ const ShopProvider = ({ children }) => {
         return await axiosPrivate.post('/shops/create', formData)
     }
 
-    const deleteShops = async (shops) => {
+    const deleteShops = async () => {
         return await axiosPrivate.delete('/shops/delete', {
             headers: {
                 'Content-Type': 'application/json',

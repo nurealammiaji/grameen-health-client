@@ -11,11 +11,6 @@ const ShopList = ({ shop, index, isSelected, onCheckboxChange, onStatusChange })
         onStatusChange(_id, newStatus);
     };
 
-    const handleEditShopId = (_id) => {
-        localStorage.setItem('editShopId', _id);
-        document.getElementById('edit_shop_modal').showModal();
-    };
-
     return (
         <tr>
             <th>
@@ -48,9 +43,9 @@ const ShopList = ({ shop, index, isSelected, onCheckboxChange, onStatusChange })
             </td>
             <td>
                 <select name="status" className="font-semibold select-bordered select select-xs select-info" defaultValue={status} onChange={handleStatusChange} >
-                    <option className="text-success font-semibold" value="active">Active</option>
-                    <option className="text-error font-semibold" value="inactive">Inactive</option>
-                    <option className="text-warning font-semibold" value="pending">Pending</option>
+                    <option className="font-semibold text-success" value="active">Active</option>
+                    <option className="font-semibold text-error" value="inactive">Inactive</option>
+                    <option className="font-semibold text-warning" value="pending">Pending</option>
                 </select>
             </td>
             <td>

@@ -18,7 +18,7 @@ const ViewShop = () => {
         <div>
             <HelmetAsync title={"View"} />
             <div>
-                <div className="w-10/12 mx-auto divider"><h3 className="text-2xl font-bold text-success">View Shop</h3></div>
+                <div className="w-6/12 mx-auto divider divider-success"><h3 className="text-2xl font-bold text-success">View Shop</h3></div>
             </div>
             <br />
             {

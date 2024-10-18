@@ -3,15 +3,14 @@ import ShopList from '../ShopList/ShopList';
 import useShops from './../../hooks/useShops';
 import { ShopContext } from '../../providers/ShopProvider';
 import ShopEditForm from '../ShopEditForm/ShopEditForm';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const ShopLists = () => {
 
-    const { isShopsLoading, shops, refetchShops, isShopsError, shopsError } = useShops();
-
-    // State to keep track of selected shop IDs
     const { selectedShops, setSelectedShops, deleteShops } = useContext(ShopContext);
-
+    const { isShopsLoading, shops, refetchShops, isShopsError, shopsError } = useShops();
     const [allSelected, setAllSelected] = useState(false);
+    const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
         if (shops) {
@@ -41,24 +40,15 @@ const ShopLists = () => {
         }
     };
 
-    // Function to handle status changes
     const onStatusChange = (shopId, newStatus) => {
-        // You can update the state or make an API call here
         console.log(`Shop ID: ${shopId}, New Status: ${newStatus}`);
-
-        // Example of making an API call to update the status:
-        // axios.put(`${server}/api/shops/${shopId}`, { status: newStatus })
+        // axiosPrivate.put(`/shops/${shopId}`, { status: newStatus })
         //      .then(response => {
         //          // Handle success
         //      })
         //      .catch(error => {
         //          // Handle error
         //      });
-    };
-
-    const handleEditShop = (_id) => {
-        document.getElementById('add_shop_modal').showModal()
-
     };
 
     return (

@@ -16,7 +16,7 @@ const ShopDetails = ({ shopData }) => {
 
     return (
         <div>
-            <div className="card glass w-10/12 mx-auto overflow-scroll md:overflow-hidden">
+            <div className="w-10/12 mx-auto overflow-scroll card glass md:overflow-hidden">
                 <div className="relative h-80">
                     <figure className="w-full h-60">
                         <Swiper
@@ -35,17 +35,17 @@ const ShopDetails = ({ shopData }) => {
                             }
                         </Swiper>
                     </figure>
-                    <figure className="absolute bottom-5 sm:bottom-0 left-5 sm:left-10 z-10 w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden ring-4 ring-primary">
+                    <figure className="absolute z-10 w-24 h-24 overflow-hidden rounded-full bottom-5 sm:bottom-0 left-5 sm:left-10 sm:w-32 sm:h-32 ring-4 ring-primary">
                         <img src={server + shopLogo} className="w-full h-full" alt={`Logo of ${name} Shop`} />
                     </figure>
-                    <div className="card-actions justify-end mt-5 mr-5 sm:mr-10">
+                    <div className="justify-end mt-5 mr-5 card-actions sm:mr-10">
                         <button onClick={() => document.getElementById('edit_shop_modal').showModal()} className="btn btn-primary btn-xs sm:btn-sm">Edit</button>
                     </div>
                     <span className={`${status === "active" && "badge-success" || status === "inactive" && "badge-error" || status === "pending" && "badge-warning"} absolute top-5 right-5 z-10 badge sm:badge-lg capitalize`}>{status}</span>
                 </div>
                 <div className="card-body">
-                    <h2 className="card-title text-3xl mt-5">{name}</h2>
-                    <p className="text-lg mt-5">{description}</p>
+                    <h2 className="mt-5 text-3xl card-title">{name}</h2>
+                    <p className="mt-5 text-lg">{description}</p>
                     <div className="mt-8">
                         <h4 className="mb-2 font-semibold">Shop Address</h4>
                         <hr className="w-3/12 mb-2 border-primary" />
@@ -59,7 +59,7 @@ const ShopDetails = ({ shopData }) => {
                     </div>
                 </div>
             </div>
-            <EditShop />
+            <EditShop shopData={shopData} />
         </div>
     );
 };

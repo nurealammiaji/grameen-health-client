@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
@@ -6,39 +6,19 @@ import Swal from 'sweetalert2';
 import useMerchants from '../../hooks/useMerchants';
 import { ShopContext } from '../../providers/ShopProvider';
 import useShops from '../../hooks/useShops';
-import useAxiosPublic from '../../hooks/useAxiosPublic';
 
-const ShopEditForm = () => {
+const ShopEditForm = ({ shopData }) => {
 
+    const { name, address, description, shopLogo, shopBanners, merchant, status, createdAt, updatedAt } = shopData;
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isMerchantsLoading, merchants, refetchMerchants, isMerchantsError, merchantsError } = useMerchants();
     const { isShopsLoading, shops, refetchShops, isShopsError, shopsError } = useShops();
     const { t } = useTranslation();
     const [fileWithPreview, setFileWithPreview] = useState(null);
     const [filesWithPreview, setFilesWithPreview] = useState([]);
-    const [shopData, setShopData] = useState();
     const [merchantId, setMerchantId] = useState();
     const { editShop } = useContext(ShopContext);
-    const editShopId = localStorage.getItem('editShopId');
-    const axiosPublic = useAxiosPublic();
     const server = import.meta.env.VITE_BACKEND_URL;
-
-    useEffect(() => {
-        if (editShopId) {
-            const fetchShops = async () => {
-                await axiosPublic.get(`/shops/read/${editShopId}`)
-                    .then(({ data }) => {
-                        console.log(data);
-                        setShopData(data);
-                        setMerchantId(data.merchant._id);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
-            }
-            fetchShops();
-        }
-    }, [editShopId]);
 
     const handleEditShop = async (data) => {
         try {
@@ -163,7 +143,7 @@ const ShopEditForm = () => {
                         <label className="label">
                             <span className="font-semibold label-text">Shop Name<span className="font-bold text-error">*</span></span>
                         </label>
-                        <input defaultValue={shopData?.name} {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
+                        <input defaultValue={name} {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
                         {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
                     </div>
                     <div className="w-full form-control">
@@ -187,14 +167,14 @@ const ShopEditForm = () => {
                     <label className="label">
                         <span className="font-semibold label-text">Shop Address<span className="font-bold text-error">*</span></span>
                     </label>
-                    <textarea defaultValue={shopData?.address} {...register("address", { required: true })} rows={3} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
+                    <textarea defaultValue={address} {...register("address", { required: true })} rows={3} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.address?.type === 'required' && <span className="text-error">{t('requiredAddress')} !!</span>}
                 </div>
                 <div className="w-full mt-5 form-control">
                     <label className="label">
                         <span className="font-semibold label-text">Shop Description<span className="font-bold text-error">*</span></span>
                     </label>
-                    <textarea defaultValue={shopData?.description} {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
+                    <textarea defaultValue={description} {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.description?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
                 </div>
 
@@ -228,10 +208,10 @@ const ShopEditForm = () => {
                     </div>
                 ) || shopData && (
                     <div className="mt-5">
-                        <label className="label my-2">
+                        <label className="my-2 label">
                             <span className="font-semibold label-text text-warning">Current Shop Logo</span>
                         </label>
-                        <img src={server + shopData?.shopLogo} alt="Preview" className="w-full h-40 rounded" />
+                        <img src={server + shopLogo} alt="Preview" className="w-full h-40 rounded" />
                     </div>
                 )}
 
@@ -269,11 +249,11 @@ const ShopEditForm = () => {
                     </div>
                 ) || shopData && (
                     <div className="mt-5">
-                        <label className="label my-2">
+                        <label className="my-2 label">
                             <span className="font-semibold label-text text-warning">Current Shop Banners</span>
                         </label>
                         <div className="grid grid-cols-3 gap-4">
-                            {shopData?.shopBanners.map((item, index) => (
+                            {shopBanners.map((item, index) => (
                                 <div key={index}>
                                     <img src={server + item} alt={`Preview ${index}`} className="w-full h-40 rounded" />
                                 </div>
