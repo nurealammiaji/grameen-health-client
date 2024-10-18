@@ -19,9 +19,6 @@ const ShopList = ({ shop, index, isSelected, onCheckboxChange, onStatusChange })
                 </label>
             </th>
             <td>
-                {index + 1}
-            </td>
-            <td>
                 <div className="flex items-center gap-3">
                     <div className="avatar">
                         <div className="w-12 h-12 mask mask-squircle">
@@ -42,16 +39,14 @@ const ShopList = ({ shop, index, isSelected, onCheckboxChange, onStatusChange })
                 <span className="badge badge-ghost badge-sm">{merchant.phone}</span>
             </td>
             <td>
-                <select name="status" className="font-semibold select-bordered select select-xs select-info" defaultValue={status} onChange={handleStatusChange} >
+                <select name="status" className="font-semibold select-bordered select select-xs" defaultValue={status} onChange={handleStatusChange} >
                     <option className="font-semibold text-success" value="active">Active</option>
                     <option className="font-semibold text-error" value="inactive">Inactive</option>
                     <option className="font-semibold text-warning" value="pending">Pending</option>
                 </select>
             </td>
             <td>
-                {/* <button onClick={() => handleEditShopId(_id)} className="btn btn-xs btn-info btn-outline">Details</button> */}
                 <Link to={`/dashboard/admin/shops/${_id}`} className="btn btn-xs btn-info btn-outline">Details</Link>
-
             </td>
         </tr>
     );

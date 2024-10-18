@@ -63,7 +63,6 @@ const ShopLists = () => {
                                     <input type="checkbox" className="checkbox" checked={allSelected} onChange={handleSelectAllChange} />
                                 </label>
                             </th>
-                            <th>SN</th>
                             <th>Shop Name</th>
                             <th>Merchant</th>
                             <th>Status</th>

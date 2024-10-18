@@ -16,7 +16,6 @@ const ShopEditForm = ({ shopData }) => {
     const { t } = useTranslation();
     const [fileWithPreview, setFileWithPreview] = useState(null);
     const [filesWithPreview, setFilesWithPreview] = useState([]);
-    const [merchantId, setMerchantId] = useState();
     const { editShop } = useContext(ShopContext);
     const server = import.meta.env.VITE_BACKEND_URL;
 
@@ -150,7 +149,7 @@ const ShopEditForm = ({ shopData }) => {
                         <label className="label">
                             <span className="font-semibold label-text">Shop Owner<span className="font-bold text-error">*</span></span>
                         </label>
-                        <select defaultValue={merchantId} onChange={e => setMerchantId(e.target.value)} {...register("merchant", { required: true })} className="w-full select select-bordered">
+                        <select defaultValue={merchant._id} {...register("merchant", { required: true })} className="w-full select select-bordered">
                             <option value="">select merchant</option>
                             {
                                 (merchants) &&
@@ -158,7 +157,6 @@ const ShopEditForm = ({ shopData }) => {
                                     <option key={index} value={merchant._id}>{merchant.name}</option>
                                 ))
                             }
-                            <option value="test">test merchant</option>
                         </select>
                         {errors.category?.type === 'required' && <span className="text-error">{t('requiredMerchant')} !!</span>}
                     </div>
