@@ -29,7 +29,7 @@ const ShopProvider = ({ children }) => {
 
     const editShop = async (_id, formData) => {
         console.log(_id, formData);
-        return await axiosPrivate.post(`/shops/update/${_id}`, formData)
+        return await axiosPrivate.put(`/shops/update/${_id}`, formData)
     }
 
     const shopInfo = {

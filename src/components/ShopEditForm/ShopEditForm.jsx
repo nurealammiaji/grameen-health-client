@@ -9,7 +9,7 @@ import useShops from '../../hooks/useShops';
 
 const ShopEditForm = ({ shopData }) => {
 
-    const { name, address, description, shopLogo, shopBanners, merchant, status, createdAt, updatedAt } = shopData;
+    const { _id, name, address, description, shopLogo, shopBanners, merchant, status, createdAt, updatedAt } = shopData;
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isMerchantsLoading, merchants, refetchMerchants, isMerchantsError, merchantsError } = useMerchants();
     const { isShopsLoading, shops, refetchShops, isShopsError, shopsError } = useShops();
@@ -62,7 +62,7 @@ const ShopEditForm = ({ shopData }) => {
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
 
-            const response = await editShop(formData);
+            const response = await editShop(_id, formData);
             console.log('Response from server:', response.data);
 
             Swal.fire({
