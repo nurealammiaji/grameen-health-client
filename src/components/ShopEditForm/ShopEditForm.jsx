@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import useMerchants from '../../hooks/useMerchants';
 import { ShopContext } from '../../providers/ShopProvider';
 import useShops from '../../hooks/useShops';
+import { useNavigate } from 'react-router-dom';
 
 const ShopEditForm = ({ shopData }) => {
 
@@ -18,6 +19,7 @@ const ShopEditForm = ({ shopData }) => {
     const [filesWithPreview, setFilesWithPreview] = useState([]);
     const { editShop } = useContext(ShopContext);
     const server = import.meta.env.VITE_BACKEND_URL;
+    const navigate = useNavigate();
 
     const handleEditShop = async (data) => {
         try {
@@ -31,16 +33,6 @@ const ShopEditForm = ({ shopData }) => {
             // Single Image
             if (fileWithPreview) {
                 formData.append('shopLogo', fileWithPreview.file);
-            } else {
-                Swal.fire({
-                    target: document.getElementById('edit_shop_modal'),
-                    position: "center",
-                    icon: "warning",
-                    title: "Need Shop Logo !!",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                return;
             }
 
             // Multiple Images
@@ -48,16 +40,6 @@ const ShopEditForm = ({ shopData }) => {
                 filesWithPreview.forEach(item => {
                     formData.append('shopBanners[]', item.file);
                 });
-            } else {
-                Swal.fire({
-                    target: document.getElementById('edit_shop_modal'),
-                    position: "center",
-                    icon: "warning",
-                    title: "Need Shop Banners !!",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                return;
             }
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
@@ -78,6 +60,7 @@ const ShopEditForm = ({ shopData }) => {
             setFileWithPreview(null);
             setFilesWithPreview([]);
             reset();
+            navigate(`/dashboard/admin/shops/${_id}`, { replace: true });
 
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
