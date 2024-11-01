@@ -39,6 +39,7 @@ import Order from "../pages/Order/Order";
 import ManageSubCategories from "../pages/Dashboard/Admin/ManageSubCategories/ManageSubCategories";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import ViewShop from "../pages/Dashboard/Admin/ManageShops/ViewShop/ViewShop";
+import ViewCarousel from "../pages/Dashboard/Admin/ManageCarousels/ViewCarousel/ViewCarousel";
 
 const axiosPrivate = useAxiosPrivate();
 
@@ -117,7 +118,8 @@ const AllRoutes = createBrowserRouter([
             {
                 path: "/dashboard/admin/shops",
                 element: <PrivateRoute><AdminRoute><ManageShops /></AdminRoute></PrivateRoute>
-            }, {
+            },
+            {
                 path: "/dashboard/admin/shops/:id",
                 element: <PrivateRoute><AdminRoute><ViewShop /></AdminRoute></PrivateRoute>,
                 loader: async ({ params }) => await axiosPrivate.get(`/shops/read/${params.id}`)
@@ -129,6 +131,11 @@ const AllRoutes = createBrowserRouter([
             {
                 path: "/dashboard/admin/carousels",
                 element: <PrivateRoute><AdminRoute><ManageCarousels /></AdminRoute></PrivateRoute>
+            },
+            {
+                path: "/dashboard/admin/carousels/:id",
+                element: <PrivateRoute><AdminRoute><ViewCarousel /></AdminRoute></PrivateRoute>,
+                loader: async ({ params }) => await axiosPrivate.get(`/carousels/read/${params.id}`)
             },
             {
                 path: "/dashboard/admin/products",

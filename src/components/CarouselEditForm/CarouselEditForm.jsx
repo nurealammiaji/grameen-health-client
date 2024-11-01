@@ -5,14 +5,17 @@ import { RiDeleteBin2Fill } from 'react-icons/ri';
 import Swal from 'sweetalert2';
 import { CarouselContext } from '../../providers/CarouselProvider';
 
-const CarouselForm = () => {
+const CarouselEditForm = ({ carouselData }) => {
+
+    const { name, description, image, destination, status, createdAt, updatedAt } = carouselData;
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { t } = useTranslation();
     const [fileWithPreview, setFileWithPreview] = useState(null);
-    const {addCarousel} = useContext(CarouselContext);
+    const { addCarousel } = useContext(CarouselContext);
+    const server = import.meta.env.VITE_BACKEND_URL;
 
-    const handleAddCarousel = async (data) => {
+    const handleEditCarousel = async (data) => {
         try {
             const formData = new FormData();
             formData.append('type', 'carousel');
@@ -75,20 +78,20 @@ const CarouselForm = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit(handleAddCarousel)} className="p-5 mx-auto border rounded-xl bg-base-200">
+            <form onSubmit={handleSubmit(handleEditCarousel)} className="p-5 mx-auto border rounded-xl bg-base-200">
                 <div className="grid gap-5 md:grid-cols-2">
                     <div className="w-full form-control">
                         <label className="label">
                             <span className="font-semibold label-text">Carousel Name</span>
                         </label>
-                        <input {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
+                        <input defaultValue={name} {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
                         {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
                             <span className="font-semibold label-text">Carousel Status</span>
                         </label>
-                        <select {...register("status", { required: true })} className="w-full select select-bordered">
+                        <select defaultValue={status} {...register("status", { required: true })} className="w-full select select-bordered">
                             <option className="text-slate-500" value="">select status</option>
                             <option className="font-medium text-success" value="active">Active</option>
                             <option className="font-medium text-error" value="inactive">Inactive</option>
@@ -98,24 +101,24 @@ const CarouselForm = () => {
                     </div>
                 </div>
                 <div className="w-full mt-5 form-control">
-                        <label className="label">
-                            <span className="font-semibold label-text">Destination URL</span>
-                        </label>
-                        <input {...register("destination", { required: true })} type="text" placeholder="Type destination here" className="w-full input input-bordered" />
-                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
-                    </div>
+                    <label className="label">
+                        <span className="font-semibold label-text">Destination URL</span>
+                    </label>
+                    <input defaultValue={destination} {...register("destination", { required: true })} type="text" placeholder="Type destination here" className="w-full input input-bordered" />
+                    {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
+                </div>
                 <div className="w-full mt-5 form-control">
                     <label className="label">
                         <span className="font-semibold label-text">Carousel Description</span>
                     </label>
-                    <textarea {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
+                    <textarea defaultValue={description} {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.description?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
                 </div>
 
                 {/* Single File Upload Section */}
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">Carousel Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-error">(Max: 1 Image)</span>}</span>
+                        <span className="font-semibold label-text">New Carousel Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-info">(Max: 1 Image)</span>}</span>
                     </label>
                     <input
                         type="file"
@@ -141,6 +144,13 @@ const CarouselForm = () => {
                             </button>
                         </div>
                     </div>
+                ) || carouselData && (
+                    <div className="mt-5">
+                        <label className="my-2 label">
+                            <span className="font-semibold label-text text-warning">Current Carousel Image</span>
+                        </label>
+                        <img src={server + image} alt="Preview" className="w-full h-40 rounded" />
+                    </div>
                 )}
 
                 {/* Submit Button */}
@@ -151,4 +161,4 @@ const CarouselForm = () => {
     );
 };
 
-export default CarouselForm;
+export default CarouselEditForm;

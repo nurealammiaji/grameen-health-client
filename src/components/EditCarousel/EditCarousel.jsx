@@ -1,20 +1,19 @@
 import React from 'react';
-import HelmetAsync from '../HelmetAsync/HelmetAsync';
-import CarouselAddForm from '../CarouselAddForm/CarouselAddForm';
+import CarouselEditForm from '../CarouselEditForm/CarouselEditForm';
 
-const AddCarousel = () => {
+const EditCarousel = ({ carouselData }) => {
+
     return (
         <div>
-            <HelmetAsync title={"Add Category"} />
-            <dialog id="add_carousel_modal" className="modal modal-middle">
+            <dialog id="edit_shop_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">
                         <div className="w-10/12 mx-auto divider divider-success">
-                            <h3 className="text-xl font-bold text-success">Add Carousel</h3>
+                            <h3 className="text-xl font-bold text-success">Edit Carousel</h3>
                         </div>
                     </div>
                     <div className="py-4">
-                        <CarouselAddForm />
+                        <CarouselEditForm carouselData={carouselData} />
                     </div>
                 </div>
                 <div className="fixed top-0 modal-action">
@@ -27,4 +26,4 @@ const AddCarousel = () => {
     );
 };
 
-export default AddCarousel;
+export default EditCarousel;
