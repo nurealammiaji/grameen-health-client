@@ -1,20 +1,18 @@
 import React from 'react';
-import HelmetAsync from '../HelmetAsync/HelmetAsync';
-import SubCategoryAddForm from '../SubCategoryAddForm/SubCategoryAddForm';
+import SubCategoryEditForm from '../SubCategoryEditForm/SubCategoryEditForm';
 
-const AddSubCategory = () => {
+const EditSubCategory = ({ subCategoryData }) => {
     return (
         <div>
-            <HelmetAsync title={"Add Sub Category"} />
-            <dialog id="add_subCategory_modal" className="modal modal-middle">
+            <dialog id="edit_subCategory_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">
                         <div className="w-10/12 mx-auto divider divider-success">
-                            <h3 className="text-xl font-bold text-success">Add Sub Category</h3>
+                            <h3 className="text-xl font-bold text-success">Edit Sub Category</h3>
                         </div>
                     </div>
                     <div className="py-4">
-                        <SubCategoryAddForm />
+                        <SubCategoryEditForm subCategoryData={subCategoryData} />
                     </div>
                 </div>
                 <div className="fixed top-0 modal-action">
@@ -27,4 +25,4 @@ const AddSubCategory = () => {
     );
 };
 
-export default AddSubCategory;
+export default EditSubCategory;

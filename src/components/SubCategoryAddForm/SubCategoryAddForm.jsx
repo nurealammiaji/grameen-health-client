@@ -3,27 +3,28 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import Swal from 'sweetalert2';
-import { CarouselContext } from '../../providers/CarouselProvider';
-import { useNavigate } from 'react-router-dom';
+import useMerchants from '../../hooks/useMerchants';
+import { SubCategoryContext } from '../../providers/SubCategoryProvider';
+import useCategories from '../../hooks/useCategories';
+import useSubCategories from '../../hooks/useSubCategories';
 
-const CarouselEditForm = ({ carouselData }) => {
-
-    const { name, description, image, destination, status, createdAt, updatedAt } = carouselData;
+const SubCategoryAddForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
+    const { isMerchantsLoading, merchants, refetchMerchants, isMerchantsError, merchantsError } = useMerchants();
+    const { isCategoriesLoading, categories, refetchCategories, isCategoriesError, categoriesError } = useCategories();
+    const { isSubCategoriesLoading, subCategories, refetchSubCategories, isSubCategoriesError, subCategoriesError } = useSubCategories();
     const { t } = useTranslation();
     const [fileWithPreview, setFileWithPreview] = useState(null);
-    const { addCarousel } = useContext(CarouselContext);
-    const server = import.meta.env.VITE_BACKEND_URL;
-    const navigate = useNavigate();
+    const { addSubCategory } = useContext(SubCategoryContext);
 
-    const handleEditCarousel = async (data) => {
+    const handleAddSubCategory = async (data) => {
         try {
             const formData = new FormData();
-            formData.append('type', 'carousel');
+            formData.append('type', 'subCategory');
             formData.append('name', data.name);
             formData.append('status', data.status);
-            formData.append('destination', data.destination);
+            formData.append('category', data.category);
             formData.append('description', data.description);
 
             // Single Image
@@ -33,11 +34,11 @@ const CarouselEditForm = ({ carouselData }) => {
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
 
-            const response = await addCarousel(formData);
+            const response = await addSubCategory(formData);
             console.log('Response from server:', response.data);
 
             Swal.fire({
-                target: document.getElementById('edit_carousel_modal'),
+                target: document.getElementById('add_subCategory_modal'),
                 position: "center",
                 icon: "success",
                 title: "Added Successfully !!",
@@ -45,14 +46,14 @@ const CarouselEditForm = ({ carouselData }) => {
                 timer: 1500
             });
 
-            setFileWithPreview(null);
+            refetchSubCategories();
             reset();
-            navigate(`/dashboard/admin/carousels/${_id}`, { replace: true });
+            setFileWithPreview(null);
 
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
             Swal.fire({
-                target: document.getElementById('edit_carousel_modal'),
+                target: document.getElementById('add_subCategory_modal'),
                 position: "center",
                 icon: "error",
                 title: `Axios: ${error.message}`,
@@ -85,20 +86,20 @@ const CarouselEditForm = ({ carouselData }) => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit(handleEditCarousel)} className="p-5 mx-auto border rounded-xl bg-base-200">
-                <div className="grid gap-5 md:grid-cols-2">
+            <form onSubmit={handleSubmit(handleAddSubCategory)} className="p-5 mx-auto border rounded-xl bg-base-200">
+                <div className="w-full form-control">
+                    <label className="label">
+                        <span className="font-semibold label-text">Sub Category Name</span>
+                    </label>
+                    <input {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
+                    {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
+                </div>
+                <div className="grid gap-5 mt-5 md:grid-cols-2">
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="font-semibold label-text">Carousel Name</span>
+                            <span className="font-semibold label-text">Sub Category Status</span>
                         </label>
-                        <input defaultValue={name} {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
-                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
-                    </div>
-                    <div className="w-full form-control">
-                        <label className="label">
-                            <span className="font-semibold label-text">Carousel Status</span>
-                        </label>
-                        <select defaultValue={status} {...register("status", { required: true })} className="w-full select select-bordered">
+                        <select {...register("status", { required: true })} className="w-full select select-bordered">
                             <option className="text-slate-500" value="">select status</option>
                             <option className="font-medium text-success" value="active">Active</option>
                             <option className="font-medium text-error" value="inactive">Inactive</option>
@@ -106,26 +107,34 @@ const CarouselEditForm = ({ carouselData }) => {
                         </select>
                         {errors.status?.type === 'required' && <span className="text-error">{t('requiredStatus')} !!</span>}
                     </div>
+                    <div className="w-full form-control">
+                        <label className="label">
+                            <span className="font-semibold label-text">Parent Category</span>
+                        </label>
+                        <select {...register("category", { required: true })} className="w-full select select-bordered">
+                            <option value="">select category</option>
+                            {
+                                (categories) &&
+                                categories.map((category, index) => (
+                                    <option key={index} value={category._id}>{category.name}</option>
+                                ))
+                            }
+                        </select>
+                        {errors.category?.type === 'required' && <span className="text-error">{t('requiredCategory')} !!</span>}
+                    </div>
                 </div>
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">Destination URL</span>
+                        <span className="font-semibold label-text">Description</span>
                     </label>
-                    <input defaultValue={destination} {...register("destination", { required: true })} type="text" placeholder="Type destination here" className="w-full input input-bordered" />
-                    {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
-                </div>
-                <div className="w-full mt-5 form-control">
-                    <label className="label">
-                        <span className="font-semibold label-text">Carousel Description</span>
-                    </label>
-                    <textarea defaultValue={description} {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
+                    <textarea {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.description?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
                 </div>
 
                 {/* Single File Upload Section */}
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">New Carousel Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-info">(Max: 1 Image)</span>}</span>
+                        <span className="font-semibold label-text">Sub Category Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-info">(Max: 1 Image)</span>}</span>
                     </label>
                     <input
                         type="file"
@@ -151,21 +160,14 @@ const CarouselEditForm = ({ carouselData }) => {
                             </button>
                         </div>
                     </div>
-                ) || carouselData && (
-                    <div className="mt-5">
-                        <label className="my-2 label">
-                            <span className="font-semibold label-text text-warning">Current Carousel Image</span>
-                        </label>
-                        <img src={server + image} alt="Preview" className="w-full h-40 rounded" />
-                    </div>
                 )}
 
                 {/* Submit Button */}
-                <button type="submit" className="w-full mt-8 btn btn-success">{t('addCarousel')}</button>
+                <button type="submit" className="w-full mt-8 btn btn-success">{t('addSubCategory')}</button>
 
             </form>
         </div>
     );
 };
 
-export default CarouselEditForm;
+export default SubCategoryAddForm;

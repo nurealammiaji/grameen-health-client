@@ -7,8 +7,11 @@ import useMerchants from '../../hooks/useMerchants';
 import { SubCategoryContext } from '../../providers/SubCategoryProvider';
 import useCategories from '../../hooks/useCategories';
 import useSubCategories from '../../hooks/useSubCategories';
+import { useNavigate } from 'react-router-dom';
 
-const SubCategoryForm = () => {
+const SubCategoryEditForm = ({ subCategoryData }) => {
+
+    const { _id, name, image, description, category, status, createdAt, updatedAt } = subCategoryData;
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isMerchantsLoading, merchants, refetchMerchants, isMerchantsError, merchantsError } = useMerchants();
@@ -16,9 +19,11 @@ const SubCategoryForm = () => {
     const { isSubCategoriesLoading, subCategories, refetchSubCategories, isSubCategoriesError, subCategoriesError } = useSubCategories();
     const { t } = useTranslation();
     const [fileWithPreview, setFileWithPreview] = useState(null);
-    const { addSubCategory } = useContext(SubCategoryContext);
+    const { editSubCategory } = useContext(SubCategoryContext);
+    const server = import.meta.env.VITE_BACKEND_URL;
+    const navigate = useNavigate();
 
-    const handleAddSubCategory = async (data) => {
+    const handleEditSubCategory = async (data) => {
         try {
             const formData = new FormData();
             formData.append('type', 'subCategory');
@@ -34,25 +39,27 @@ const SubCategoryForm = () => {
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
 
-            const response = await addSubCategory(formData);
+            const response = await editSubCategory(_id, formData);
             console.log('Response from server:', response.data);
 
             Swal.fire({
-                target: document.getElementById('add_subCategory_modal'),
+                target: document.getElementById('edit_subCategory_modal'),
                 position: "center",
                 icon: "success",
-                title: "Added Successfully !!",
+                title: "Updated Successfully !!",
                 showConfirmButton: false,
                 timer: 1500
             });
 
             refetchSubCategories();
             reset();
+            setFileWithPreview(null);
+            navigate(`/dashboard/admin/subCategories/${_id}`, { replace: true });
 
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
             Swal.fire({
-                target: document.getElementById('add_subCategory_modal'),
+                target: document.getElementById('edit_subCategory_modal'),
                 position: "center",
                 icon: "error",
                 title: `Axios: ${error.message}`,
@@ -85,12 +92,12 @@ const SubCategoryForm = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit(handleAddSubCategory)} className="p-5 mx-auto border rounded-xl bg-base-200">
+            <form onSubmit={handleSubmit(handleEditSubCategory)} className="p-5 mx-auto border rounded-xl bg-base-200">
                 <div className="w-full form-control">
                     <label className="label">
                         <span className="font-semibold label-text">Sub Category Name</span>
                     </label>
-                    <input {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
+                    <input defaultValue={name} {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
                     {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
                 </div>
                 <div className="grid gap-5 mt-5 md:grid-cols-2">
@@ -98,7 +105,7 @@ const SubCategoryForm = () => {
                         <label className="label">
                             <span className="font-semibold label-text">Sub Category Status</span>
                         </label>
-                        <select {...register("status", { required: true })} className="w-full select select-bordered">
+                        <select defaultValue={status} {...register("status", { required: true })} className="w-full select select-bordered">
                             <option className="text-slate-500" value="">select status</option>
                             <option className="font-medium text-success" value="active">Active</option>
                             <option className="font-medium text-error" value="inactive">Inactive</option>
@@ -110,7 +117,7 @@ const SubCategoryForm = () => {
                         <label className="label">
                             <span className="font-semibold label-text">Parent Category</span>
                         </label>
-                        <select {...register("category", { required: true })} className="w-full select select-bordered">
+                        <select defaultValue={category._id} {...register("category", { required: true })} className="w-full select select-bordered">
                             <option value="">select category</option>
                             {
                                 (categories) &&
@@ -126,14 +133,14 @@ const SubCategoryForm = () => {
                     <label className="label">
                         <span className="font-semibold label-text">Description</span>
                     </label>
-                    <textarea {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
+                    <textarea defaultValue={description} {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.description?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
                 </div>
 
                 {/* Single File Upload Section */}
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">Sub Category Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-error">(Max: 1 Image)</span>}</span>
+                        <span className="font-semibold label-text">New Sub Category Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-info">(Max: 1 Image)</span>}</span>
                     </label>
                     <input
                         type="file"
@@ -159,6 +166,13 @@ const SubCategoryForm = () => {
                             </button>
                         </div>
                     </div>
+                ) || subCategoryData && (
+                    <div className="mt-5">
+                        <label className="my-2 label">
+                            <span className="font-semibold label-text text-warning">Current Sub Category Image</span>
+                        </label>
+                        <img src={server + image} alt="Preview" className="w-full h-40 rounded" />
+                    </div>
                 )}
 
                 {/* Submit Button */}
@@ -169,4 +183,4 @@ const SubCategoryForm = () => {
     );
 };
 
-export default SubCategoryForm;
+export default SubCategoryEditForm;

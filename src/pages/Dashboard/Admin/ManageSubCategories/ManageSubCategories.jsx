@@ -1,11 +1,54 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import HelmetAsync from '../../../../components/HelmetAsync/HelmetAsync';
-import AddCategory from '../../../../components/AddCategory/AddCategory';
 import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
 import SearchProducts from '../../../../components/SearchProducts/SearchProducts';
 import AddSubCategory from '../../../../components/AddSubCategory/AddSubCategory';
+import SubCategoryLists from '../../../../components/SubCategoryLists/SubCategoryLists';
+import { SubCategoryContext } from '../../../../providers/SubCategoryProvider';
+import useSubCategories from '../../../../hooks/useSubCategories';
+import Swal from 'sweetalert2';
 
 const ManageSubCategories = () => {
+
+    const { addSubCategory, editSubCategory, deleteSubCategory, selectedSubCategories, setSelectedSubCategories } = useContext(SubCategoryContext);
+
+    const { isSubCategoriesLoading, subCategories, refetchSubCategories, isSubCategoriesError, subCategoriesError } = useSubCategories();
+
+    const handleDeleteSubCategories = async () => {
+        try {
+            await deleteSubCategory()
+                .then(({ data }) => {
+                    console.log(data);
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Deleted Successfully !!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    setSelectedSubCategories([]);
+                    refetchSubCategories();
+                })
+                .catch((err) => {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: `${err.message}`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                })
+        } catch (err) {
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: `${err.message}`,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+    };
+
     return (
         <div>
             <HelmetAsync title={"Sub Categories"} />
@@ -17,15 +60,19 @@ const ManageSubCategories = () => {
                 <div>
                     <button onClick={() => document.getElementById('add_subCategory_modal').showModal()} className="btn btn-outline btn-info"><RiAddBoxFill className="text-2xl" />Sub Category</button>
                 </div>
-                <div className="mt-5 md:mt-0">
+                {/* <div className="mt-5 md:mt-0">
                     <SearchProducts />
-                </div>
+                </div> */}
                 <div className="mt-5 md:mt-0">
-                    <button disabled className="btn btn-outline btn-error"><RiDeleteBin2Fill className="text-2xl" />Sub Category</button>
+                    <button disabled={selectedSubCategories?.length === 0} onClick={handleDeleteSubCategories} className="btn btn-outline btn-error"><RiDeleteBin2Fill className="text-2xl" />Sub Category</button>
                 </div>
             </div>
             <br />
             <AddSubCategory />
+            <br />
+            <div>
+                <SubCategoryLists />
+            </div>
         </div>
     );
 };
