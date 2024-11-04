@@ -3,11 +3,10 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import Swal from 'sweetalert2';
-import useMerchants from '../../hooks/useMerchants';
 import { CategoryContext } from '../../providers/CategoryProvider';
 import useCategories from '../../hooks/useCategories';
 
-const CategoryForm = () => {
+const CategoryAddForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isCategoriesLoading, categories, refetchCategories, isCategoriesError, categoriesError } = useCategories();
@@ -114,7 +113,7 @@ const CategoryForm = () => {
                 {/* Single File Upload Section */}
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">Category Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-error">(Max: 1 Image)</span>}</span>
+                        <span className="font-semibold label-text">Category Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-info">(Max: 1 Image)</span>}</span>
                     </label>
                     <input
                         type="file"
@@ -150,4 +149,4 @@ const CategoryForm = () => {
     );
 };
 
-export default CategoryForm;
+export default CategoryAddForm;

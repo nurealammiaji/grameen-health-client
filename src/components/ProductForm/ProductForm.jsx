@@ -135,35 +135,35 @@ const ProductForm = () => {
                 <div className="grid gap-5 md:grid-cols-2">
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Product Name</span>
+                            <span className="font-semibold label-text">Product Name</span>
                         </label>
                         <input {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
                         {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Quantity</span>
+                            <span className="font-semibold label-text">Quantity</span>
                         </label>
                         <input {...register("quantity", { required: true, min: 1 })} type="number" min={1} placeholder="Type quantity here" className="w-full input input-bordered" />
                         {errors.quantity?.type === 'required' && <span className="text-error">{t('requiredQuantity')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Price</span>
+                            <span className="font-semibold label-text">Price</span>
                         </label>
                         <input {...register("price", { required: true, min: 0 })} type="number" min={0} placeholder="Type price here" className="w-full input input-bordered" />
                         {errors.price?.type === 'required' && <span className="text-error">{t('requiredPrice')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Special Price</span>
+                            <span className="font-semibold label-text">Special Price</span>
                         </label>
                         <input {...register("specialPrice", { required: true, min: 0 })} type="number" min={0} placeholder="Type special price here" className="w-full input input-bordered" />
                         {errors.specialPrice?.type === 'required' && <span className="text-error">{t('requiredSpecialPrice')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Category</span>
+                            <span className="font-semibold label-text">Category</span>
                         </label>
                         <select {...register("category", { required: true })} className="w-full select select-bordered">
                             <option value="">select category</option>
@@ -178,7 +178,7 @@ const ProductForm = () => {
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Sub Category</span>
+                            <span className="font-semibold label-text">Sub Category</span>
                         </label>
                         <select {...register("subCategory", { required: true })} className="w-full select select-bordered">
                             <option value="">select sub category</option>
@@ -193,7 +193,7 @@ const ProductForm = () => {
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Shop</span>
+                            <span className="font-semibold label-text">Shop</span>
                         </label>
                         <select {...register("shop", { required: true })} className="w-full select select-bordered">
                             <option value="">select shop</option>
@@ -208,35 +208,35 @@ const ProductForm = () => {
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Advance Money</span>
+                            <span className="font-semibold label-text">Advance Money</span>
                         </label>
                         <input {...register("advanceMoney", { required: true, min: 0 })} type="number" placeholder="Type advance money here" className="w-full input input-bordered" />
                         {errors.advanceMoney?.type === 'required' && <span className="text-error">{t('requiredAdvanceMoney')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Brand Name</span>
+                            <span className="font-semibold label-text">Brand Name</span>
                         </label>
                         <input {...register("brand", { required: true })} type="text" placeholder="Type brand here" className="w-full input input-bordered" />
                         {errors.brand?.type === 'required' && <span className="text-error">{t('requiredBrand')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Model</span>
+                            <span className="font-semibold label-text">Model</span>
                         </label>
                         <input {...register("model", { required: true })} type="text" placeholder="Type model here" className="w-full input input-bordered" />
                         {errors.model?.type === 'required' && <span className="text-error">{t('requiredModel')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Origin Country</span>
+                            <span className="font-semibold label-text">Origin Country</span>
                         </label>
                         <input {...register("originCountry", { required: true })} type="text" placeholder="Type origin country here" className="w-full input input-bordered" />
                         {errors.originCountry?.type === 'required' && <span className="text-error">{t('requiredOriginCountry')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Manufacturer</span>
+                            <span className="font-semibold label-text">Manufacturer</span>
                         </label>
                         <input {...register("manufacturer", { required: true })} type="text" placeholder="Type manufacturer here" className="w-full input input-bordered" />
                         {errors.manufacturer?.type === 'required' && <span className="text-error">{t('requiredManufacturer')} !!</span>}
@@ -246,7 +246,7 @@ const ProductForm = () => {
 
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="label-text font-semibold">Description</span>
+                        <span className="font-semibold label-text">Description</span>
                     </label>
                     <textarea {...register("description", { required: true })} rows={5} className="w-full textarea textarea-bordered" placeholder="Type descriptions here"></textarea>
                     {errors.description?.type === 'required' && <span className="text-error">{t('requiredDescription')} !!</span>}
@@ -256,7 +256,7 @@ const ProductForm = () => {
                 <div className="w-full mt-5 form-control">
                     <div className="flex items-center justify-between mb-2">
                         <label className="label">
-                            <span className="label-text font-semibold">Variants <span className="font-normal">(Size/Color/Pieces)</span>
+                            <span className="font-semibold label-text">Variants <span className="font-normal">(Size/Color/Pieces)</span>
                             </span>
                         </label>
                         <button type="button" onClick={addVariant} className={`${variants.length > 0 ? "btn btn-xs btn-info" : "hidden"}`}>
@@ -298,7 +298,7 @@ const ProductForm = () => {
                 <div className="w-full mt-5 form-control">
                     {/* <label htmlFor="fileUpload">Upload Images</label> */}
                     <label className="label">
-                        <span className="label-text font-semibold">Upload Images {(filesWithPreview?.length > 0) ? <span className="text-success font-normal">(Selected: {(filesWithPreview?.length > 1) ? `${filesWithPreview?.length} Images` : `${filesWithPreview?.length} Image`})</span> : <span className="text-error font-normal">(Max: 5 Images)</span>}</span>
+                        <span className="font-semibold label-text">Upload Images {(filesWithPreview?.length > 0) ? <span className="font-normal text-success">(Selected: {(filesWithPreview?.length > 1) ? `${filesWithPreview?.length} Images` : `${filesWithPreview?.length} Image`})</span> : <span className="font-normal text-info">(Max: 5 Images)</span>}</span>
                     </label>
                     <input
                         type="file"

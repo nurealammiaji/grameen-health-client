@@ -41,6 +41,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import ViewShop from "../pages/Dashboard/Admin/ManageShops/ViewShop/ViewShop";
 import ViewCarousel from "../pages/Dashboard/Admin/ManageCarousels/ViewCarousel/ViewCarousel";
 import ViewSubCategory from '../pages/Dashboard/Admin/ManageSubCategories/ViewSubCategory/ViewSubCategory';
+import ViewCategory from '../pages/Dashboard/Admin/ManageCategories/ViewCategory/ViewCategory';
 
 const axiosPrivate = useAxiosPrivate();
 
@@ -149,6 +150,11 @@ const AllRoutes = createBrowserRouter([
             {
                 path: "/dashboard/admin/categories",
                 element: <PrivateRoute><AdminRoute><ManageCategories /></AdminRoute></PrivateRoute>
+            },
+            {
+                path: "/dashboard/admin/categories/:id",
+                element: <PrivateRoute><AdminRoute><ViewCategory /></AdminRoute></PrivateRoute>,
+                loader: async ({ params }) => await axiosPrivate.get(`/categories/read/${params.id}`)
             },
             {
                 path: "/dashboard/admin/subCategories",

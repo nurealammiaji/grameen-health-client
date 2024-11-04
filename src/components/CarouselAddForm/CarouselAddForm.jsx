@@ -115,7 +115,7 @@ const CarouselAddForm = () => {
                 {/* Single File Upload Section */}
                 <div className="w-full mt-5 form-control">
                     <label className="label">
-                        <span className="font-semibold label-text">Carousel Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-error">(Max: 1 Image)</span>}</span>
+                        <span className="font-semibold label-text">Carousel Image {(fileWithPreview) ? <span className="font-normal text-success">(Selected: 1 Image)</span> : <span className="font-normal text-info">(Max: 1 Image)</span>}</span>
                     </label>
                     <input
                         type="file"
