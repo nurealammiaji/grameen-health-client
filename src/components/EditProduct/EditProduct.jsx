@@ -1,20 +1,20 @@
 import React from 'react';
-import HelmetAsync from './../HelmetAsync/HelmetAsync';
-import ProductAddForm from '../ProductAddForm/ProductAddForm';
+import HelmetAsync from '../HelmetAsync/HelmetAsync';
+import ProductEditForm from '../ProductEditForm/ProductEditForm';
 
-const AddProduct = () => {
+const EditProduct = ({ productData }) => {
     return (
         <div>
-            <HelmetAsync title={"Add Product"} />
-            <dialog id="add_product_modal" className="modal modal-middle">
+            <HelmetAsync title={"Edit Product"} />
+            <dialog id="edit_product_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">
                         <div className="w-10/12 mx-auto divider divider-success">
-                            <h3 className="text-xl font-bold text-success">Add Product</h3>
+                            <h3 className="text-xl font-bold text-success">Edit Product</h3>
                         </div>
                     </div>
                     <div className="py-4">
-                        <ProductAddForm />
+                        <ProductEditForm productData={productData} />
                     </div>
                 </div>
                 <div className="fixed top-0 modal-action">
@@ -27,4 +27,4 @@ const AddProduct = () => {
     );
 };
 
-export default AddProduct;
+export default EditProduct;

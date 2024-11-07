@@ -5,11 +5,11 @@ import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
 import { ProductContext } from '../../providers/ProductProvider';
 import Swal from 'sweetalert2';
 import useShops from '../../hooks/useShops';
-import useCategories from './../../hooks/useCategories';
-import useSubCategories from './../../hooks/useSubCategories';
-import useProducts from './../../hooks/useProducts';
+import useCategories from '../../hooks/useCategories';
+import useSubCategories from '../../hooks/useSubCategories';
+import useProducts from '../../hooks/useProducts';
 
-const ProductForm = () => {
+const ProductAddForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isShopsLoading, shops, refetchShops, isShopsError, shopsError } = useShops();
@@ -335,4 +335,4 @@ const ProductForm = () => {
     );
 };
 
-export default ProductForm;
+export default ProductAddForm;

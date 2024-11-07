@@ -42,6 +42,7 @@ import ViewShop from "../pages/Dashboard/Admin/ManageShops/ViewShop/ViewShop";
 import ViewCarousel from "../pages/Dashboard/Admin/ManageCarousels/ViewCarousel/ViewCarousel";
 import ViewSubCategory from '../pages/Dashboard/Admin/ManageSubCategories/ViewSubCategory/ViewSubCategory';
 import ViewCategory from '../pages/Dashboard/Admin/ManageCategories/ViewCategory/ViewCategory';
+import ViewProduct from "../pages/Dashboard/Admin/ManageProducts/ViewProduct/ViewProduct";
 
 const axiosPrivate = useAxiosPrivate();
 
@@ -118,6 +119,11 @@ const AllRoutes = createBrowserRouter([
                 element: <PrivateRoute><AdminRoute><ManageUsers /></AdminRoute></PrivateRoute>
             },
             {
+                path: "/dashboard/admin/users/:id",
+                element: <PrivateRoute><AdminRoute><ManageUsers /></AdminRoute></PrivateRoute>,
+                loader: async ({ params }) => await axiosPrivate.get(`/users/read/${params.id}`)
+            },
+            {
                 path: "/dashboard/admin/shops",
                 element: <PrivateRoute><AdminRoute><ManageShops /></AdminRoute></PrivateRoute>
             },
@@ -129,6 +135,11 @@ const AllRoutes = createBrowserRouter([
             {
                 path: "/dashboard/admin/orders",
                 element: <PrivateRoute><AdminRoute><ManageOrders /></AdminRoute></PrivateRoute>
+            },
+            {
+                path: "/dashboard/admin/orders/:id",
+                element: <PrivateRoute><AdminRoute><ManageOrders /></AdminRoute></PrivateRoute>,
+                loader: async ({ params }) => await axiosPrivate.get(`/orders/read/${params.id}`)
             },
             {
                 path: "/dashboard/admin/carousels",
@@ -144,8 +155,18 @@ const AllRoutes = createBrowserRouter([
                 element: <PrivateRoute><AdminRoute><ManageProducts /></AdminRoute></PrivateRoute>
             },
             {
+                path: "/dashboard/admin/products/:id",
+                element: <PrivateRoute><AdminRoute><ViewProduct /></AdminRoute></PrivateRoute>,
+                loader: async ({ params }) => await axiosPrivate.get(`/products/read/${params.id}`)
+            },
+            {
                 path: "/dashboard/admin/payments",
                 element: <PrivateRoute><AdminRoute><ManagePayments /></AdminRoute></PrivateRoute>
+            },
+            {
+                path: "/dashboard/admin/payments/:id",
+                element: <PrivateRoute><AdminRoute><ManagePayments /></AdminRoute></PrivateRoute>,
+                loader: async ({ params }) => await axiosPrivate.get(`/payments/read/${params.id}`)
             },
             {
                 path: "/dashboard/admin/categories",
