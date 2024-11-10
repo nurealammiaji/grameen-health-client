@@ -47,6 +47,8 @@ const ProductAddForm = () => {
             formData.append('manufacturer', data.manufacturer);
             formData.append('model', data.model);
             formData.append('description', data.description);
+            formData.append('status', data.status);
+            formData.append('campaign', data.campaign);
 
             variants.forEach((variant) => {
                 const variantData = {};
@@ -78,6 +80,7 @@ const ProductAddForm = () => {
             });
 
             refetchProducts();
+            setVariants([]);
             setFilesWithPreview([]);
             reset();
 
@@ -241,6 +244,33 @@ const ProductAddForm = () => {
                         </label>
                         <input {...register("manufacturer", { required: true })} type="text" placeholder="Type manufacturer here" className="w-full input input-bordered" />
                         {errors.manufacturer?.type === 'required' && <span className="text-error">{t('requiredManufacturer')} !!</span>}
+                    </div>
+                    <div className="w-full form-control">
+                        <label className="label">
+                            <span className="font-semibold label-text">Status</span>
+                        </label>
+                        <select {...register("status", { required: true })} className="w-full select select-bordered">
+                            <option value="">select status</option>
+                            <option className="font-medium text-warning" value="pending">Pending</option>
+                            <option className="font-medium text-success" value="active">Active</option>
+                            <option className="font-medium text-error" value="inactive">Inactive</option>
+                        </select>
+                        {errors.status?.type === 'required' && <span className="text-error">{t('requiredStatus')} !!</span>}
+                    </div>
+                    <div className="w-full form-control">
+                        <label className="label">
+                            <span className="font-semibold label-text">Campaign</span>
+                        </label>
+                        <select {...register("campaign", { required: true })}
+                            className="w-full select select-bordered">
+                            <option value="">select campaign</option>
+                            <option className="font-medium" value={null}>None</option>
+                            <option className="font-medium text-warning" value="flash">Flash Sale</option>
+                            <option className="font-medium text-info" value="new">New Arrival</option>
+                            <option className="font-medium text-success" value="discount">Discount Sale</option>
+                            <option className="font-medium text-error" value="clearance">Clearance Sale</option>
+                        </select>
+                        {errors.campaign?.type === 'required' && <span className="text-error">{t('requiredCampaign')} !!</span>}
                     </div>
 
                 </div>

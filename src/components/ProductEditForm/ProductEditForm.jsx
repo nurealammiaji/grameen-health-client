@@ -11,7 +11,7 @@ import useProducts from '../../hooks/useProducts';
 
 const ProductEditForm = ({ productData }) => {
 
-    const { name, description, price, specialPrice, category, subCategory, model, variants, images, brand, originCountry, manufacturer, shop, advanceMoney, quantity, status, createdAt, updatedAt } = productData;
+    const { name, description, price, specialPrice, category, subCategory, model, variants, images, brand, originCountry, manufacturer, shop, advanceMoney, quantity, status, campaign, createdAt, updatedAt } = productData;
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isShopsLoading, shops, refetchShops, isShopsError, shopsError } = useShops();
@@ -22,6 +22,7 @@ const ProductEditForm = ({ productData }) => {
     const [filesWithPreview, setFilesWithPreview] = useState([]);
     const [productVariants, setProductVariants] = useState([]);
     const { addProduct } = useContext(ProductContext);
+    const server = import.meta.env.VITE_BACKEND_URL;
 
     const variantOptions = ['size', 'color', 'pieces'];
 
@@ -49,6 +50,8 @@ const ProductEditForm = ({ productData }) => {
             formData.append('manufacturer', data.manufacturer);
             formData.append('model', data.model);
             formData.append('description', data.description);
+            formData.append('status', data.status);
+            formData.append('campaign', data.campaign);
 
             productVariants.forEach((variant) => {
                 const variantData = {};
@@ -80,6 +83,7 @@ const ProductEditForm = ({ productData }) => {
             });
 
             refetchProducts();
+            setProductVariants([]);
             setFilesWithPreview([]);
             reset();
 
@@ -244,7 +248,33 @@ const ProductEditForm = ({ productData }) => {
                         <input defaultValue={manufacturer} {...register("manufacturer", { required: true })} type="text" placeholder="Type manufacturer here" className="w-full input input-bordered" />
                         {errors.manufacturer?.type === 'required' && <span className="text-error">{t('requiredManufacturer')} !!</span>}
                     </div>
-
+                    <div className="w-full form-control">
+                        <label className="label">
+                            <span className="font-semibold label-text">Status</span>
+                        </label>
+                        <select {...register("status", { required: true })} className="w-full select select-bordered">
+                            <option value="">select status</option>
+                            <option className="font-medium text-warning" value="pending">Pending</option>
+                            <option className="font-medium text-success" value="active">Active</option>
+                            <option className="font-medium text-error" value="inactive">Inactive</option>
+                        </select>
+                        {errors.status?.type === 'required' && <span className="text-error">{t('requiredStatus')} !!</span>}
+                    </div>
+                    <div className="w-full form-control">
+                        <label className="label">
+                            <span className="font-semibold label-text">Campaign</span>
+                        </label>
+                        <select {...register("campaign", { required: true })}
+                            className="w-full select select-bordered">
+                            <option value="">select campaign</option>
+                            <option className="font-medium" value={null}>None</option>
+                            <option className="font-medium text-warning" value="flash">Flash Sale</option>
+                            <option className="font-medium text-info" value="new">New Arrival</option>
+                            <option className="font-medium text-success" value="discount">Discount Sale</option>
+                            <option className="font-medium text-error" value="clearance">Clearance Sale</option>
+                        </select>
+                        {errors.campaign?.type === 'required' && <span className="text-error">{t('requiredCampaign')} !!</span>}
+                    </div>
                 </div>
 
                 <div className="w-full mt-5 form-control">
@@ -315,20 +345,36 @@ const ProductEditForm = ({ productData }) => {
                 </div>
 
                 {/* Image Previews */}
-                <div className="grid grid-cols-3 gap-4 mt-5">
-                    {filesWithPreview.map((item, index) => (
-                        <div key={index} className="relative">
-                            <img src={item.preview} alt={`Preview ${index}`} className="w-full h-40 rounded" />
-                            <button
-                                type="button"
-                                onClick={() => removeImage(index)}
-                                className="absolute top-0 right-0 p-1 text-red-500 bg-white rounded-full hover:bg-gray-200"
-                            >
-                                <RiDeleteBin2Fill />
-                            </button>
+                {filesWithPreview.length > 0 && (
+                    <div className="grid grid-cols-3 gap-4 mt-5">
+                        {filesWithPreview.map((item, index) => (
+                            <div key={index} className="relative">
+                                <img src={item.preview} alt={`Preview ${index}`} className="w-full h-40 rounded" />
+                                <button
+                                    type="button"
+                                    onClick={() => removeImage(index)}
+                                    className="absolute top-0 right-0 p-1 text-red-500 bg-white rounded-full hover:bg-gray-200"
+                                >
+                                    <RiDeleteBin2Fill />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                ) || images && (
+                    <div className="mt-5">
+                        <label className="my-2 label">
+                            <span className="font-semibold label-text text-warning">Current Shop Banners</span>
+                        </label>
+                        <div className="grid grid-cols-3 gap-4">
+                            {images.map((item, index) => (
+                                <div key={index}>
+                                    <img src={server + item} alt={`Preview ${index}`} className="w-full h-40 rounded" />
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                )}
+
 
                 {/* Submit Button */}
                 <button type="submit" className="w-full mt-8 btn btn-success">{t('addProduct')}</button>
