@@ -26,6 +26,8 @@ const ProductEditForm = ({ productData }) => {
 
     const variantOptions = ['size', 'color', 'pieces'];
 
+    console.log(variants);
+
     if (subCategories) {
         console.log(subCategories)
     }
@@ -296,35 +298,43 @@ const ProductEditForm = ({ productData }) => {
                             <RiAddBoxFill /> Add More
                         </button>
                     </div>
-                    {productVariants.map((variant, index) => (
-                        <div key={index} className="flex items-center w-full my-2">
-                            <select
-                                value={variant.type}
-                                onChange={(e) => handleVariantChange(index, 'type', e.target.value)}
-                                className="w-1/3 mr-2 select select-bordered"
-                            >
-                                {variantOptions.map((option) => (
-                                    <option key={option} value={option}>
-                                        {option.charAt(0).toUpperCase() + option.slice(1)}
-                                    </option>
-                                ))}
-                            </select>
-                            <input
-                                type="text"
-                                value={variant.value}
-                                {...register('variants')}
-                                onChange={(e) => handleVariantChange(index, 'value', e.target.value)}
-                                className="w-2/3 mr-2 input input-bordered"
-                                placeholder={`Enter ${variant.type}`}
-                            />
-                            <button type="button" onClick={() => removeVariant(index)} className="btn btn-error">
-                                <RiDeleteBin2Fill className="text-lg" />
-                            </button>
-                        </div>
-                    ))}
+                    {
+                        productVariants.map((variant, index) => (
+                            <div key={index} className="flex items-center w-full my-2">
+                                <select
+                                    value={variant.type}
+                                    onChange={(e) => handleVariantChange(index, 'type', e.target.value)}
+                                    className="w-1/3 mr-2 select select-bordered"
+                                >
+                                    {variantOptions.map((option) => (
+                                        <option key={option} value={option}>
+                                            {option.charAt(0).toUpperCase() + option.slice(1)}
+                                        </option>
+                                    ))}
+                                </select>
+                                <input
+                                    type="text"
+                                    value={variant.value}
+                                    {...register('variants')}
+                                    onChange={(e) => handleVariantChange(index, 'value', e.target.value)}
+                                    className="w-2/3 mr-2 input input-bordered"
+                                    placeholder={`Enter ${variant.type}`}
+                                />
+                                <button type="button" onClick={() => removeVariant(index)} className="btn btn-error">
+                                    <RiDeleteBin2Fill className="text-lg" />
+                                </button>
+                            </div>
+                        ))
+                    }
                     <button type="button" onClick={addVariant} className={`${productVariants?.length === 0 ? "btn btn-sm btn-info" : "hidden"}`}>
                         <RiAddBoxFill /> Add Variant
                     </button>
+                    {
+                        variants &&
+                        <div className="mt-5">
+                            true
+                        </div>
+                    }
                 </div>
 
                 {/* File Upload Section */}
