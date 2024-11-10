@@ -80,6 +80,7 @@ const ProductEditForm = ({ productData }) => {
             });
 
             refetchProducts();
+            setFilesWithPreview([]);
             reset();
 
         } catch (error) {

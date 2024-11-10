@@ -42,6 +42,7 @@ const CategoryAddForm = () => {
             });
 
             refetchCategories();
+            setFileWithPreview(null);
             reset();
 
         } catch (error) {

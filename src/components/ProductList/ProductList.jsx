@@ -30,12 +30,12 @@ const ProductList = ({ product, index, isSelected, onCheckboxChange, onStatusCha
             </td>
             <td>
                 <div className="font-bold">{name}</div>
-                <p className="text-sm opacity-50">{2}</p>
+                <p className="text-sm opacity-50">{brand}</p>
             </td>
             <td>
-                <span>{brand}</span>
+                <span>{shop.name}</span>
                 <br />
-                <span className="badge badge-ghost badge-sm">{manufacturer}</span>
+                <p className="text-sm opacity-50">{manufacturer}</p>
             </td>
             <td>
                 <select name="status" className="font-semibold select-bordered select select-xs" defaultValue={status} onChange={handleStatusChange} >

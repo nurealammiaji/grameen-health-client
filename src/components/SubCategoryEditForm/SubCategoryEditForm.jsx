@@ -52,8 +52,8 @@ const SubCategoryEditForm = ({ subCategoryData }) => {
             });
 
             refetchSubCategories();
-            reset();
             setFileWithPreview(null);
+            reset();
             navigate(`/dashboard/admin/subCategories/${_id}`, { replace: true });
 
         } catch (error) {

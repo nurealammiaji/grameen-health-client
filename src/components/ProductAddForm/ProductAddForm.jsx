@@ -78,6 +78,7 @@ const ProductAddForm = () => {
             });
 
             refetchProducts();
+            setFilesWithPreview([]);
             reset();
 
         } catch (error) {

@@ -39,6 +39,10 @@ const CarouselAddForm = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
+
+            setFileWithPreview(null);
+            reset();
+            
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
             Swal.fire({
