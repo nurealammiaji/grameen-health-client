@@ -50,6 +50,17 @@ const ProductLists = () => {
         //      });
     };
 
+    const onCampaignChange = (productId, newCampaign) => {
+        console.log(`Product ID: ${productId}, New Campaign: ${newCampaign}`);
+        // axiosPrivate.put(`/products/${productId}`, { campaign: newCampaign })
+        //      .then(response => {
+        //          // Handle success
+        //      })
+        //      .catch(error => {
+        //          // Handle error
+        //      });
+    };
+
     return (
         <div>
             <div className="overflow-x-auto">
@@ -66,6 +77,7 @@ const ProductLists = () => {
                             <th>Name</th>
                             <th>Merchant</th>
                             <th>Status</th>
+                            <th>Campaign</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -73,7 +85,7 @@ const ProductLists = () => {
                         {/* Products */}
                         {
                             (products) &&
-                            products.map((product, index) => <ProductList key={product._id} product={product} index={index} isSelected={selectedProducts.includes(product._id)} onCheckboxChange={handleCheckboxChange} onStatusChange={onStatusChange} />)
+                            products.map((product, index) => <ProductList key={product._id} product={product} index={index} isSelected={selectedProducts.includes(product._id)} onCheckboxChange={handleCheckboxChange} onStatusChange={onStatusChange} onCampaignChange={onCampaignChange} />)
                         }
                     </tbody>
                 </table>
