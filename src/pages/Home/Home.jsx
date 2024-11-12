@@ -8,9 +8,9 @@ const Home = () => {
         <div>
             <HelmetAsync title={"Home"} />
             <Hero />
-            <br /><br />
+            <br />
             <FlashSale />
-            <br /><br />
+            <br />
         </div>
     )
 }
