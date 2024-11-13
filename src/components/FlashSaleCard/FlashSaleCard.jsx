@@ -16,6 +16,15 @@ const FlashSaleCard = ({ product }) => {
 
     const [productImage, setProductImage] = useState(images[0]);
 
+    function calculateDiscountPercentage(originalPrice, discountPrice) {
+        const discount = originalPrice - discountPrice;
+        const percentageOff = (discount / originalPrice) * 100;
+        return percentageOff.toFixed(2);
+    }
+
+    const discountPercentage = calculateDiscountPercentage(100, 99);
+
+
     return (
         <div className="relative w-full transition-colors duration-300 delay-150 border-2 border-transparent shadow-xl card bg-base-100 hover:border-success hover:bg-green-100 group">
             <figure className="h-48">
@@ -47,8 +56,8 @@ const FlashSaleCard = ({ product }) => {
                 </div>
                 <p className="mt-3">Price: <span className="text-2xl">৳</span> <span className="text-success">{specialPrice}</span> <span className="text-red-300 line-through">{price}</span></p>
                 {/* <p className="absolute text-white rotate-45 bg-success">{price%specialPrice} %</p> */}
-                <div className="absolute px-12 py-1 font-semibold text-white transform -rotate-45 rounded-md top-5 -left-14 bg-success">
-                    {specialPrice / price * 100} % Off
+                <div className={`${discountPercentage > 0 ? 'block' : 'hidden'} absolute px-12 py-1 text-sm font-semibold text-white transform -rotate-45 rounded-md top-5 -left-14 bg-success/90`}>
+                    {discountPercentage}% OFF
                 </div>
                 <div className="justify-center mt-5 card-actions">
                     <div className="join">
