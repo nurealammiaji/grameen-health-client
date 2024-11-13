@@ -14,7 +14,7 @@ const FlashSaleCard = () => {
     const [productImage, setProductImage] = useState(images[0]);
 
     return (
-        <div className="w-full border-2 border-transparent shadow-xl card bg-base-100 hover:border-success hover:bg-green-100">
+        <div className="w-full border-2 border-transparent shadow-xl card bg-base-100 hover:border-success hover:bg-green-100 transition-colors duration-300 delay-150 group">
             <figure className="h-48">
                 <img className="w-full h-full"
                     src={productImage}
@@ -37,8 +37,8 @@ const FlashSaleCard = () => {
                         {/* <Link to={`/products/`}>
                             <button className="btn hover:btn-ghost btn-info join-item tooltip" data-tip="View Details"><RiEyeLine className="text-xl" /></button>
                         </Link> */}
-                        <button className="text-xl bg-red-200 border border-r-0 hover:text-2xl btn text-error hover:text-white hover:btn-error join-item tooltip border-error" data-tip="Add to Wishlist"><RiHeartLine /></button>
-                        <button className="text-xl bg-green-200 border border-l-0 hover:text-2xl border-success btn hover:btn-success text-success hover:text-white join-item tooltip" data-tip="Add to Cart"><RiShoppingCart2Line /></button>
+                        <button className="text-xl bg-red-200 border border-r-0 hover:text-2xl btn text-error hover:text-white hover:btn-error btn-sm join-item tooltip border-error transition-colors duration-300 delay-150" data-tip="Add to Wishlist"><RiHeartLine /></button>
+                        <button className="text-xl bg-green-200 border border-l-0 hover:text-2xl border-success btn btn-sm hover:btn-success text-success hover:text-white join-item tooltip transition-colors duration-300 delay-150" data-tip="Add to Cart"><RiShoppingCart2Line /></button>
                     </div>
                 </div>
             </div>

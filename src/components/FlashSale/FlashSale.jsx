@@ -10,13 +10,14 @@ import { Link } from 'react-router-dom';
 const FlashSale = () => {
     return (
         <div className="p-5">
-            <div className="p-5 border-2 shadow-2xl border-success rounded-2xl">
+            <div className="p-5 rounded-2xl">
                 <div className="flex items-center justify-between gap-5">
                     <h3 className="text-3xl font-bold text-success">Flash Sale</h3>
                     <div>
                         <Link to={`/flash-sale`} className="btn btn-sm btn-primary">View All</Link>
                     </div>
                 </div>
+                <hr className="border border-success mt-5" />
                 <div className="mt-10">
                     <Swiper
                         slidesPerView={1}
