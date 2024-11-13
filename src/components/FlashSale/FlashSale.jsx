@@ -6,8 +6,12 @@ import './FlashSale.css';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import FlashSaleCard from '../FlashSaleCard/FlashSaleCard';
 import { Link } from 'react-router-dom';
+import useProducts from '../../hooks/useProducts';
 
 const FlashSale = () => {
+
+    const { isProductsLoading, products, refetchProducts, isProductsError, productsError } = useProducts();
+
     return (
         <div className="p-5">
             <div className="p-5 rounded-2xl">
@@ -17,7 +21,7 @@ const FlashSale = () => {
                         <Link to={`/flash-sale`} className="btn btn-sm btn-primary">View All</Link>
                     </div>
                 </div>
-                <hr className="border border-success mt-5" />
+                <hr className="mt-5 border border-success" />
                 <div className="mt-10">
                     <Swiper
                         slidesPerView={1}
@@ -48,7 +52,12 @@ const FlashSale = () => {
                         modules={[Pagination, Autoplay, Navigation]}
                         className="mySwiper"
                     >
-                        <SwiperSlide className="mb-16">
+                        {
+                            products && products.map((product, index) => <SwiperSlide className="mb-14" key={index} >
+                                <FlashSaleCard product={product} />
+                            </SwiperSlide>)
+                        }
+                        {/* <SwiperSlide>
                             <FlashSaleCard />
                         </SwiperSlide>
                         <SwiperSlide>
@@ -62,10 +71,7 @@ const FlashSale = () => {
                         </SwiperSlide>
                         <SwiperSlide>
                             <FlashSaleCard />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <FlashSaleCard />
-                        </SwiperSlide>
+                        </SwiperSlide> */}
                     </Swiper>
                 </div>
             </div>
