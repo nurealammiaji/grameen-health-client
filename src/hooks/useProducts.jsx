@@ -23,8 +23,6 @@ const useProducts = () => {
         },
     });
 
-    console.log({products});
-
     return { isProductsLoading, products, refetchProducts, isProductsError, productsError };
 };
 
