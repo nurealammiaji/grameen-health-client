@@ -66,8 +66,8 @@ const FlashSaleCard = ({ product }) => {
                         {/* <Link to={`/products/${_id}`}>
                             <button className="text-xl transition-colors duration-300 delay-150 bg-blue-200 border border-r-0 hover:text-2xl btn text-info hover:text-white hover:btn-info btn-sm join-item tooltip border-info tooltip-bottom" data-tip="View Details"><RiEye2Line /></button>
                         </Link> */}
-                        <button className="text-xl transition-colors duration-300 delay-150 bg-red-200 border border-r-0 hover:text-2xl btn text-error hover:text-white hover:btn-error btn-sm join-item tooltip border-error tooltip-bottom" data-tip="Add to Wishlist"><RiHeartLine /></button>
-                        <button className="text-xl transition-colors duration-300 delay-150 bg-green-200 border border-l-0 hover:text-2xl border-success btn btn-sm hover:btn-success text-success hover:text-white join-item tooltip tooltip-bottom" data-tip="Add to Cart"><RiShoppingCart2Line /></button>
+                        <button className="text-xl transition-colors duration-300 delay-150 bg-red-200 border border-r-0 hover:text-2xl btn text-error hover:text-white hover:btn-error btn-sm join-item tooltip border-error" data-tip="Add to Wishlist"><RiHeartLine /></button>
+                        <button className="text-xl transition-colors duration-300 delay-150 bg-green-200 border border-l-0 hover:text-2xl border-success btn btn-sm hover:btn-success text-success hover:text-white join-item tooltip" data-tip="Add to Cart"><RiShoppingCart2Line /></button>
                     </div>
                 </div>
             </div>
