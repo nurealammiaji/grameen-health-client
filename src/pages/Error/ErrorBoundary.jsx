@@ -67,8 +67,9 @@ const ErrorBoundary = () => {
 
   return <>
     <div>
+      <br /><br />
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-error">Something went wrong</h1>
+        <h1 className="text-3xl font-bold text-error">Something went wrong !!</h1>
       </div>
       <div className="mt-16 text-center">
         <Link to={"/"} className="text-lg font-bold btn btn-success btn-outline"><RiArrowLeftLine className="mr-2 text-2xl" />Go to Home</Link>

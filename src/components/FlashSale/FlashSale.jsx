@@ -32,8 +32,11 @@ const FlashSale = () => {
     };
 
     // Calculate remaining days for a flash sale
-    const flashSaleEndDate = new Date('2024-11-16T00:00:00'); // Set your target date
+    const flashSaleEndDate = new Date('2024-11-17T00:00:00'); // Set your target date
     const daysRemaining = calculateRemainingDays(flashSaleEndDate);
+
+    const date = new Date();
+    console.log(date);
 
     useEffect(() => {
         // Update the countdown every second
@@ -61,7 +64,7 @@ const FlashSale = () => {
     }, [flashSaleEndDate]);
 
     return (
-        <div className="p-5">
+        <div className={`p-5 ${flashSaleEndDate <= date ? 'hidden' : 'block'}`}>
             <div className="p-5 rounded-2xl">
                 <div className="items-center gap-5 text-center sm:justify-between sm:flex">
                     <h3 className="text-3xl font-bold text-success">Flash Sale</h3>

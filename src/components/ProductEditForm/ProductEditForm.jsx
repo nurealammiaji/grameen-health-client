@@ -26,15 +26,6 @@ const ProductEditForm = ({ productData }) => {
 
     const variantOptions = ['size', 'color', 'pieces'];
 
-    console.log(variants);
-
-    if (subCategories) {
-        console.log(subCategories)
-    }
-    if (categories) {
-        console.log(categories)
-    }
-
     const handleEditProduct = async (data) => {
         try {
             const formData = new FormData();
@@ -52,7 +43,7 @@ const ProductEditForm = ({ productData }) => {
             formData.append('manufacturer', data.manufacturer);
             formData.append('model', data.model);
             formData.append('description', data.description);
-            formData.append('status', data.status);
+            formData.append('rating', data.rating);
             formData.append('campaign', data.campaign);
 
             productVariants.forEach((variant) => {
@@ -252,15 +243,25 @@ const ProductEditForm = ({ productData }) => {
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="font-semibold label-text">Status</span>
+                            <span className="font-semibold label-text">Rating</span>
                         </label>
-                        <select {...register("status", { required: true })} className="w-full select select-bordered">
-                            <option value="">select status</option>
-                            <option className="font-medium text-warning" value="pending">Pending</option>
-                            <option className="font-medium text-success" value="active">Active</option>
-                            <option className="font-medium text-error" value="inactive">Inactive</option>
-                        </select>
-                        {errors.status?.type === 'required' && <span className="text-error">{t('requiredStatus')} !!</span>}
+                        <input
+                            {...register("rating", {
+                                required: true,
+                                min: 1,
+                                max: 5,
+                                valueAsNumber: true,
+                                validate: value => !isNaN(value) && value >= 1 && value <= 5,
+                            })}
+                            type="number"
+                            min={1}
+                            max={5}
+                            step="any"
+                            placeholder="Type quantity here"
+                            className="w-full input input-bordered"
+                        />
+                        {errors.rating?.type === 'required' && <span className="text-error">{t('requiredRating')} !!</span>}
+                        {errors.rating?.type === 'validate' && <span className="text-error">Rating must be between 1 and 5!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">

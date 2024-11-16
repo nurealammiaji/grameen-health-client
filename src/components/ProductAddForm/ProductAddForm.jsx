@@ -19,16 +19,19 @@ const ProductAddForm = () => {
     const { t } = useTranslation();
     const [filesWithPreview, setFilesWithPreview] = useState([]);
     const [variants, setVariants] = useState([]);
+    const [addVariants, setAddVariants] = useState(false);
+    const [addSizes, setAddSizes] = useState(false);
+    const [addColors, setAddColors] = useState(false);
+    const [addPieces, setAddPieces] = useState(false);
     const { addProduct } = useContext(ProductContext);
 
-    const variantOptions = ['size', 'color', 'pieces'];
-
-    if (subCategories) {
-        console.log(subCategories)
-    }
-    if (categories) {
-        console.log(categories)
-    }
+    const [sizes, setSizes] = useState([]);
+    const [colors, setColors] = useState([]);
+    const [pieces, setPieces] = useState([]);
+    const [sizeName, setSizeName] = useState('');
+    const [colorName, setColorName] = useState('');
+    const [pieceCount, setPieceCount] = useState(1);
+    const [error, setError] = useState('');
 
     const handleAddProduct = async (data) => {
         try {
@@ -119,18 +122,48 @@ const ProductAddForm = () => {
         });
     };
 
-    const handleVariantChange = (index, field, value) => {
-        const newVariants = [...variants];
-        newVariants[index][field] = value;
-        setVariants(newVariants);
+    // const handleVariantChange = (index, field, value) => {
+    //     const newVariants = [...variants];
+    //     newVariants[index][field] = value;
+    //     setVariants(newVariants);
+    // };
+
+    // const addVariant = () => {
+    //     setVariants([...variants, { type: 'size', value: '' }]);
+    // };
+
+    // const removeVariant = (index) => {
+    //     setVariants(variants.filter((_, i) => i !== index));
+    // };
+
+    // Add new sizes
+    const handleAddSize = () => {
+        if (sizeName && !sizes.some(size => size.name === sizeName)) {
+            setSizes([...sizes, { name: sizeName, price: 10 }]); // Default price of 10
+            setSizeName('');
+        } else {
+            setError('Size is either invalid or already exists.');
+        }
     };
 
-    const addVariant = () => {
-        setVariants([...variants, { type: 'size', value: '' }]);
+    // Add new colors
+    const handleAddColor = () => {
+        if (colorName && !colors.some(color => color.name === colorName)) {
+            setColors([...colors, { name: colorName, price: 5 }]); // Default price of 5
+            setColorName('');
+        } else {
+            setError('Color is either invalid or already exists.');
+        }
     };
 
-    const removeVariant = (index) => {
-        setVariants(variants.filter((_, i) => i !== index));
+    // Add new pieces
+    const handleAddPieceOption = () => {
+        if (pieceCount >= 1 && !pieces.includes(pieceCount)) {
+            setPieces([...pieces, pieceCount]);
+            setPieceCount(1);
+        } else {
+            setError('Invalid piece count or piece already exists.');
+        }
     };
 
     return (
@@ -249,8 +282,23 @@ const ProductAddForm = () => {
                         <label className="label">
                             <span className="font-semibold label-text">Rating</span>
                         </label>
-                        <input {...register("rating", { required: true, min: 1, max: 5 })} type="number" min={1} max={5} placeholder="Type quantity here" className="w-full input input-bordered" />
+                        <input
+                            {...register("rating", {
+                                required: true,
+                                min: 1,
+                                max: 5,
+                                valueAsNumber: true,
+                                validate: value => !isNaN(value) && value >= 1 && value <= 5,
+                            })}
+                            type="number"
+                            min={1}
+                            max={5}
+                            step="any"
+                            placeholder="Type quantity here"
+                            className="w-full input input-bordered"
+                        />
                         {errors.rating?.type === 'required' && <span className="text-error">{t('requiredRating')} !!</span>}
+                        {errors.rating?.type === 'validate' && <span className="text-error">Rating must be between 1 and 5!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
@@ -279,7 +327,7 @@ const ProductAddForm = () => {
                 </div>
 
                 {/* Variants Input */}
-                <div className="w-full mt-5 form-control">
+                {/* <div className="w-full mt-5 form-control">
                     <div className="flex items-center justify-between mb-2">
                         <label className="label">
                             <span className="font-semibold label-text">Variants <span className="font-normal">(Size/Color/Pieces)</span>
@@ -317,6 +365,86 @@ const ProductAddForm = () => {
                     ))}
                     <button type="button" onClick={addVariant} className={`${variants?.length === 0 ? "btn btn-sm btn-info" : "hidden"}`}>
                         <RiAddBoxFill /> Add Variant
+                    </button>
+                </div>                 */}
+
+                <div className={`${addVariants ? 'block' : 'hidden'} w-full mt-5 form-control`}>
+                    <label className="label">
+                        <span className="font-semibold label-text">Variants <span className="font-normal">(Size/Color/Pieces)</span>
+                        </span>
+                    </label>
+                    <div className="flex items-center justify-evenly my-3">
+                        <button type="button" onClick={() => setAddSizes(true)} className={`${addSizes ? "hidden" : "btn btn-xs btn-info"}`}>
+                            <RiAddBoxFill /> Add Sizes
+                        </button>
+                        <button type="button" onClick={() => setAddColors(true)} className={`${addColors ? "hidden" : "btn btn-xs btn-info"}`}>
+                            <RiAddBoxFill /> Add Colors
+                        </button>
+                        <button type="button" onClick={() => setAddPieces(true)} className={`${addPieces ? "hidden" : "btn btn-xs btn-info"}`}>
+                            <RiAddBoxFill /> Add Pieces
+                        </button>
+                    </div>
+                    {/* Add Size */}
+                    <div className={`${addSizes ? 'flex w-full form-control' : 'hidden'}`}>
+                        <label>Size (e.g., small, medium, large)</label>
+                        {/* User-defined size input */}
+                        <div className="flex">
+                            <h3>Size</h3>
+                            <input
+                                type="text"
+                                value={sizeName}
+                                onChange={(e) => setSizeName(e.target.value)}
+                                placeholder="Enter size"
+                                className="input input-bordered input-sm ml-2"
+                            />
+                            <button className="btn btn-sm ml-2" type="button" onClick={handleAddSize}>Add Size</button>
+                            <button type="button" onClick={() => setAddSizes(false)} className="btn btn-sm btn-error">X</button>
+                        </div>
+                        <hr className="my-3" />
+                        {/* Selection for size */}
+                        <div className={`${sizes.length > 0 ? 'block' : 'hidden'}`}>
+                            <label>Selected Size</label>
+                            <div className="flex justify-evenly">
+                                {sizes?.map((size, index) => (
+                                    <span className="relative">
+                                        <span className="badge badge-primary" key={index} value={size.name}>{size.name}</span>
+                                        <span className='border border-error text-error rounded-full px-2 ml-1'>X</span>
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    {/* User-defined color input */}
+                    <div>
+                        <label>Color (e.g., red, blue, green)</label>
+                        <input
+                            type="text"
+                            value={colorName}
+                            onChange={(e) => setColorName(e.target.value)}
+                            placeholder="Enter color"
+                            className="input input-bordered input-sm ml-2"
+                        />
+                        <button className="btn btn-sm ml-2" type="button" onClick={handleAddColor}>Add Color</button>
+                    </div>
+                    <br />
+                    {/* User-defined pieces input */}
+                    <div>
+                        <label>Pieces</label>
+                        <input
+                            type="number"
+                            min="1"
+                            value={pieceCount}
+                            onChange={(e) => setPieceCount(Number(e.target.value))}
+                            placeholder="Enter pieces"
+                            className="input input-bordered input-sm ml-2"
+                        />
+                        <button className="btn btn-sm ml-2" type="button" onClick={handleAddPieceOption}>Add Piece</button>
+                    </div>
+                </div>
+                <div className={`${addVariants ? 'hidden' : 'flex w-full mt-5 form-control'}`}>
+                    <button onClick={() => setAddVariants(true)} type="button" className={`${variants?.length === 0 ? "btn btn-sm btn-info" : "hidden"}`}>
+                        <RiAddBoxFill /> Add Variants
                     </button>
                 </div>
 
