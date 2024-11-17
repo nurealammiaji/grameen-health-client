@@ -11,7 +11,7 @@ import useProducts from '../../hooks/useProducts';
 
 const ProductEditForm = ({ productData }) => {
 
-    const { name, description, price, specialPrice, category, subCategory, model, variants, images, brand, originCountry, manufacturer, shop, advanceMoney, quantity, status, campaign, createdAt, updatedAt } = productData;
+    const { name, description, price, specialPrice, category, subCategory, model, variants, images, brand, originCountry, manufacturer, shop, advanceMoney, quantity, status, rating, campaign, createdAt, updatedAt } = productData;
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isShopsLoading, shops, refetchShops, isShopsError, shopsError } = useShops();
@@ -195,7 +195,7 @@ const ProductEditForm = ({ productData }) => {
                         <label className="label">
                             <span className="font-semibold label-text">Shop</span>
                         </label>
-                        <select defaultValue={shop._id} {...register("shop", { required: true })} className="w-full select select-bordered">
+                        <select defaultValue={shop?._id} {...register("shop", { required: true })} className="w-full select select-bordered">
                             <option value="">select shop</option>
                             {
                                 (shops) &&
@@ -246,6 +246,7 @@ const ProductEditForm = ({ productData }) => {
                             <span className="font-semibold label-text">Rating</span>
                         </label>
                         <input
+                            defaultValue={rating}
                             {...register("rating", {
                                 required: true,
                                 min: 1,
@@ -267,7 +268,7 @@ const ProductEditForm = ({ productData }) => {
                         <label className="label">
                             <span className="font-semibold label-text">Campaign</span>
                         </label>
-                        <select {...register("campaign", { required: true })}
+                        <select defaultValue={campaign} {...register("campaign", { required: true })}
                             className="w-full select select-bordered">
                             <option value="">select campaign</option>
                             <option className="font-medium" value={null}>None</option>

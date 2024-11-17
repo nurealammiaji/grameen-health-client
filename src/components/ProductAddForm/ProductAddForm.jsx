@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
@@ -28,9 +28,15 @@ const ProductAddForm = () => {
     const [sizes, setSizes] = useState([]);
     const [colors, setColors] = useState([]);
     const [pieces, setPieces] = useState([]);
+
     const [sizeName, setSizeName] = useState('');
     const [colorName, setColorName] = useState('');
-    const [pieceCount, setPieceCount] = useState(1);
+    const [pieceName, setPieceName] = useState('');
+
+    const [sizePrice, setSizePrice] = useState(0);
+    const [colorPrice, setColorPrice] = useState(0);
+    const [piecePrice, setPiecePrice] = useState(0);
+
     const [error, setError] = useState('');
 
     const handleAddProduct = async (data) => {
@@ -55,8 +61,8 @@ const ProductAddForm = () => {
 
             variants.forEach((variant) => {
                 const variantData = {};
-                if (variant.type === 'size' && variant.value) variantData.size = variant.value;
-                if (variant.type === 'color' && variant.value) variantData.color = variant.value;
+                if (variant.type === 'sizes' && variant.value) variantData.size = variant.value;
+                if (variant.type === 'colors' && variant.value) variantData.color = variant.value;
                 if (variant.type === 'pieces' && variant.value) variantData.pieces = variant.value;
 
                 if (Object.keys(variantData).length > 0) {
@@ -139,8 +145,9 @@ const ProductAddForm = () => {
     // Add new sizes
     const handleAddSize = () => {
         if (sizeName && !sizes.some(size => size.name === sizeName)) {
-            setSizes([...sizes, { name: sizeName, price: 10 }]); // Default price of 10
+            setSizes([...sizes, { name: sizeName, price: sizePrice ? sizePrice : 0 }]); // Default price 0
             setSizeName('');
+            setSizePrice('');
         } else {
             setError('Size is either invalid or already exists.');
         }
@@ -149,22 +156,46 @@ const ProductAddForm = () => {
     // Add new colors
     const handleAddColor = () => {
         if (colorName && !colors.some(color => color.name === colorName)) {
-            setColors([...colors, { name: colorName, price: 5 }]); // Default price of 5
+            setColors([...colors, { name: colorName, price: colorPrice ? colorPrice : 0 }]); // Default price 0
             setColorName('');
+            setColorPrice('');
         } else {
             setError('Color is either invalid or already exists.');
         }
     };
 
     // Add new pieces
-    const handleAddPieceOption = () => {
-        if (pieceCount >= 1 && !pieces.includes(pieceCount)) {
-            setPieces([...pieces, pieceCount]);
-            setPieceCount(1);
+    const handleAddPiece = () => {
+        if (pieceName && !pieces.some(piece => piece.name === pieceName)) {
+            setPieces([...pieces, { name: pieceName, price: piecePrice ? piecePrice : 0 }]); // Default price 0
+            setPieceName('');
+            setPiecePrice('');
         } else {
-            setError('Invalid piece count or piece already exists.');
+            setError('Piece is either invalid or already exists.');
         }
     };
+
+    // Add new pieces
+    // const handleAddPieceOption = () => {
+    //     if (pieceCount >= 1 && !pieces.includes(pieceCount)) {
+    //         setPieces([...pieces, pieceCount]);
+    //         setPieceCount();
+    //     } else {
+    //         setError('Invalid piece count or piece already exists.');
+    //     }
+    // };
+
+    useEffect(() => {
+        if (pieces) {
+            console.log(pieces);
+        }
+        if (sizes) {
+            console.log(sizes);
+        }
+        if (colors) {
+            console.log(colors);
+        }
+    }, [pieces, sizes, colors]);
 
     return (
         <div>
@@ -370,10 +401,10 @@ const ProductAddForm = () => {
 
                 <div className={`${addVariants ? 'block' : 'hidden'} w-full mt-5 form-control`}>
                     <label className="label">
-                        <span className="font-semibold label-text">Variants <span className="font-normal">(Size/Color/Pieces)</span>
+                        <span className="font-semibold label-text">Variants <span className="font-normal text-info">(Size/Color/Pieces)</span>
                         </span>
                     </label>
-                    <div className="flex items-center justify-evenly my-3">
+                    <div className="flex items-center justify-evenly">
                         <button type="button" onClick={() => setAddSizes(true)} className={`${addSizes ? "hidden" : "btn btn-xs btn-info"}`}>
                             <RiAddBoxFill /> Add Sizes
                         </button>
@@ -385,61 +416,118 @@ const ProductAddForm = () => {
                         </button>
                     </div>
                     {/* Add Size */}
-                    <div className={`${addSizes ? 'flex w-full form-control' : 'hidden'}`}>
-                        <label>Size (e.g., small, medium, large)</label>
+                    <div className={`${addSizes ? 'flex w-full form-control mt-5' : 'hidden'}`}>
+                        <label>Sizes (e.g. Small, Medium, Large)</label>
                         {/* User-defined size input */}
-                        <div className="flex">
-                            <h3>Size</h3>
+                        <div className="flex mt-3 justify-evenly items-center gap-3">
                             <input
                                 type="text"
                                 value={sizeName}
                                 onChange={(e) => setSizeName(e.target.value)}
-                                placeholder="Enter size"
-                                className="input input-bordered input-sm ml-2"
+                                placeholder="Size Name"
+                                className="input input-bordered input-sm w-full"
                             />
-                            <button className="btn btn-sm ml-2" type="button" onClick={handleAddSize}>Add Size</button>
-                            <button type="button" onClick={() => setAddSizes(false)} className="btn btn-sm btn-error">X</button>
+                            <input
+                                type="text"
+                                value={sizePrice}
+                                onChange={(e) => setSizePrice(Number(e.target.value))}
+                                placeholder="Additional Price"
+                                className="input input-bordered w-full input-sm"
+                            />
+                            <button className="btn btn-sm btn-success" type="button" onClick={handleAddSize}>Add</button>
+                            <button type="button" onClick={() => {
+                                setAddSizes(false)
+                                setSizes([])
+                            }} className="btn btn-sm btn-error btn-circle">X</button>
                         </div>
-                        <hr className="my-3" />
-                        {/* Selection for size */}
-                        <div className={`${sizes.length > 0 ? 'block' : 'hidden'}`}>
-                            <label>Selected Size</label>
-                            <div className="flex justify-evenly">
+                        {/* Selected size */}
+                        <div className={`${sizes.length > 0 ? 'block mt-3' : 'hidden'}`}>
+                            <label>Selected Sizes</label>
+                            <div className="flex justify-center items-center mt-3 flex-wrap gap-3">
                                 {sizes?.map((size, index) => (
-                                    <span className="relative">
-                                        <span className="badge badge-primary" key={index} value={size.name}>{size.name}</span>
-                                        <span className='border border-error text-error rounded-full px-2 ml-1'>X</span>
+                                    <span className="flex gap-2 items-center p-2 border-2 border-primary rounded-full">
+                                        <span className="btn btn-xs btn-primary" key={index} value={size.name}>{size.name}</span>
+                                        <span className='btn btn-xs btn-primary'>{size.price}</span>
                                     </span>
                                 ))}
                             </div>
                         </div>
                     </div>
-                    <br />
-                    {/* User-defined color input */}
-                    <div>
-                        <label>Color (e.g., red, blue, green)</label>
-                        <input
-                            type="text"
-                            value={colorName}
-                            onChange={(e) => setColorName(e.target.value)}
-                            placeholder="Enter color"
-                            className="input input-bordered input-sm ml-2"
-                        />
-                        <button className="btn btn-sm ml-2" type="button" onClick={handleAddColor}>Add Color</button>
+                    {/* Add Colors */}
+                    <div className={`${addColors ? 'flex w-full form-control mt-5' : 'hidden'}`}>
+                        <label>Colors (e.g. Black, White, Red etc.)</label>
+                        {/* User-defined size input */}
+                        <div className="flex mt-3 justify-evenly items-center gap-3">
+                            <input
+                                type="text"
+                                value={colorName}
+                                onChange={(e) => setColorName(e.target.value)}
+                                placeholder="Color Name"
+                                className="input input-bordered input-sm w-full"
+                            />
+                            <input
+                                type="text"
+                                value={colorPrice}
+                                onChange={(e) => setColorPrice(Number(e.target.value))}
+                                placeholder="Additional Price"
+                                className="input input-bordered w-full input-sm"
+                            />
+                            <button className="btn btn-sm btn-success" type="button" onClick={handleAddColor}>Add</button>
+                            <button type="button" onClick={() => {
+                                setAddColors(false)
+                                setColors([])
+                            }} className="btn btn-sm btn-error btn-circle">X</button>
+                        </div>
+                        {/* Selected size */}
+                        <div className={`${colors.length > 0 ? 'block mt-3' : 'hidden'}`}>
+                            <label>Selected Sizes</label>
+                            <div className="flex justify-center items-center mt-3 flex-wrap gap-3">
+                                {colors?.map((color, index) => (
+                                    <span className="flex gap-2 items-center p-2 border-2 border-primary rounded-full">
+                                        <span className="btn btn-xs btn-primary" key={index}>{color.name}</span>
+                                        <span className='btn btn-xs btn-primary'>{color.price}</span>
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                    <br />
-                    {/* User-defined pieces input */}
-                    <div>
-                        <label>Pieces</label>
-                        <input
-                            type="number"
-                            min="1"
-                            value={pieceCount}
-                            onChange={(e) => setPieceCount(Number(e.target.value))}
-                            placeholder="Enter pieces"
-                            className="input input-bordered input-sm ml-2"
-                        />
-                        <button className="btn btn-sm ml-2" type="button" onClick={handleAddPieceOption}>Add Piece</button>
+                    {/* Add Pieces */}
+                    <div className={`${addPieces ? 'flex w-full form-control mt-5' : 'hidden'}`}>
+                        <label>Pieces (e.g. 6P, 12P, 24P etc.)</label>
+                        {/* User-defined piece input */}
+                        <div className="flex mt-3 justify-evenly items-center gap-3">
+                            <input
+                                type="text"
+                                value={pieceName}
+                                onChange={(e) => setPieceName(e.target.value)}
+                                placeholder="Piece Name"
+                                className="input input-bordered input-sm w-full"
+                            />
+                            <input
+                                type="text"
+                                value={piecePrice}
+                                onChange={(e) => setPiecePrice(Number(e.target.value))}
+                                placeholder="Additional Price"
+                                className="input input-bordered w-full input-sm"
+                            />
+                            <button className="btn btn-sm btn-success" type="button" onClick={handleAddPiece}>Add</button>
+                            <button type="button" onClick={() => {
+                                setAddPieces(false)
+                                setPieces([])
+                            }} className="btn btn-sm btn-error btn-circle">X</button>
+                        </div>
+                        {/* Selected Pieces */}
+                        <div className={`${pieces.length > 0 ? 'block mt-3' : 'hidden'}`}>
+                            <label>Selected Pieces</label>
+                            <div className="flex justify-center items-center mt-3 flex-wrap gap-3">
+                                {pieces?.map((piece, index) => (
+                                    <span className="flex gap-2 items-center p-2 border-2 border-primary rounded-full">
+                                        <span className="btn btn-xs btn-primary" key={index} value={piece.name}>{piece.name}</span>
+                                        <span className='btn btn-xs btn-primary'>{piece.price}</span>
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className={`${addVariants ? 'hidden' : 'flex w-full mt-5 form-control'}`}>
@@ -450,7 +538,6 @@ const ProductAddForm = () => {
 
                 {/* File Upload Section */}
                 <div className="w-full mt-5 form-control">
-                    {/* <label htmlFor="fileUpload">Upload Images</label> */}
                     <label className="label">
                         <span className="font-semibold label-text">Upload Images {(filesWithPreview?.length > 0) ? <span className="font-normal text-success">(Selected: {(filesWithPreview?.length > 1) ? `${filesWithPreview?.length} Images` : `${filesWithPreview?.length} Image`})</span> : <span className="font-normal text-info">(Max: 5 Images)</span>}</span>
                     </label>
