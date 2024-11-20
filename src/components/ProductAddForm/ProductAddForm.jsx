@@ -18,9 +18,7 @@ const ProductAddForm = () => {
     const { isProductsLoading, products, refetchProducts, isProductsError, productsError } = useProducts();
     const { t } = useTranslation();
     const [filesWithPreview, setFilesWithPreview] = useState([]);
-    const [variants, setVariants] = useState([]);
     const [addVariants, setAddVariants] = useState(false);
-    const [addedVariants, setAddedVariants] = useState(false);
     const { addProduct } = useContext(ProductContext);
 
     const [addSizes, setAddSizes] = useState(false);
@@ -45,29 +43,6 @@ const ProductAddForm = () => {
 
     const [error, setError] = useState('');
 
-    const handleAddVariants = () => {
-        if (addVariants) {
-            // console.log({ sizes }, { grades }, { colors }, { pieces });
-            // const newVariants = [
-            //     { sizes: [...sizes] },
-            //     { grades: [...grades] },
-            //     { colors: [...colors] },
-            //     { pieces: [...pieces] }
-            // ];
-            setVariants([
-                { sizes: [...sizes] },
-                { grades: [...grades] },
-                { colors: [...colors] },
-                { pieces: [...pieces] }
-            ]);
-            setAddedVariants(true);
-
-        } else {
-            setAddVariants(false);
-            return;
-        }
-    };
-
     const handleCloseVariants = () => {
         setAddVariants(false);
         setAddedVariants(false);
@@ -82,7 +57,14 @@ const ProductAddForm = () => {
     };
 
     const handleAddProduct = async (data) => {
-        console.log({ variants });
+
+        const variants = [
+            { sizes: [...sizes] },
+            { grades: [...grades] },
+            { colors: [...colors] },
+            { pieces: [...pieces] }
+        ];
+
         try {
             const formData = new FormData();
             formData.append('type', 'product');
@@ -101,19 +83,7 @@ const ProductAddForm = () => {
             formData.append('description', data.description);
             formData.append('rating', data.rating);
             formData.append('campaign', data.campaign);
-            // formData.append('variants[]', JSON.stringify(variants));
             formData.append('variants', JSON.stringify(variants));
-
-            // productVariants.forEach((variant) => {
-            //     const variantData = {};
-            //     if (variant.type === 'size' && variant.value) variantData.size = variant.value;
-            //     if (variant.type === 'color' && variant.value) variantData.color = variant.value;
-            //     if (variant.type === 'pieces' && variant.value) variantData.pieces = variant.value;
-
-            //     if (Object.keys(variantData).length > 0) {
-            //         formData.append('variants[]', JSON.stringify(variantData)); // Check this format with your backend
-            //     }
-            // });
 
             filesWithPreview.forEach(item => {
                 formData.append('images[]', item.file);
@@ -133,15 +103,15 @@ const ProductAddForm = () => {
                 timer: 1500
             });
 
-            refetchProducts();
-            setAddVariants(false);
-            setVariants([]);
-            setSizes([]);
-            setGrades([]);
-            setColors([]);
-            setPieces([]);
-            setFilesWithPreview([]);
-            reset();
+            // refetchProducts();
+            // setAddVariants(false);
+            // setVariants([]);
+            // setSizes([]);
+            // setGrades([]);
+            // setColors([]);
+            // setPieces([]);
+            // setFilesWithPreview([]);
+            // reset();
 
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
@@ -222,11 +192,11 @@ const ProductAddForm = () => {
     };
 
     useEffect(() => {
-        if (products) {
-            console.log(products);
-        }
-        if (variants) {
-            console.log(variants);
+        if (!addVariants) {
+            setSizes([]);
+            setGrades([]);
+            setColors([]);
+            setPieces([]);
         }
         if (!addSizes) {
             setSizes([]);
@@ -240,7 +210,7 @@ const ProductAddForm = () => {
         if (!addPieces) {
             setPieces([]);
         }
-    }, [variants, products, addSizes, addGrades, addColors, addPieces, setSizes, setGrades, setColors, setPieces]);
+    }, [addVariants, products, addSizes, addGrades, addColors, addPieces, setSizes, setGrades, setColors, setPieces]);
 
     return (
         <div>
@@ -443,7 +413,7 @@ const ProductAddForm = () => {
                         </div>
                         {/* Selected sizes */}
                         <div className={`${sizes.length > 0 ? 'block mt-3' : 'hidden'}`}>
-                            <div className="text-center text-sm">
+                            <div className="text-sm text-center">
                                 <label>Selected Sizes:</label>
                             </div>
                             <div className="flex flex-wrap items-center justify-center gap-3 mt-3">
@@ -491,7 +461,7 @@ const ProductAddForm = () => {
                         </div>
                         {/* Selected grades */}
                         <div className={`${grades.length > 0 ? 'block mt-3' : 'hidden'}`}>
-                            <div className="text-center text-sm">
+                            <div className="text-sm text-center">
                                 <label>Selected Grades:</label>
                             </div>
                             <div className="flex flex-wrap items-center justify-center gap-3 mt-3">
@@ -539,7 +509,7 @@ const ProductAddForm = () => {
                         </div>
                         {/* Selected size */}
                         <div className={`${colors.length > 0 ? 'block mt-3' : 'hidden'}`}>
-                            <div className="text-center text-sm">
+                            <div className="text-sm text-center">
                                 <label>Selected Sizes:</label>
                             </div>
                             <div className="flex flex-wrap items-center justify-center gap-3 mt-3">
@@ -587,7 +557,7 @@ const ProductAddForm = () => {
                         </div>
                         {/* Selected Pieces */}
                         <div className={`${pieces.length > 0 ? 'block mt-3' : 'hidden'}`}>
-                            <div className="text-center text-sm">
+                            <div className="text-sm text-center">
                                 <label>Selected Pieces:</label>
                             </div>
                             <div className="flex flex-wrap items-center justify-center gap-3 mt-3">
@@ -624,20 +594,20 @@ const ProductAddForm = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="my-6 text-center">
+                    {/* <div className="my-6 text-center">
                         <hr className="border-2 border-base-300" />
                         <small className="text-error">N.B </small>
                         <small className="mt-5">After defining all the variants, click 'Add' to save them</small>
                         <hr className="border-2 border-base-300" />
-                    </div>
-                    <div className="flex justify-center gap-5">
+                    </div> */}
+                    {/* <div className="flex justify-center gap-5">
                         <div className="tooltip" data-tip="Add Variants">
-                            <button type="button" onClick={handleAddVariants} className="btn btn-success btn-sm text-white btn-outline">Add</button>
+                            <button type="button" className="text-white btn btn-success btn-sm btn-outline">Add</button>
                         </div>
                         <div className="tooltip" data-tip="Close Variants">
-                            <button type="button" onClick={handleCloseVariants} className="btn btn-error btn-sm text-white btn-outline">Close</button>
+                            <button type="button" onClick={handleCloseVariants} className="text-white btn btn-error btn-sm btn-outline">Close</button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className={`${addVariants ? 'hidden' : 'flex w-full mt-5 form-control'}`}>
                     <button onClick={() => setAddVariants(true)} type="button" className="btn btn-info">
