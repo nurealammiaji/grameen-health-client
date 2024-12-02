@@ -43,6 +43,8 @@ import ViewCarousel from "../pages/Dashboard/Admin/ManageCarousels/ViewCarousel/
 import ViewSubCategory from '../pages/Dashboard/Admin/ManageSubCategories/ViewSubCategory/ViewSubCategory';
 import ViewCategory from '../pages/Dashboard/Admin/ManageCategories/ViewCategory/ViewCategory';
 import ViewProduct from "../pages/Dashboard/Admin/ManageProducts/ViewProduct/ViewProduct";
+import ManageCampaigns from "../pages/Dashboard/Admin/ManageCampaigns/ManageCampaigns";
+import ViewCampaign from "../pages/Dashboard/Admin/ManageCampaigns/ViewCampaign/ViewCampaign";
 
 const axiosPrivate = useAxiosPrivate();
 
@@ -167,6 +169,15 @@ const AllRoutes = createBrowserRouter([
                 path: "/dashboard/admin/payments/:id",
                 element: <PrivateRoute><AdminRoute><ManagePayments /></AdminRoute></PrivateRoute>,
                 loader: async ({ params }) => await axiosPrivate.get(`/payments/read/${params.id}`)
+            },
+            {
+                path: "/dashboard/admin/campaigns",
+                element: <PrivateRoute><AdminRoute><ManageCampaigns /></AdminRoute></PrivateRoute>
+            },
+            {
+                path: "/dashboard/admin/campaigns/:id",
+                element: <PrivateRoute><AdminRoute><ViewCampaign /></AdminRoute></PrivateRoute>,
+                loader: async ({ params }) => await axiosPrivate.get(`/campaigns/read/${params.id}`)
             },
             {
                 path: "/dashboard/admin/categories",
