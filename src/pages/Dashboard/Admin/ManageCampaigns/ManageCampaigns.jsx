@@ -11,11 +11,11 @@ const ManageCampaigns = () => {
 
     const { isCategoriesLoading, categories, refetchCampaigns, isCategoriesError, categoriesError } = useCategories();
 
-    const { addCategory, editCategory, deleteCampaign, selectedCampaigns, setSelectedCampaigns } = useContext(CategoryContext);
+    const { addCategory, editCategory, deleteCampaigns, selectedCampaigns, setSelectedCampaigns } = useContext(CategoryContext);
 
     const handleDeleteCampaigns = async () => {
         try {
-            await deleteCampaign()
+            await deleteCampaigns()
                 .then(({ data }) => {
                     console.log(data);
                     Swal.fire({
@@ -57,7 +57,7 @@ const ManageCampaigns = () => {
             <br />
             <div className="items-center justify-around gap-5 text-center md:flex">
                 <div>
-                    <button onClick={() => document.getElementById('add_category_modal').showModal()} className="btn btn-outline btn-info"><RiAddBoxFill className="text-2xl" />Campaign</button>
+                    <button onClick={() => document.getElementById('add_campaign_modal').showModal()} className="btn btn-outline btn-info"><RiAddBoxFill className="text-2xl" />Campaign</button>
                 </div>
                 {/* <div className="mt-5 md:mt-0">
                     <SearchProducts />

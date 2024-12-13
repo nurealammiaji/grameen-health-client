@@ -104,23 +104,23 @@ const Dashboard = () => {
                             {/* Sidebar content here */}
                             {
                                 (userData && userData?.role === "admin") &&
-                                <Link to={"/dashboard/admin"} className="flex items-center px-3 py-2 md:px-6 md:py-4 mx-auto mb-10 font-bold text-center bg-white rounded-full lg:text-2xl text-success">
+                                <Link to={"/dashboard/admin"} className="flex items-center px-3 py-2 mx-auto mb-10 font-bold text-center bg-white rounded-full md:px-6 md:py-4 lg:text-2xl text-success">
                                     <RiPieChart2Fill className="text-2xl md:text-3xl" />
-                                    <span className="ml-2 md:ml-4 font-bold md:text-2xl">{t('dashboard')}</span>
+                                    <span className="ml-2 font-bold md:ml-4 md:text-2xl">{t('dashboard')}</span>
                                 </Link>
                             }
                             {
                                 (userData && userData?.role === "merchant") &&
-                                <Link to={"/dashboard/merchant"} className="flex items-center px-3 py-2 md:px-6 md:py-4 mx-auto mb-10 font-bold text-center bg-white rounded-full lg:text-2xl text-success">
+                                <Link to={"/dashboard/merchant"} className="flex items-center px-3 py-2 mx-auto mb-10 font-bold text-center bg-white rounded-full md:px-6 md:py-4 lg:text-2xl text-success">
                                     <RiPieChart2Fill className="text-2xl md:text-3xl" />
-                                    <span className="ml-2 md:ml-4 font-bold md:text-2xl">{t('dashboard')}</span>
+                                    <span className="ml-2 font-bold md:ml-4 md:text-2xl">{t('dashboard')}</span>
                                 </Link>
                             }
                             {
                                 (userData && userData?.role === "customer") &&
-                                <Link to={"/dashboard/customer"} className="flex items-center px-3 py-2 md:px-6 md:py-4 mx-auto mb-10 font-bold text-center bg-white rounded-full lg:text-2xl text-success">
+                                <Link to={"/dashboard/customer"} className="flex items-center px-3 py-2 mx-auto mb-10 font-bold text-center bg-white rounded-full md:px-6 md:py-4 lg:text-2xl text-success">
                                     <RiPieChart2Fill className="text-2xl md:text-3xl" />
-                                    <span className="ml-2 md:ml-4 font-bold md:text-2xl">{t('dashboard')}</span>
+                                    <span className="ml-2 font-bold md:ml-4 md:text-2xl">{t('dashboard')}</span>
                                 </Link>
                             }
                             {/* Theme Changer */}
@@ -137,7 +137,8 @@ const Dashboard = () => {
                                     <li><NavLink to={"/dashboard/admin/products"} className="text-white"><RiBox3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageProducts')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/payments"} className="text-white"><TbCoinTakaFilled className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('managePayments')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/carousels"} className="text-white"><RiCarouselView className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('ManageCarousels')}</span></NavLink></li>
-                                    <li><NavLink to={"/dashboard/admin/campaigns"} className="text-white"><RiPieChart2Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageCampaigns')}</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/admin/campaigns"} className="text-white"><RiTimerFlashFill
+                                     className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageCampaigns')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/categories"} className="text-white"><BiSolidCategory className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageCategories')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/admin/subCategories"} className="text-white"><BiSolidCategoryAlt className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageSubCategories')}</span></NavLink></li>
                                 </>

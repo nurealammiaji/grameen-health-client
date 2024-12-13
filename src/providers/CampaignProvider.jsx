@@ -21,7 +21,7 @@ const CampaignProvider = ({ children }) => {
         return await axiosPrivate.put(`/campaigns/update/${_id}`, formData)
     };
 
-    const deleteCampaign = async () => {
+    const deleteCampaigns = async () => {
         return await axiosPrivate.delete('/campaigns/delete', {
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ const CampaignProvider = ({ children }) => {
     const campaignInfo = {
         addCampaign,
         editCampaign,
-        deleteCampaign,
+        deleteCampaigns,
         selectedCampaigns,
         setSelectedCampaigns,
     };

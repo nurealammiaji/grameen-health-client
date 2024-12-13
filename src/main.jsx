@@ -18,6 +18,7 @@ import OrderProvider from './providers/OrderProvider.jsx';
 import ReviewProvider from './providers/ReviewProvider.jsx';
 import PaymentProvider from './providers/PaymentProvider.jsx';
 import CarouselProvider from './providers/CarouselProvider.jsx';
+import CampaignProvider from './providers/CampaignProvider.jsx';
 
 const queryClient = new QueryClient();
 
@@ -28,25 +29,27 @@ createRoot(document.getElementById('root')).render(
         <UtilityProvider>
           <CarouselProvider>
             <ShopProvider>
-              <CategoryProvider>
-                <SubCategoryProvider>
-                  <ProductProvider>
-                    <UserProvider>
-                      <OrderProvider>
-                        <PaymentProvider>
-                          <ReviewProvider>
-                            <QueryClientProvider client={queryClient}>
-                              <RouterProvider router={AllRoutes}>
-                                <App />
-                              </RouterProvider>
-                            </QueryClientProvider>
-                          </ReviewProvider>
-                        </PaymentProvider>
-                      </OrderProvider>
-                    </UserProvider>
-                  </ProductProvider>
-                </SubCategoryProvider>
-              </CategoryProvider>
+              <CampaignProvider>
+                <CategoryProvider>
+                  <SubCategoryProvider>
+                    <ProductProvider>
+                      <UserProvider>
+                        <OrderProvider>
+                          <PaymentProvider>
+                            <ReviewProvider>
+                              <QueryClientProvider client={queryClient}>
+                                <RouterProvider router={AllRoutes}>
+                                  <App />
+                                </RouterProvider>
+                              </QueryClientProvider>
+                            </ReviewProvider>
+                          </PaymentProvider>
+                        </OrderProvider>
+                      </UserProvider>
+                    </ProductProvider>
+                  </SubCategoryProvider>
+                </CategoryProvider>
+              </CampaignProvider>
             </ShopProvider>
           </CarouselProvider>
         </UtilityProvider>

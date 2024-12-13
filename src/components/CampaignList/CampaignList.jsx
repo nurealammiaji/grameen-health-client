@@ -41,7 +41,7 @@ const CampaignList = ({ campaign, index, isSelected, onCheckboxChange, onStatusC
                 </select>
             </td>
             <td>
-                <Link to={`/dashboard/admin/categories/${_id}`} className="btn btn-xs btn-info btn-outline">Details</Link>
+                <Link to={`/dashboard/admin/campaigns/${_id}`} className="btn btn-xs btn-info btn-outline">Details</Link>
             </td>
         </tr>
     );
