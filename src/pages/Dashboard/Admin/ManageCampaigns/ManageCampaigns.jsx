@@ -2,16 +2,16 @@ import React, { useContext } from 'react';
 import HelmetAsync from '../../../../components/HelmetAsync/HelmetAsync';
 import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
 import Swal from 'sweetalert2';
-import useCategories from '../../../../hooks/useCategories';
-import { CategoryContext } from '../../../../providers/CategoryProvider';
 import AddCampaign from '../../../../components/AddCampaign/AddCampaign';
 import CampaignLists from '../../../../components/CampaignLists/CampaignLists';
+import useCampaigns from '../../../../hooks/useCampaigns';
+import { CampaignContext } from '../../../../providers/CampaignProvider';
 
 const ManageCampaigns = () => {
 
-    const { isCategoriesLoading, categories, refetchCampaigns, isCategoriesError, categoriesError } = useCategories();
+    const { isCampaignsLoading, campaigns, refetchCampaigns, isCampaignsError, campaignsError } = useCampaigns();
 
-    const { addCategory, editCategory, deleteCampaigns, selectedCampaigns, setSelectedCampaigns } = useContext(CategoryContext);
+    const { addCampaign, editCampaign, deleteCampaigns, selectedCampaigns, setSelectedCampaigns } = useContext(CampaignContext);
 
     const handleDeleteCampaigns = async () => {
         try {
