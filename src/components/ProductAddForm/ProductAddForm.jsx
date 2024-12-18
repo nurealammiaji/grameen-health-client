@@ -352,10 +352,11 @@ const ProductAddForm = () => {
                         </label>
                         <select {...register("campaign", { required: true })}
                             className="w-full select select-bordered">
-                            <option value="">select campaign</option>
+                            <option value="">select type</option>
                             <option className="font-medium" value={null}>None</option>
                             <option className="font-medium text-warning" value="flash">Flash Sale</option>
                             <option className="font-medium text-info" value="new">New Arrival</option>
+                            <option className="font-medium text-error" value="festival">Festival Sale</option>
                             <option className="font-medium text-success" value="discount">Discount Sale</option>
                             <option className="font-medium text-error" value="clearance">Clearance Sale</option>
                         </select>

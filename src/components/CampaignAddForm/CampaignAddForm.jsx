@@ -14,22 +14,25 @@ const CampaignAddForm = () => {
     const [fileWithPreview, setFileWithPreview] = useState(null);
     const { addCampaign } = useContext(CampaignContext);
 
+    const selectedURL = watch("campaignType");
+
     const handleAddCampaign = async (data) => {
+        console.log(data);
         try {
             const formData = new FormData();
             formData.append('type', 'campaign');
             formData.append('name', data.name);
             formData.append('status', data.status);
             formData.append('description', data.description);
-            formData.append('description', data.campaignType);
-            formData.append('description', data.campaignURL);
-            formData.append('description', data.startDate);
-            formData.append('description', data.endDate);
+            formData.append('campaignType', data.campaignType);
+            formData.append('campaignURL', data.campaignURL);
+            formData.append('startDate', new Date(data.startDate));
+            formData.append('endDate', new Date(data.endDate));
 
             // Single Image
             if (fileWithPreview) {
                 formData.append('image', fileWithPreview.file);
-            }
+            };
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
 
@@ -106,6 +109,42 @@ const CampaignAddForm = () => {
                         </select>
                         {errors.status?.type === 'required' && <span className="text-error">{t('requiredStatus')} !!</span>}
                     </div>
+                    <div className="w-full form-control">
+                        <label className="label">
+                            <span className="font-semibold label-text">Campaign Type</span>
+                        </label>
+                        <select {...register("campaignType", { required: true })}
+                            className="w-full select select-bordered">
+                            <option value="">select type</option>
+                            <option className="font-medium text-warning" value="flashSale">Flash Sale</option>
+                            <option className="font-medium text-info" value="newArrivals">New Arrivals</option>
+                            <option className="font-medium text-primary" value="festivalSale">Festival Sale</option>
+                            <option className="font-medium text-success" value="discountSale">Discount Sale</option>
+                            <option className="font-medium text-error" value="clearanceSale">Clearance Sale</option>
+                        </select>
+                        {errors.status?.type === 'required' && <span className="text-error">{t('requiredType')} !!</span>}
+                    </div>
+                    <div className="w-full form-control">
+                        <label className="label">
+                            <span className="font-semibold label-text">Campaign URL</span>
+                        </label>
+                        <input {...register("campaignURL", { required: true })} type="text" defaultValue={selectedURL && "/" + selectedURL} placeholder="campaign url" className="w-full input input-bordered" />
+                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredURL')} !!</span>}
+                    </div>
+                    <div className="w-full form-control">
+                        <label className="label">
+                            <span className="font-semibold label-text">Start Date</span>
+                        </label>
+                        <input {...register("startDate", { required: true })} type="datetime-local" placeholder="Select Start Date" className="w-full input input-bordered" />
+                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredDate')} !!</span>}
+                    </div>
+                    <div className="w-full form-control">
+                        <label className="label">
+                            <span className="font-semibold label-text">End Date</span>
+                        </label>
+                        <input {...register("endDate", { required: true })} type="datetime-local" placeholder="Select End Date" className="w-full input input-bordered" />
+                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredDate')} !!</span>}
+                    </div>
                 </div>
                 <div className="w-full mt-5 form-control">
                     <label className="label">
@@ -147,7 +186,7 @@ const CampaignAddForm = () => {
                 )}
 
                 {/* Submit Button */}
-                <button type="submit" className="w-full mt-8 btn btn-success">{t('addCategory')}</button>
+                <button type="submit" className="w-full mt-8 btn btn-success">{t('addCampaign')}</button>
 
             </form>
         </div>

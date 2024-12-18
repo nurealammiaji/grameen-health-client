@@ -20,10 +20,10 @@ const FlashSale = () => {
     });
 
     const calculateRemainingDays = (targetDate) => {
-        const currentDate = new Date();
+        const now = new Date();
 
         // Calculate the difference in milliseconds
-        const timeDifference = targetDate - currentDate;
+        const timeDifference = targetDate - now;
 
         // Convert milliseconds to days
         const remainingDays = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
@@ -32,17 +32,17 @@ const FlashSale = () => {
     };
 
     // Calculate remaining days for a flash sale
-    const flashSaleEndDate = new Date('2024-11-17T00:00:00'); // Set your target date
-    const daysRemaining = calculateRemainingDays(flashSaleEndDate);
+    const EndDate = new Date('2024-12-18T21:12:00'); // Set your target date
+    const daysRemaining = calculateRemainingDays(EndDate);
 
-    const date = new Date();
-    console.log(date);
+    const startDate = new Date('2024-12-18T21:11:00');
+    const currentDate = new Date();
 
     useEffect(() => {
         // Update the countdown every second
         const intervalId = setInterval(() => {
             const now = new Date();
-            const timeDifference = flashSaleEndDate - now;
+            const timeDifference = EndDate - now;
 
             if (timeDifference <= 0) {
                 clearInterval(intervalId);  // Stop the countdown if the sale has ended
@@ -61,10 +61,10 @@ const FlashSale = () => {
 
         // Initial update on mount
         return () => clearInterval(intervalId);
-    }, [flashSaleEndDate]);
+    }, [EndDate]);
 
     return (
-        <div className={`p-5 ${flashSaleEndDate <= date ? 'hidden' : 'block'}`}>
+        <div className={`${EndDate <= currentDate && 'hidden'} ${startDate <= currentDate ? 'block p-5' : 'hidden'}`}>
             <div className="p-5 rounded-2xl">
                 <div className="items-center gap-5 text-center sm:justify-between sm:flex">
                     <h3 className="text-3xl font-bold text-success">Flash Sale</h3>
@@ -93,7 +93,7 @@ const FlashSale = () => {
                         </div>
                     </div>
                     <div className="hidden md:block">
-                        <Link to={`/flash-sale`} className="btn btn-sm btn-primary">View All</Link>
+                        <Link to={`/flash-sale`} className="btn btn-sm btn-success btn-outline">View All</Link>
                     </div>
                 </div>
                 <hr className="mt-5 border border-success" />
