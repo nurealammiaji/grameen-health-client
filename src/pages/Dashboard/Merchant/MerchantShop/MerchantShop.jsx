@@ -5,7 +5,10 @@ const MerchantShop = () => {
     return (
         <div>
             <HelmetAsync title={"Shop"} />
-            Merchant Shop
+            <div>
+                <div className="mx-auto sm:w-6/12 divider divider-success"><h3 className="p-2 text-2xl font-bold text-white bg-success">My Shop</h3></div>
+            </div>
+            <br /><br />
         </div>
     );
 };

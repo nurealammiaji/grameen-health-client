@@ -148,9 +148,9 @@ const Dashboard = () => {
                                 <>
                                     <li><NavLink to={"/dashboard/merchant/profile"} className="text-white"><RiUser2Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">{t('profile')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/merchant/shop"} className="text-white"><RiStore3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('myShop')}</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/merchant/orders"} className="text-white"><RiFileList3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('myOrders')}</span></NavLink></li>
+                                    <li><NavLink to={"/dashboard/merchant/products"} className="text-white"><RiBox3Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">{t('myProducts')}</span></NavLink></li>
                                     <li><NavLink to={"/dashboard/merchant/payments"} className="text-white"><TbCoinTakaFilled className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('myPayments')}</span></NavLink></li>
-                                    <li><NavLink to={"/dashboard/merchant/orders"} className="text-white"><RiFileList3Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('manageOrders')}</span></NavLink></li>
-                                    <li><NavLink to={"/dashboard/merchant/products"} className="text-white"><RiBox3Fill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">{t('manageProducts')}</span></NavLink></li>
                                 </>
                             }
                             {
