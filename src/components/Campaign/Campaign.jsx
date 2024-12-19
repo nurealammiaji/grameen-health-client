@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import './FlashSale.css';
+import './Campaign.css';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import FlashSaleCard from '../FlashSaleCard/FlashSaleCard';
+import CampaignCard from '../CampaignCard/CampaignCard';
 import { Link } from 'react-router-dom';
 import useProducts from '../../hooks/useProducts';
 
-const FlashSale = () => {
+const Campaign = ({ campaign }) => {
+
+    // const { name, description, campaignType, campaignURL, startDate, endDate, discountPercent, status } = campaign;
 
     const { isProductsLoading, products, refetchProducts, isProductsError, productsError } = useProducts();
-
+    
     const [timeRemaining, setTimeRemaining] = useState({
         day: 0,
         hours: 0,
@@ -37,6 +39,7 @@ const FlashSale = () => {
 
     const startDate = new Date('2024-12-18T21:11:00');
     const currentDate = new Date();
+    console.log(startDate, currentDate);
 
     useEffect(() => {
         // Update the countdown every second
@@ -129,7 +132,7 @@ const FlashSale = () => {
                     >
                         {
                             products && products.map((product, index) => <SwiperSlide className="mb-12" key={index} >
-                                <FlashSaleCard product={product} />
+                                <CampaignCard product={product} />
                             </SwiperSlide>)
                         }
                     </Swiper>
@@ -142,4 +145,4 @@ const FlashSale = () => {
     );
 };
 
-export default FlashSale;
+export default Campaign;

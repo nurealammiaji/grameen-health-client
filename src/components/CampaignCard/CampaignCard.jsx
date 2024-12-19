@@ -3,7 +3,7 @@ import { RiShoppingCart2Line, RiHeartLine, RiEye2Line } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import ReactStars from "react-rating-stars-component";
 
-const FlashSaleCard = ({ product }) => {
+const CampaignCard = ({ product }) => {
 
     const { _id, name, description, images, price, specialPrice, category, subCategory, variants, shop, quantity, advanceMoney, originCountry, manufacturer, model, brand, status, campaign, rating, reviews } = product;
 
@@ -75,4 +75,4 @@ const FlashSaleCard = ({ product }) => {
     );
 };
 
-export default FlashSaleCard;
+export default CampaignCard;

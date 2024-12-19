@@ -1,7 +1,7 @@
 import React from 'react'
 import HelmetAsync from '../../components/HelmetAsync/HelmetAsync';
 import Hero from '../../components/Hero/Hero';
-import FlashSale from '../../components/FlashSale/FlashSale';
+import Campaigns from '../../components/Campaigns/Campaigns';
 
 const Home = () => {
     return (
@@ -9,7 +9,7 @@ const Home = () => {
             <HelmetAsync title={"Home"} />
             <Hero />
             <br />
-            <FlashSale />
+            <Campaigns />
             <br />
         </div>
     )
