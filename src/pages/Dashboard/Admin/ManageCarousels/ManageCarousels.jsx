@@ -52,9 +52,9 @@ const ManageCarousels = () => {
             <div>
                 <HelmetAsync title={"Carousels"} />
                 <div>
-                    <div className="w-10/12 mx-auto divider"><h3 className="text-2xl font-bold text-success">Manage Carousels</h3></div>
+                    <div className="mx-auto sm:w-6/12 divider divider-success"><h3 className="p-2 text-2xl font-bold text-white bg-success">Manage Carousels</h3></div>
                 </div>
-                <br />
+                <br /><br />
                 <div className="items-center justify-around gap-5 text-center md:flex">
                     <div>
                         <button onClick={() => document.getElementById('add_carousel_modal').showModal()} className="btn btn-outline btn-info"><RiAddBoxFill className="text-2xl" />Carousel</button>
