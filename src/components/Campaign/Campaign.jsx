@@ -10,10 +10,10 @@ import useProducts from '../../hooks/useProducts';
 
 const Campaign = ({ campaign }) => {
 
-    // const { name, description, campaignType, campaignURL, startDate, endDate, discountPercent, status } = campaign;
+    const { name, description, campaignType, campaignURL, startDate, endDate, discountPercent, status } = campaign;
 
     const { isProductsLoading, products, refetchProducts, isProductsError, productsError } = useProducts();
-    
+
     const [timeRemaining, setTimeRemaining] = useState({
         day: 0,
         hours: 0,
@@ -34,18 +34,17 @@ const Campaign = ({ campaign }) => {
     };
 
     // Calculate remaining days for a flash sale
-    const EndDate = new Date('2024-12-18T21:12:00'); // Set your target date
-    const daysRemaining = calculateRemainingDays(EndDate);
+    const campaignEndDate = new Date(endDate); // Set your target date
+    const daysRemaining = calculateRemainingDays(campaignEndDate);
 
-    const startDate = new Date('2024-12-18T21:11:00');
+    const campaignStartDate = new Date(startDate);
     const currentDate = new Date();
-    console.log(startDate, currentDate);
 
     useEffect(() => {
         // Update the countdown every second
         const intervalId = setInterval(() => {
             const now = new Date();
-            const timeDifference = EndDate - now;
+            const timeDifference = campaignEndDate - now;
 
             if (timeDifference <= 0) {
                 clearInterval(intervalId);  // Stop the countdown if the sale has ended
@@ -64,14 +63,14 @@ const Campaign = ({ campaign }) => {
 
         // Initial update on mount
         return () => clearInterval(intervalId);
-    }, [EndDate]);
+    }, [campaignEndDate]);
 
     return (
-        <div className={`${EndDate <= currentDate && 'hidden'} ${startDate <= currentDate ? 'block p-5' : 'hidden'}`}>
+        <div className={`${campaignEndDate <= currentDate && 'hidden'} ${campaignStartDate <= currentDate ? 'block p-5' : 'hidden'}`}>
             <div className="p-5 rounded-2xl">
                 <div className="items-center gap-5 text-center sm:justify-between sm:flex">
-                    <h3 className="text-3xl font-bold text-success">Flash Sale</h3>
-                    <div className="flex justify-center">
+                    <h3 className="text-3xl sm:text-start font-bold text-success sm:w-[25rem]">{name}</h3>
+                    <div className="flex items-center justify-center sm:justify-start sm:w-[25rem]">
                         <div className="grid grid-flow-col gap-2 mt-5 auto-cols-max sm:my-0">
                             <div className="flex flex-col p-2 text-white bg-success rounded-box">
                                 <span className="font-mono text-xl countdown">
@@ -96,7 +95,7 @@ const Campaign = ({ campaign }) => {
                         </div>
                     </div>
                     <div className="hidden md:block">
-                        <Link to={`/flash-sale`} className="btn btn-sm btn-success btn-outline">View All</Link>
+                        <Link to={`${campaignURL}`} className="btn btn-sm btn-success btn-outline">View All</Link>
                     </div>
                 </div>
                 <hr className="mt-5 border border-success" />
@@ -138,7 +137,7 @@ const Campaign = ({ campaign }) => {
                     </Swiper>
                 </div>
                 <div className="text-center md:hidden">
-                    <Link to={`/flash-sale`} className="btn btn-sm btn-primary">View All</Link>
+                    <Link to={`${campaignURL}`} className="btn btn-sm btn-primary">View All</Link>
                 </div>
             </div>
         </div >

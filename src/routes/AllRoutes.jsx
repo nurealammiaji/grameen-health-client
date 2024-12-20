@@ -37,6 +37,7 @@ import ManagePayments from "../pages/Dashboard/Admin/ManagePayments/ManagePaymen
 import ManageCategories from "../pages/Dashboard/Admin/ManageCategories/ManageCategories";
 import Order from "../pages/Order/Order";
 import ManageSubCategories from "../pages/Dashboard/Admin/ManageSubCategories/ManageSubCategories";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import ViewShop from "../pages/Dashboard/Admin/ManageShops/ViewShop/ViewShop";
 import ViewCarousel from "../pages/Dashboard/Admin/ManageCarousels/ViewCarousel/ViewCarousel";
@@ -45,7 +46,9 @@ import ViewCategory from '../pages/Dashboard/Admin/ManageCategories/ViewCategory
 import ViewProduct from "../pages/Dashboard/Admin/ManageProducts/ViewProduct/ViewProduct";
 import ManageCampaigns from "../pages/Dashboard/Admin/ManageCampaigns/ManageCampaigns";
 import ViewCampaign from "../pages/Dashboard/Admin/ManageCampaigns/ViewCampaign/ViewCampaign";
+import CampaignProducts from "../components/CampaignProducts/CampaignProducts";
 
+const axiosPublic = useAxiosPublic();
 const axiosPrivate = useAxiosPrivate();
 
 const AllRoutes = createBrowserRouter([
@@ -68,8 +71,13 @@ const AllRoutes = createBrowserRouter([
                 element: <Login />
             },
             {
-                path: "/campaign",
+                path: "/campaigns",
                 element: <Campaign />
+            },
+            {
+                path: "/campaigns/:id",
+                element: <CampaignProducts />,
+                // loader: async ({ params }) => await axiosPublic.get(`/campaigns/read/${params.id}`)
             },
             {
                 path: "/search",

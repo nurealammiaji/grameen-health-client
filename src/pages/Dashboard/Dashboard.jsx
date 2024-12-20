@@ -167,7 +167,7 @@ const Dashboard = () => {
                                 <div className="divider"></div>
                             </div>
                             <li><Link to={"/"} className="text-white"><RiHome8Fill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('home')}</span></Link></li>
-                            <li><Link to={"/campaign"} className="text-white"><RiTimerFlashFill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">{t('campaigns')}</span></Link></li>
+                            <li><Link to={"/campaigns"} className="text-white"><RiTimerFlashFill className="text-2xl font-bold lg:text-3xl" /><span className="font-semibold">{t('campaigns')}</span></Link></li>
                             <li><Link to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('orderTracking')}</span></Link></li>
                             <li><Link to={"/contact"} className="text-white"><RiPhoneFill className="text-2xl lg:text-3xl" /><span className="font-semibold">{t('contact')}</span></Link></li>
                         </ul>

@@ -33,7 +33,7 @@ const Navbar = () => {
 
     const pageLinks = <ul className="px-1 menu menu-horizontal">
         <li className="tooltip tooltip-bottom" data-tip={t('home')}><NavLink to={"/"} className="text-white"><RiHome8Fill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('home')}</span></NavLink></li>
-        <li className="tooltip tooltip-bottom" data-tip={t('campaigns')}><NavLink to={"/campaign"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('campaigns')}</span></NavLink></li>
+        <li className="tooltip tooltip-bottom" data-tip={t('campaigns')}><NavLink to={"/campaigns"} className="text-white"><RiTimerFlashFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('campaigns')}</span></NavLink></li>
         <li className="tooltip tooltip-bottom" data-tip={t('orderTracking')}><NavLink to={"/tracking"} className="text-white"><RiMapPinFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('orderTracking')}</span></NavLink></li>
         <li className="tooltip tooltip-bottom" data-tip={t('contact')}><NavLink to={"/contact"} className="text-white"><RiPhoneFill className="text-2xl lg:text-3xl" /><span className="hidden font-semibold lg:block">{t('contact')}</span></NavLink></li>
         {

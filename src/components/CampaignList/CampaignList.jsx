@@ -30,7 +30,7 @@ const CampaignList = ({ campaign, index, isSelected, onCheckboxChange, onStatusC
             <td>
                 <div>
                     <div className="font-bold">{name}</div>
-                    <p className="text-sm opacity-50">{description}</p>
+                    <p className="text-sm opacity-50">{campaignURL}</p>
                 </div>
             </td>
             <td>

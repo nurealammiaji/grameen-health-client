@@ -13,7 +13,6 @@ const CampaignProvider = ({ children }) => {
     const [selectedCampaigns, setSelectedCampaigns] = useState([]);
 
     const addCampaign = async (formData) => {
-        console.log("hitted");
         return await axiosPrivate.post('/campaigns/create', formData)
     };
 

@@ -26,8 +26,8 @@ const CampaignAddForm = () => {
             formData.append('description', data.description);
             formData.append('campaignType', data.campaignType);
             formData.append('campaignURL', data.campaignURL);
-            formData.append('startDate', new Date(data.startDate));
-            formData.append('endDate', new Date(data.endDate));
+            formData.append('startDate', data.startDate);
+            formData.append('endDate', data.endDate);
 
             // Single Image
             if (fileWithPreview) {
