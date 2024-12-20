@@ -14,7 +14,7 @@ const EditCampaign = ({ campaignData }) => {
                         </div>
                     </div>
                     <div className="py-4">
-                        <CategoryEditForm campaignData={campaignData} />
+                        {/* <CategoryEditForm campaignData={campaignData} /> */}
                     </div>
                 </div>
                 <div className="fixed top-0 modal-action">
