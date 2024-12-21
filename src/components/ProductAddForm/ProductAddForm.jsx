@@ -43,9 +43,16 @@ const ProductAddForm = () => {
 
     const [error, setError] = useState('');
 
+    const campaignTypes = [
+        { type: "Flash Sale", url: "flashSale" },
+        { type: "New Arrivals", url: "newArrivals" },
+        { type: "Festival Sale", url: "festivalSale" },
+        { type: "Discount Sale", url: "discountSale" },
+        { type: "Clearance Sale", url: "clearanceSale" },
+    ];
+
     const handleCloseVariants = () => {
         setAddVariants(false);
-        setAddedVariants(false);
         setAddSizes(false);
         setAddGrades(false);
         setAddColors(false);
@@ -103,15 +110,14 @@ const ProductAddForm = () => {
                 timer: 1500
             });
 
-            // refetchProducts();
-            // setAddVariants(false);
-            // setVariants([]);
-            // setSizes([]);
-            // setGrades([]);
-            // setColors([]);
-            // setPieces([]);
-            // setFilesWithPreview([]);
-            // reset();
+            refetchProducts();
+            setAddVariants(false);
+            setSizes([]);
+            setGrades([]);
+            setColors([]);
+            setPieces([]);
+            setFilesWithPreview([]);
+            reset();
 
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
@@ -353,12 +359,10 @@ const ProductAddForm = () => {
                         <select {...register("campaign", { required: true })}
                             className="w-full select select-bordered">
                             <option value="">select type</option>
-                            <option className="font-medium" value={null}>None</option>
-                            <option className="font-medium text-warning" value="flash">Flash Sale</option>
-                            <option className="font-medium text-info" value="new">New Arrival</option>
-                            <option className="font-medium text-error" value="festival">Festival Sale</option>
-                            <option className="font-medium text-success" value="discount">Discount Sale</option>
-                            <option className="font-medium text-error" value="clearance">Clearance Sale</option>
+                            {
+                                (campaignTypes) &&
+                                campaignTypes.map((type, index) => <option key={index} value={type.url} className="font-medium" >{type.type}</option>)
+                            }
                         </select>
                         {errors.campaign?.type === 'required' && <span className="text-error">{t('requiredCampaign')} !!</span>}
                     </div>

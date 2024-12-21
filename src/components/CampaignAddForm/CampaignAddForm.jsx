@@ -17,11 +17,11 @@ const CampaignAddForm = () => {
     const selectedURL = watch("campaignType");
 
     const campaignTypes = [
-        { name: "Flash Sale", url: "/flashSale" },
-        { name: "New Arrivals", url: "/newArrivals" },
-        { name: "Festival Sale", url: "/festivalSale" },
-        { name: "Discount Sale", url: "/discountSale" },
-        { name: "Clearance Sale", url: "/clearanceSale" },
+        { type: "Flash Sale", url: "/flashSale" },
+        { type: "New Arrivals", url: "/newArrivals" },
+        { type: "Festival Sale", url: "/festivalSale" },
+        { type: "Discount Sale", url: "/discountSale" },
+        { type: "Clearance Sale", url: "/clearanceSale" },
     ];
 
     const handleAddCampaign = async (data) => {
@@ -124,14 +124,9 @@ const CampaignAddForm = () => {
                         <select {...register("campaignType", { required: true })}
                             className="w-full select select-bordered">
                             <option value="">select type</option>
-                            {/* <option className="font-medium text-warning" value="flashSale">Flash Sale</option>
-                            <option className="font-medium text-info" value="newArrivals">New Arrivals</option>
-                            <option className="font-medium text-primary" value="festivalSale">Festival Sale</option>
-                            <option className="font-medium text-success" value="discountSale">Discount Sale</option>
-                            <option className="font-medium text-error" value="clearanceSale">Clearance Sale</option> */}
                             {
                                 (campaignTypes) &&
-                                campaignTypes.map((type, index) => <option key={index} value={type.url} className="font-medium" >{type.name}</option>)
+                                campaignTypes.map((type, index) => <option key={index} value={type.url} className="font-medium" >{type.type}</option>)
                             }
                         </select>
                         {errors.status?.type === 'required' && <span className="text-error">{t('requiredType')} !!</span>}
