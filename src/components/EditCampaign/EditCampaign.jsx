@@ -1,6 +1,6 @@
 import React from 'react';
 import HelmetAsync from '../HelmetAsync/HelmetAsync';
-import CategoryEditForm from '../CategoryEditForm/CategoryEditForm';
+import CampaignEditForm from './../CampaignEditForm/CampaignEditForm';
 
 const EditCampaign = ({ campaignData }) => {
     return (
@@ -14,7 +14,7 @@ const EditCampaign = ({ campaignData }) => {
                         </div>
                     </div>
                     <div className="py-4">
-                        {/* <CategoryEditForm campaignData={campaignData} /> */}
+                        <CampaignEditForm campaignData={campaignData} />
                     </div>
                 </div>
                 <div className="fixed top-0 modal-action">
