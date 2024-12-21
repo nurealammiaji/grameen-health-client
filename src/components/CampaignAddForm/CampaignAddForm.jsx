@@ -17,11 +17,11 @@ const CampaignAddForm = () => {
     const selectedURL = watch("campaignType");
 
     const campaignTypes = [
-        { type: "Flash Sale", url: "/flashSale" },
-        { type: "New Arrivals", url: "/newArrivals" },
-        { type: "Festival Sale", url: "/festivalSale" },
-        { type: "Discount Sale", url: "/discountSale" },
-        { type: "Clearance Sale", url: "/clearanceSale" },
+        { type: "Flash Sale", url: "flashSale" },
+        { type: "New Arrivals", url: "newArrivals" },
+        { type: "Festival Sale", url: "festivalSale" },
+        { type: "Discount Sale", url: "discountSale" },
+        { type: "Clearance Sale", url: "clearanceSale" },
     ];
 
     const handleAddCampaign = async (data) => {
@@ -135,7 +135,7 @@ const CampaignAddForm = () => {
                         <label className="label">
                             <span className="font-semibold label-text">Campaign URL</span>
                         </label>
-                        <input {...register("campaignURL", { required: true })} type="text" defaultValue={selectedURL && "/" + selectedURL} placeholder="campaign url" className="w-full input input-bordered" />
+                        <input {...register("campaignURL", { required: true })} type="text" defaultValue={selectedURL && selectedURL} placeholder="campaign url" className="w-full input input-bordered" />
                         {errors.name?.type === 'required' && <span className="text-error">{t('requiredURL')} !!</span>}
                     </div>
                     <div className="w-full form-control">
