@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
@@ -32,7 +32,7 @@ const CampaignAddForm = () => {
             formData.append('name', data.name);
             formData.append('status', data.status);
             formData.append('description', data.description);
-            formData.append('campaignType', data.campaignType);
+            formData.append('campaignType', JSON.parse(data.campaignType).type);
             formData.append('campaignURL', data.campaignURL);
             formData.append('startDate', data.startDate);
             formData.append('endDate', data.endDate);
@@ -66,7 +66,7 @@ const CampaignAddForm = () => {
                 target: document.getElementById('add_campaign_modal'),
                 position: "center",
                 icon: "error",
-                title: `Axios: ${error.message}`,
+                title: `${error.message}`,
                 showConfirmButton: false,
                 timer: 1500
             });
@@ -126,7 +126,7 @@ const CampaignAddForm = () => {
                             <option value="">select type</option>
                             {
                                 (campaignTypes) &&
-                                campaignTypes.map((type, index) => <option key={index} value={type.url} className="font-medium" >{type.type}</option>)
+                                campaignTypes.map((type, index) => <option key={index} value={JSON.stringify(type)} className="font-medium" >{type.type}</option>)
                             }
                         </select>
                         {errors.status?.type === 'required' && <span className="text-error">{t('requiredType')} !!</span>}
@@ -135,7 +135,7 @@ const CampaignAddForm = () => {
                         <label className="label">
                             <span className="font-semibold label-text">Campaign URL</span>
                         </label>
-                        <input {...register("campaignURL", { required: true })} type="text" defaultValue={selectedURL && selectedURL} placeholder="campaign url" className="w-full input input-bordered" />
+                        <input {...register("campaignURL", { required: true })} type="text" defaultValue={selectedURL && JSON.parse(selectedURL).url} placeholder="campaign url" className="w-full input input-bordered" />
                         {errors.name?.type === 'required' && <span className="text-error">{t('requiredURL')} !!</span>}
                     </div>
                     <div className="w-full form-control">

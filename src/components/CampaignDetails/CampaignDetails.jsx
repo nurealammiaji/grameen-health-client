@@ -13,7 +13,7 @@ const CampaignDetails = ({ campaignData }) => {
             <div className="w-10/12 mx-auto overflow-scroll card glass md:overflow-hidden">
                 <div className="relative">
                     <figure className="w-full border h-60">
-                        <img src={server + image} alt="Campaign Image" />
+                        <img className="w-full" src={server + image} alt="Campaign Image" />
                     </figure>
                     <span className={`${status === "active" && "badge-success" || status === "inactive" && "badge-error" || status === "pending" && "badge-warning"} absolute top-5 right-5 z-10 badge sm:badge-lg capitalize`}>{status}</span>
                 </div>

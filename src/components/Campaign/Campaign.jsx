@@ -69,7 +69,7 @@ const Campaign = ({ campaign }) => {
         <div className={`${campaignEndDate <= currentDate && 'hidden'} ${campaignStartDate <= currentDate ? 'block p-5' : 'hidden'}`}>
             <div className="p-5 rounded-2xl">
                 <div className="items-center gap-5 text-center sm:justify-between sm:flex">
-                    <h3 className="text-3xl sm:text-start font-bold text-success sm:w-[25rem]">{name}</h3>
+                    <h3 className="text-3xl sm:text-start font-bold text-success sm:w-[25rem]">{campaignType}</h3>
                     <div className="flex items-center justify-center sm:justify-start sm:w-[25rem]">
                         <div className="grid grid-flow-col gap-2 mt-5 auto-cols-max sm:my-0">
                             <div className="flex flex-col p-2 text-white bg-success rounded-box">
@@ -95,7 +95,7 @@ const Campaign = ({ campaign }) => {
                         </div>
                     </div>
                     <div className="hidden md:block">
-                        <Link to={`${campaignURL}`} className="btn btn-sm btn-success btn-outline">View All</Link>
+                        <Link to={`/campaigns/${campaignURL}`} className="btn btn-sm btn-success btn-outline">View All</Link>
                     </div>
                 </div>
                 <hr className="mt-5 border border-success" />
