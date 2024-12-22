@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const CampaignList = ({ campaign, index, isSelected, onCheckboxChange, onStatusChange }) => {
 
-    const { _id, name, image, description, campaignType, campaignURL, startDate, endDate, status } = campaign;
+    const { _id, name, image, description, campaignType, startDate, endDate, discountPercent, status } = campaign;
     const server = import.meta.env.VITE_BACKEND_URL;
 
     const handleStatusChange = (event) => {
@@ -30,7 +30,7 @@ const CampaignList = ({ campaign, index, isSelected, onCheckboxChange, onStatusC
             <td>
                 <div>
                     <div className="font-bold">{name}</div>
-                    <p className="text-sm opacity-50">{campaignURL}</p>
+                    <p className="text-sm opacity-50">{discountPercent}</p>
                 </div>
             </td>
             <td>

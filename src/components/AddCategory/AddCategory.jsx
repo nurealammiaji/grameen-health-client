@@ -5,7 +5,6 @@ import CategoryAddForm from '../CategoryAddForm/CategoryAddForm';
 const AddCategory = () => {
     return (
         <div>
-            <HelmetAsync title={"Add Category"} />
             <dialog id="add_category_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">

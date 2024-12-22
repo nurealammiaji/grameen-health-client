@@ -10,7 +10,7 @@ import useProducts from '../../hooks/useProducts';
 
 const Campaign = ({ campaign }) => {
 
-    const { name, description, campaignType, campaignURL, startDate, endDate, discountPercent, status } = campaign;
+    const { _id, name, description, campaignType, startDate, endDate, discountPercent, status } = campaign;
 
     const { isProductsLoading, products, refetchProducts, isProductsError, productsError } = useProducts();
 
@@ -95,7 +95,7 @@ const Campaign = ({ campaign }) => {
                         </div>
                     </div>
                     <div className="hidden md:block">
-                        <Link to={`/campaigns/${campaignURL}`} className="btn btn-sm btn-success btn-outline">View All</Link>
+                        <Link to={`/campaigns/${_id}`} className="btn btn-sm btn-success btn-outline">View All</Link>
                     </div>
                 </div>
                 <hr className="mt-5 border border-success" />
@@ -137,7 +137,7 @@ const Campaign = ({ campaign }) => {
                     </Swiper>
                 </div>
                 <div className="text-center md:hidden">
-                    <Link to={`${campaignURL}`} className="btn btn-sm btn-primary">View All</Link>
+                    <Link to={`/campaigns/${_id}`} className="btn btn-sm btn-primary">View All</Link>
                 </div>
             </div>
         </div >

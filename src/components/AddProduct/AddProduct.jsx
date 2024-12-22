@@ -5,7 +5,6 @@ import ProductAddForm from '../ProductAddForm/ProductAddForm';
 const AddProduct = () => {
     return (
         <div>
-            <HelmetAsync title={"Add Product"} />
             <dialog id="add_product_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">

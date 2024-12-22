@@ -5,7 +5,6 @@ import CampaignAddForm from '../CampaignAddForm/CampaignAddForm';
 const AddCampaign = () => {
     return (
         <div>
-            <HelmetAsync title={"Add Campaign"} />
             <dialog id="add_campaign_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">

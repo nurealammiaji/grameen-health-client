@@ -14,14 +14,12 @@ const CampaignAddForm = () => {
     const [fileWithPreview, setFileWithPreview] = useState(null);
     const { addCampaign } = useContext(CampaignContext);
 
-    const selectedURL = watch("campaignType");
-
     const campaignTypes = [
-        { type: "Flash Sale", url: "flashSale" },
-        { type: "New Arrivals", url: "newArrivals" },
-        { type: "Festival Sale", url: "festivalSale" },
-        { type: "Discount Sale", url: "discountSale" },
-        { type: "Clearance Sale", url: "clearanceSale" },
+        { name: "Flash Sale" },
+        { name: "New Arrivals" },
+        { name: "Festival Sale" },
+        { name: "Discount Sale" },
+        { name: "Clearance Sale" },
     ];
 
     const handleAddCampaign = async (data) => {
@@ -32,8 +30,8 @@ const CampaignAddForm = () => {
             formData.append('name', data.name);
             formData.append('status', data.status);
             formData.append('description', data.description);
-            formData.append('campaignType', JSON.parse(data.campaignType).type);
-            formData.append('campaignURL', data.campaignURL);
+            formData.append('campaignType', data.campaignType);
+            formData.append('discountPercent', data.discountPercent);
             formData.append('startDate', data.startDate);
             formData.append('endDate', data.endDate);
 
@@ -126,7 +124,7 @@ const CampaignAddForm = () => {
                             <option value="">select type</option>
                             {
                                 (campaignTypes) &&
-                                campaignTypes.map((type, index) => <option key={index} value={JSON.stringify(type)} className="font-medium" >{type.type}</option>)
+                                campaignTypes.map((type, index) => <option key={index} value={type.name} className="font-medium" >{type.name}</option>)
                             }
                         </select>
                         {errors.status?.type === 'required' && <span className="text-error">{t('requiredType')} !!</span>}
@@ -135,8 +133,8 @@ const CampaignAddForm = () => {
                         <label className="label">
                             <span className="font-semibold label-text">Campaign URL</span>
                         </label>
-                        <input {...register("campaignURL", { required: true })} type="text" defaultValue={selectedURL && JSON.parse(selectedURL).url} placeholder="campaign url" className="w-full input input-bordered" />
-                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredURL')} !!</span>}
+                        <input {...register("discountPercent", { required: true })} type="text" placeholder="discount percent" className="w-full input input-bordered" />
+                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredPercent')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">

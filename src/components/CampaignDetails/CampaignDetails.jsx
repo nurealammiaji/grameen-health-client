@@ -4,7 +4,7 @@ import EditCampaign from '../EditCampaign/EditCampaign';
 
 const CampaignDetails = ({ campaignData }) => {
 
-    const { _id, name, image, description, status, campaignURL, campaignType, startDate, endDate, createdAt, updatedAt } = campaignData;
+    const { _id, name, image, description, status, campaignType, startDate, endDate, discountPercent, createdAt, updatedAt } = campaignData;
     const { t } = useTranslation();
     const server = import.meta.env.VITE_BACKEND_URL;
 
@@ -15,7 +15,7 @@ const CampaignDetails = ({ campaignData }) => {
                     <figure className="w-full border h-60">
                         <img className="w-full" src={server + image} alt="Campaign Image" />
                     </figure>
-                    <span className={`${status === "active" && "badge-success" || status === "inactive" && "badge-error" || status === "pending" && "badge-warning"} absolute top-5 right-5 z-10 badge sm:badge-lg capitalize`}>{status}</span>
+                    <span className={`${status === "active" && "badge-success" || status === "inactive" && "badge-error" || status === "pending" && "badge-warning"}  text-white shadow absolute top-5 right-5 z-10 badge sm:badge-lg capitalize`}>{status}</span>
                 </div>
                 <div className="card-body">
                     <div className="flex items-center justify-between">

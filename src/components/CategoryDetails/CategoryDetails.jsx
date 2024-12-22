@@ -13,9 +13,9 @@ const CategoryDetails = ({ categoryData }) => {
             <div className="w-10/12 mx-auto overflow-scroll card glass md:overflow-hidden">
                 <div className="relative">
                     <figure className="w-full border h-60">
-                        <img src={server + image} alt="Category Image" />
+                        <img className="w-full" src={server + image} alt="Category Image" />
                     </figure>
-                    <span className={`${status === "active" && "badge-success" || status === "inactive" && "badge-error" || status === "pending" && "badge-warning"} absolute top-5 right-5 z-10 badge sm:badge-lg capitalize`}>{status}</span>
+                    <span className={`${status === "active" && "badge-success" || status === "inactive" && "badge-error" || status === "pending" && "badge-warning"} text-white shadow absolute top-5 right-5 z-10 badge sm:badge-lg capitalize`}>{status}</span>
                 </div>
                 <div className="card-body">
                     <div className="flex items-center justify-between">

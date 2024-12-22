@@ -27,7 +27,7 @@ const CampaignCard = ({ product }) => {
     const discountPercentage = calculateDiscountPercentage(price, specialPrice);
 
     return (
-        <div className="w-full overflow-hidden transition-colors duration-300 delay-150 border-2 border-transparent shadow-xl card bg-base-100 hover:border-success hover:bg-green-100 group">
+        <div className="w-full overflow-hidden transition-colors duration-300 delay-150 border-2 shadow-xl card bg-base-100 hover:border-success hover:bg-green-100 group">
             <figure className="relative h-60">
                 <img className="w-full h-full"
                     src={productImage}

@@ -5,7 +5,6 @@ import CarouselAddForm from '../CarouselAddForm/CarouselAddForm';
 const AddCarousel = () => {
     return (
         <div>
-            <HelmetAsync title={"Add Category"} />
             <dialog id="add_carousel_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">

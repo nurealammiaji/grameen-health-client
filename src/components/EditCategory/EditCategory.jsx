@@ -5,7 +5,6 @@ import CategoryEditForm from '../CategoryEditForm/CategoryEditForm';
 const EditCategory = ({ categoryData }) => {
     return (
         <div>
-            <HelmetAsync title={"Edit Category"} />
             <dialog id="edit_category_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">

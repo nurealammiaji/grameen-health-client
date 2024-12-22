@@ -5,7 +5,6 @@ import CampaignEditForm from './../CampaignEditForm/CampaignEditForm';
 const EditCampaign = ({ campaignData }) => {
     return (
         <div>
-            <HelmetAsync title={"Edit Campaign"} />
             <dialog id="edit_campaign_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">

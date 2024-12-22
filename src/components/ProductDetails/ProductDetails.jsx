@@ -35,7 +35,7 @@ const ProductDetails = ({ productData }) => {
                             }
                         </Swiper>
                     </figure>
-                    <span className={`${status === "active" && "badge-success" || status === "inactive" && "badge-error" || status === "pending" && "badge-warning"} absolute top-5 right-5 z-10 badge sm:badge-lg capitalize`}>{status}</span>
+                    <span className={`${status === "active" && "badge-success" || status === "inactive" && "badge-error" || status === "pending" && "badge-warning"} text-white shadow absolute top-5 right-5 z-10 badge sm:badge-lg capitalize`}>{status}</span>
                 </div>
                 <div className="card-body">
                     <div className="flex justify-between">

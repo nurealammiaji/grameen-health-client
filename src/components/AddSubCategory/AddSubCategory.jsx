@@ -5,7 +5,6 @@ import SubCategoryAddForm from '../SubCategoryAddForm/SubCategoryAddForm';
 const AddSubCategory = () => {
     return (
         <div>
-            <HelmetAsync title={"Add Sub Category"} />
             <dialog id="add_subCategory_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">

@@ -8,7 +8,9 @@ import { CampaignContext } from '../../providers/CampaignProvider';
 
 const CampaignEditForm = ({ campaignData }) => {
 
-    const { _id, name, image, description, status, campaignURL, campaignType, startDate, endDate, createdAt, updatedAt } = campaignData;
+    const { _id, name, image, description, status, campaignType, startDate, endDate, discountPercent, createdAt, updatedAt } = campaignData;
+
+    console.log(campaignData);
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isCampaignsLoading, campaigns, refetchCampaigns, isCampaignsError, campaignsError } = useCampaigns();
@@ -16,15 +18,16 @@ const CampaignEditForm = ({ campaignData }) => {
     const { t } = useTranslation();
     const [fileWithPreview, setFileWithPreview] = useState(null);
     const { editCampaign } = useContext(CampaignContext);
+    const server = import.meta.env.VITE_BACKEND_URL;
 
     const selectedURL = watch("campaignType");
 
     const campaignTypes = [
-        { type: "Flash Sale", url: "flashSale" },
-        { type: "New Arrivals", url: "newArrivals" },
-        { type: "Festival Sale", url: "festivalSale" },
-        { type: "Discount Sale", url: "discountSale" },
-        { type: "Clearance Sale", url: "clearanceSale" },
+        { name: "Flash Sale" },
+        { name: "New Arrivals" },
+        { name: "Festival Sale" },
+        { name: "Discount Sale" },
+        { name: "Clearance Sale" },
     ];
 
     const handleAddCampaign = async (data) => {
@@ -35,8 +38,8 @@ const CampaignEditForm = ({ campaignData }) => {
             formData.append('name', data.name);
             formData.append('status', data.status);
             formData.append('description', data.description);
-            formData.append('campaignType', JSON.parse(data.campaignType).type);
-            formData.append('campaignURL', data.campaignURL);
+            formData.append('campaignType', data.campaignType);
+            formData.append('discountPercent', data.discountPercent);
             formData.append('startDate', data.startDate);
             formData.append('endDate', data.endDate);
 
@@ -47,14 +50,14 @@ const CampaignEditForm = ({ campaignData }) => {
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
 
-            const response = await editCampaign(formData);
+            const response = await editCampaign(_id, formData);
             console.log('Response from server:', response.data);
 
             Swal.fire({
                 target: document.getElementById('edit_campaign_modal'),
                 position: "center",
                 icon: "success",
-                title: "Added Successfully !!",
+                title: "Updated Successfully !!",
                 showConfirmButton: false,
                 timer: 1500
             });
@@ -66,7 +69,7 @@ const CampaignEditForm = ({ campaignData }) => {
         } catch (error) {
             console.error('Error from backend:', error.response ? error.response.data : error.message);
             Swal.fire({
-                target: document.getElementById('add_campaign_modal'),
+                target: document.getElementById('edit_campaign_modal'),
                 position: "center",
                 icon: "error",
                 title: `${error.message}`,
@@ -129,17 +132,17 @@ const CampaignEditForm = ({ campaignData }) => {
                             <option value="">select type</option>
                             {
                                 (campaignTypes) &&
-                                campaignTypes.map((type, index) => <option key={index} value={JSON.stringify(type)} className="font-medium" >{type.type}</option>)
+                                campaignTypes.map((type, index) => <option key={index} value={type.name} className="font-medium" >{type.name}</option>)
                             }
                         </select>
                         {errors.status?.type === 'required' && <span className="text-error">{t('requiredType')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="font-semibold label-text">Campaign URL</span>
+                            <span className="font-semibold label-text">Discount Percent</span>
                         </label>
-                        <input {...register("campaignURL", { required: true })} type="text" defaultValue={campaignURL || selectedURL && JSON.parse(selectedURL).url} placeholder="campaign url" className="w-full input input-bordered" />
-                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredURL')} !!</span>}
+                        <input {...register("discountPercent", { required: true })} type="number" min={0} max={100} defaultValue={discountPercent} placeholder="discount percent" className="w-full input input-bordered" />
+                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredPercent')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
@@ -193,10 +196,17 @@ const CampaignEditForm = ({ campaignData }) => {
                             </button>
                         </div>
                     </div>
+                ) || campaignData && (
+                    <div className="mt-5">
+                        <label className="my-2 label">
+                            <span className="font-semibold label-text text-warning">Current Campaign Image</span>
+                        </label>
+                        <img src={server + image} alt="Preview" className="w-full h-40 rounded" />
+                    </div>
                 )}
 
                 {/* Submit Button */}
-                <button type="submit" className="w-full mt-8 btn btn-success">{t('addCampaign')}</button>
+                <button type="submit" className="w-full mt-8 btn btn-success">{t('editCampaign')}</button>
 
             </form>
         </div>

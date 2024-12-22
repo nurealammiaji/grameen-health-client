@@ -41,7 +41,7 @@ const ShopDetails = ({ shopData }) => {
                     <div className="justify-end mt-5 mr-5 card-actions sm:mr-10">
                         <button onClick={() => document.getElementById('edit_shop_modal').showModal()} className="btn btn-primary btn-xs sm:btn-sm">Edit</button>
                     </div>
-                    <span className={`${status === "active" && "badge-success" || status === "inactive" && "badge-error" || status === "pending" && "badge-warning"} absolute top-5 right-5 z-10 badge sm:badge-lg capitalize`}>{status}</span>
+                    <span className={`${status === "active" && "badge-success" || status === "inactive" && "badge-error" || status === "pending" && "badge-warning"} text-white shadow absolute top-5 right-5 z-10 badge sm:badge-lg capitalize`}>{status}</span>
                 </div>
                 <div className="card-body">
                     <h2 className="mt-5 text-3xl card-title">{name}</h2>
