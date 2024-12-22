@@ -131,7 +131,7 @@ const CampaignAddForm = () => {
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="font-semibold label-text">Campaign URL</span>
+                            <span className="font-semibold label-text">Discount Percent</span>
                         </label>
                         <input {...register("discountPercent", { required: true })} type="text" placeholder="discount percent" className="w-full input input-bordered" />
                         {errors.name?.type === 'required' && <span className="text-error">{t('requiredPercent')} !!</span>}

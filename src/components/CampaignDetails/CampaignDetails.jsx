@@ -26,6 +26,12 @@ const CampaignDetails = ({ campaignData }) => {
                     </div>
                     <p className="mt-5 text-lg">{description}</p>
                     <div className="mt-5">
+                        <p><span className="font-medium">Campaign Type:</span> <span className="shadow badge badge-info">{campaignType}</span></p>
+                        <p className="mt-3"><span className="font-medium">Discount Percent:</span> <span className="shadow badge badge-warning">{discountPercent}%</span></p>
+                        <p className="mt-3"><span className="font-medium">Start Date:</span> <span className="shadow badge badge-secondary">{startDate}</span></p>
+                        <p className="mt-3"><span className="font-medium">End Date:</span> <span className="shadow badge badge-secondary">{endDate}</span></p>
+                    </div>
+                    <div className="mt-5">
                         <p>Created: <span className="badge">{createdAt}</span></p>
                         <p className="mt-1">Updated: <span className="badge">{updatedAt}</span></p>
                     </div>
