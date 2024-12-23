@@ -55,11 +55,11 @@ const CategoryLists = () => {
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
-                    <thead>
+                    <thead className="text-black border bg-slate-100">
                         <tr>
                             <th>
                                 <label>
-                                    <input type="checkbox" className="checkbox" checked={allSelected} onChange={handleSelectAllChange} />
+                                    <input type="checkbox" className="checkbox checkbox-error tooltip tooltip-right" data-tip="Select All" checked={allSelected} onChange={handleSelectAllChange} />
                                 </label>
                             </th>
                             <th>Image</th>

@@ -15,7 +15,7 @@ const CarouselList = ({ carousel, index, isSelected, onCheckboxChange, onStatusC
         <tr>
             <th>
                 <label>
-                    <input value={_id} type="checkbox" className="checkbox" checked={isSelected} onChange={() => onCheckboxChange(carousel._id)} />
+                    <input value={_id} type="checkbox" className="checkbox checkbox-error tooltip tooltip-right" data-tip="Select" checked={isSelected} onChange={() => onCheckboxChange(carousel._id)} />
                 </label>
             </th>
             <td>

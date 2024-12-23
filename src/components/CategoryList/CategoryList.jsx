@@ -15,7 +15,7 @@ const CategoryList = ({ category, index, isSelected, onCheckboxChange, onStatusC
         <tr>
             <th>
                 <label>
-                    <input value={_id} type="checkbox" className="checkbox" checked={isSelected} onChange={() => onCheckboxChange(category._id)} />
+                    <input value={_id} type="checkbox" className="checkbox checkbox-error tooltip tooltip-right" data-tip="Select" checked={isSelected} onChange={() => onCheckboxChange(category._id)} />
                 </label>
             </th>
             <td>

@@ -15,7 +15,7 @@ const SubCategoryList = ({ subCategory, index, isSelected, onCheckboxChange, onS
         <tr>
             <th>
                 <label>
-                    <input value={_id} type="checkbox" className="checkbox" checked={isSelected} onChange={() => onCheckboxChange(subCategory._id)} />
+                    <input value={_id} type="checkbox" className="checkbox checkbox-error tooltip tooltip-right" data-tip="Select" checked={isSelected} onChange={() => onCheckboxChange(subCategory._id)} />
                 </label>
             </th>
             <td>

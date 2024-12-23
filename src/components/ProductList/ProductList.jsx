@@ -21,26 +21,28 @@ const ProductList = ({ product, index, isSelected, onCheckboxChange, onStatusCha
         <tr>
             <th>
                 <label>
-                    <input value={_id} type="checkbox" className="checkbox" checked={isSelected} onChange={() => onCheckboxChange(product._id)} />
+                    <input value={_id} type="checkbox" className="checkbox checkbox-error tooltip tooltip-right" data-tip="Select" checked={isSelected} onChange={() => onCheckboxChange(product._id)} />
                 </label>
             </th>
             <td>
-                <div className="avatar">
-                    <div className="w-12 h-12 mask mask-squircle">
-                        <img
-                            src={server + images[0]}
-                            alt="Product Logo" />
+                <div className="flex gap-4">
+                    <div className="avatar">
+                        <div className="w-12 h-12 mask mask-squircle">
+                            <img
+                                src={server + images[0]}
+                                alt="Product Logo" />
+                        </div>
+                    </div>
+                    <div>
+                        <div className="font-bold">{name}</div>
+                        <p className="mt-1 text-sm opacity-50">{brand}</p>
                     </div>
                 </div>
             </td>
             <td>
-                <div className="font-bold">{name}</div>
-                <p className="text-sm opacity-50">{brand}</p>
-            </td>
-            <td>
                 <span>{shop.name}</span>
                 <br />
-                <p className="text-sm opacity-50">{manufacturer}</p>
+                <p className="mt-1 text-sm opacity-50">{manufacturer}</p>
             </td>
             <td>
                 <select name="status" className="font-semibold select-bordered select select-xs" defaultValue={status} onChange={handleStatusChange} >

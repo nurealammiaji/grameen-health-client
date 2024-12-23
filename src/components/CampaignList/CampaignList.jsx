@@ -15,7 +15,7 @@ const CampaignList = ({ campaign, index, isSelected, onCheckboxChange, onStatusC
         <tr>
             <th>
                 <label>
-                    <input value={_id} type="checkbox" className="checkbox" checked={isSelected} onChange={() => onCheckboxChange(_id)} />
+                    <input value={_id} type="checkbox" className="checkbox checkbox-error tooltip tooltip-right" data-tip="Select" checked={isSelected} onChange={() => onCheckboxChange(_id)} />
                 </label>
             </th>
             <td>
@@ -30,7 +30,7 @@ const CampaignList = ({ campaign, index, isSelected, onCheckboxChange, onStatusC
             <td>
                 <div>
                     <div className="font-bold">{name}</div>
-                    <p className="text-sm opacity-50">{discountPercent}</p>
+                    <p className="mt-1 text-sm"><span className="text-white badge badge-primary badge-outline">{campaignType}</span></p>
                 </div>
             </td>
             <td>

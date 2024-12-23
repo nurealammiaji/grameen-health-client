@@ -15,7 +15,7 @@ const ShopList = ({ shop, index, isSelected, onCheckboxChange, onStatusChange })
         <tr>
             <th>
                 <label>
-                    <input value={_id} type="checkbox" className="checkbox" checked={isSelected} onChange={() => onCheckboxChange(shop._id)} />
+                    <input value={_id} type="checkbox" className="checkbox checkbox-error tooltip tooltip-right" data-tip="Select" checked={isSelected} onChange={() => onCheckboxChange(shop._id)} />
                 </label>
             </th>
             <td>
