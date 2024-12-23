@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import useAxiosPublic from './useAxiosPublic';
+import useAxiosPrivate from './useAxiosPrivate';
 
 const useOrders = () => {
-    const axiosPublic = useAxiosPublic();
+    const axiosPrivate = useAxiosPrivate();
 
     const {
         data: orders,
@@ -13,7 +13,7 @@ const useOrders = () => {
     } = useQuery({
         queryKey: ['orders', 'read'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/orders/read');
+            const res = await axiosPrivate.get('/orders/read');
             return res.data; // Ensure this matches your expected data structure
         },
         staleTime: 5 * 60 * 1000, // 5 minutes
