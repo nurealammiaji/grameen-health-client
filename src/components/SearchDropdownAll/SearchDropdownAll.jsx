@@ -88,17 +88,18 @@ const SearchDropdownAll = ({ props }) => {
                 />
             </label>
             {isOpen && (
-                <div className="absolute z-10 w-full mt-1 dropdown dropdown-open">
-                    <ul className="w-full p-2 overflow-y-auto bg-white border border-gray-200 shadow-md menu dropdown-content max-h-60">
+                <div className="absolute z-10 w-full mt-1 text-center dropdown dropdown-open">
+                    <ul className="w-full p-2 overflow-scroll overflow-x-hidden bg-white border border-gray-200 shadow-md menu dropdown-content">
                         {/* Products */}
                         {results.products.length > 0 && (
                             <>
-                                <h3 className="p-2 text-lg font-bold text-success">Products</h3>
+                                <h3 className="p-2 text-lg font-bold bg-gray-100 text-success">Products: <span className="font-thin text-info">( {results.products.length} )</span></h3>
+                                <hr />
                                 {results.products.map((item) => (
                                     <Link to={`products/${item._id}`} key={item._id} className="p-2 cursor-pointer hover:bg-success hover:text-white" onClick={handleResultClick}>
                                         <div>
-                                            <h4 className="font-semibold">{item.name}</h4>
-                                            <p className="text-sm text-gray-600">{item.price}</p>
+                                            <h4 className="font-semibold text-slate-400">{item.name}</h4>
+                                            {/* <p className="text-sm text-gray-600">{item.price}</p> */}
                                         </div>
                                     </Link>
                                 ))}
@@ -108,12 +109,12 @@ const SearchDropdownAll = ({ props }) => {
                         {/* Categories */}
                         {results.categories.length > 0 && (
                             <>
-                                <h3 className="p-2 text-lg font-bold text-success">Categories</h3>
+                                <h3 className="p-2 text-lg font-bold bg-gray-100 text-success">Categories: <span className="font-thin text-info">( {results.categories.length} )</span></h3>
+                                <hr />
                                 {results.categories.map((item) => (
                                     <Link to={`categories/${item._id}`} key={item._id} className="p-2 cursor-pointer hover:bg-success hover:text-white" onClick={handleResultClick}>
                                         <div>
-                                            <h4 className="font-semibold">{item.title}</h4>
-                                            <p className="text-sm text-gray-600">{item.description}</p>
+                                            <h4 className="font-semibold">{item.name}</h4>
                                         </div>
                                     </Link>
                                 ))}
@@ -123,12 +124,12 @@ const SearchDropdownAll = ({ props }) => {
                         {/* Subcategories */}
                         {results.subCategories.length > 0 && (
                             <>
-                                <h3 className="p-2 text-lg font-bold text-success">Subcategories</h3>
+                                <h3 className="p-2 text-lg font-bold bg-gray-100 text-success">Sub Categories: <span className="font-thin text-info">( {results.subCategories.length} )</span></h3>
+                                <hr />
                                 {results.subCategories.map((item) => (
                                     <Link to={`subCategories/${item._id}`} key={item._id} className="p-2 cursor-pointer hover:bg-success hover:text-white" onClick={handleResultClick}>
                                         <div>
-                                            <h4 className="font-semibold">{item.title}</h4>
-                                            <p className="text-sm text-gray-600">{item.category}</p>
+                                            <h4 className="font-semibold">{item.name}</h4>
                                         </div>
                                     </Link>
                                 ))}
@@ -138,7 +139,8 @@ const SearchDropdownAll = ({ props }) => {
                         {/* Shops */}
                         {results.shops.length > 0 && (
                             <>
-                                <h3 className="p-2 text-lg font-bold text-success">Shops</h3>
+                                <h3 className="p-2 text-lg font-bold bg-gray-100 text-success">Shops : <span className="font-thin text-info">( {results.shops.length} )</span></h3>
+                                <hr />
                                 {results.shops.map((item) => (
                                     <Link to={`shops/${item._id}`} key={item._id} className="p-2 cursor-pointer hover:bg-success hover:text-white" onClick={handleResultClick}>
                                         <div>
@@ -152,7 +154,8 @@ const SearchDropdownAll = ({ props }) => {
                         {/* Users */}
                         {results.users.length > 0 && (
                             <>
-                                <h3 className="p-2 text-lg font-bold text-success">Users</h3>
+                                <h3 className="p-2 text-lg font-bold text-success">Users: <span className="font-thin text-info"> ( {results.users.length} )</span></h3>
+                                <hr />
                                 {results.users.map((item) => (
                                     <Link to={`users/${item._id}`} key={item._id} className="p-2 cursor-pointer hover:bg-success hover:text-white" onClick={handleResultClick}>
                                         <div>
