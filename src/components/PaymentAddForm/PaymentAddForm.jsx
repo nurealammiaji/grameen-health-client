@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import useCampaigns from '../../hooks/useCampaigns';
 import { CampaignContext } from '../../providers/CampaignProvider';
 
-const CampaignAddForm = () => {
+const PaymentAddForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
     const { isCampaignsLoading, campaigns, refetchCampaigns, isCampaignsError, campaignsError } = useCampaigns();
@@ -198,4 +198,4 @@ const CampaignAddForm = () => {
     );
 };
 
-export default CampaignAddForm;
+export default PaymentAddForm;
