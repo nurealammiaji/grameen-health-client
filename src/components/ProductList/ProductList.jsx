@@ -7,6 +7,14 @@ const ProductList = ({ product, index, isSelected, onCheckboxChange, onStatusCha
 
     const server = import.meta.env.VITE_BACKEND_URL;
 
+    const campaignTypes = [
+        { name: "Flash Sale" },
+        { name: "New Arrivals" },
+        { name: "Festival Sale" },
+        { name: "Discount Sale" },
+        { name: "Clearance Sale" },
+    ];
+
     const handleStatusChange = (event) => {
         const newStatus = event.target.value;
         onStatusChange(_id, newStatus);
@@ -45,19 +53,16 @@ const ProductList = ({ product, index, isSelected, onCheckboxChange, onStatusCha
                 <p className="mt-1 text-sm opacity-50">{manufacturer}</p>
             </td>
             <td>
-                <select name="status" className="font-semibold select-bordered select select-xs" defaultValue={status} onChange={handleStatusChange} >
+                <select name="status" className="font-semibold select-bordered select select-xs" defaultValue={status} onChange={handleStatusChange}>
                     <option className="font-semibold text-success" value="active">Active</option>
                     <option className="font-semibold text-error" value="inactive">Inactive</option>
                     <option className="font-semibold text-warning" value="pending">Pending</option>
                 </select>
             </td>
             <td>
-                <select name="campaign" className="font-semibold select-bordered select select-xs" defaultValue={campaign} onChange={handleCampaignChange} >
-                    <option className="font-medium" value={null}>None</option>
-                    <option className="font-medium text-info" value="new">New</option>
-                    <option className="font-medium text-warning" value="flash">Flash</option>
-                    <option className="font-medium text-success" value="discount">Discount</option>
-                    <option className="font-medium text-error" value="clearance">Clearance</option>
+                <select name="campaign" className="font-semibold select-bordered select select-xs" defaultValue={campaign} onChange={handleCampaignChange}>
+                    <option className="font-medium text-slate-500" value={null}>None</option>
+                    {campaignTypes && campaignTypes.map((type, index) => <option key={index} value={type.name} className="font-medium">{type.name}</option>)}
                 </select>
             </td>
             <td>
