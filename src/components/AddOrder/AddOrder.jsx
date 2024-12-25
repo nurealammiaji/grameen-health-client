@@ -1,18 +1,17 @@
 import React from 'react';
-import ProductEditForm from '../ProductEditForm/ProductEditForm';
 
-const EditProduct = ({ productData }) => {
+const AddOrder = () => {
     return (
         <div>
-            <dialog id="edit_product_modal" className="modal modal-middle">
+            <dialog id="add_order_modal" className="modal modal-middle">
                 <div className="modal-box">
                     <div className="text-center">
                         <div className="w-10/12 mx-auto divider divider-success">
-                            <h3 className="text-xl font-bold text-success">Edit Product</h3>
+                            <h3 className="text-xl font-bold text-success">Add Order</h3>
                         </div>
                     </div>
                     <div className="py-4">
-                        <ProductEditForm productData={productData} />
+                        {/* <OrderAddForm /> */}
                     </div>
                 </div>
                 <div className="fixed top-0 modal-action">
@@ -25,4 +24,4 @@ const EditProduct = ({ productData }) => {
     );
 };
 
-export default EditProduct;
+export default AddOrder;

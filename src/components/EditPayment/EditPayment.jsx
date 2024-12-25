@@ -1,5 +1,4 @@
 import React from 'react';
-import HelmetAsync from '../HelmetAsync/HelmetAsync';
 import ProductEditForm from '../ProductEditForm/ProductEditForm';
 
 const EditPayment = ({ paymentData }) => {

@@ -3,16 +3,16 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import Swal from 'sweetalert2';
-import useCampaigns from '../../hooks/useCampaigns';
-import { CampaignContext } from '../../providers/CampaignProvider';
+import usePayments from './../../hooks/usePayments';
+import { PaymentContext } from './../../providers/PaymentProvider';
 
 const PaymentAddForm = () => {
 
     const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
-    const { isCampaignsLoading, campaigns, refetchCampaigns, isCampaignsError, campaignsError } = useCampaigns();
+    const { isPaymentsLoading, payments, refetchPayments, isPaymentsError, paymentsError } = usePayments();
     const { t } = useTranslation();
     const [fileWithPreview, setFileWithPreview] = useState(null);
-    const { addCampaign } = useContext(CampaignContext);
+    const { addPayment } = useContext(PaymentContext);
 
     const campaignTypes = [
         { name: "Flash Sale" },
@@ -42,7 +42,7 @@ const PaymentAddForm = () => {
 
             console.log('Form Data before sending:', Array.from(formData.entries()));
 
-            const response = await addCampaign(formData);
+            const response = await addPayment(formData);
             console.log('Response from server:', response.data);
 
             Swal.fire({

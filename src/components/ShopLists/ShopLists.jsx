@@ -63,7 +63,7 @@ const ShopLists = () => {
                                     <input type="checkbox" className="checkbox checkbox-error tooltip tooltip-right" data-tip="Select All" checked={allSelected} onChange={handleSelectAllChange} />
                                 </label>
                             </th>
-                            <th>Shop Name</th>
+                            <th>Image / Name</th>
                             <th>Merchant</th>
                             <th>Status</th>
                             <th>Action</th>
