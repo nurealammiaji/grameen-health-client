@@ -64,30 +64,74 @@ const ProductLists = () => {
     return (
         <div>
             <div className="overflow-x-auto">
-                <table className="table">
-                    {/* head */}
-                    <thead className="text-black border bg-slate-100">
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox checkbox-error tooltip tooltip-right" data-tip="Select All" checked={allSelected} onChange={handleSelectAllChange} />
-                                </label>
-                            </th>
-                            <th>Image / Name</th>
-                            <th>Merchant</th>
-                            <th>Status</th>
-                            <th>Campaign</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* Products */}
-                        {
-                            (products) &&
-                            products.map((product, index) => <ProductList key={product._id} product={product} index={index} isSelected={selectedProducts.includes(product._id)} onCheckboxChange={handleCheckboxChange} onStatusChange={onStatusChange} onCampaignChange={onCampaignChange} />)
-                        }
-                    </tbody>
-                </table>
+                {
+                    (products) ?
+                        <table className="table">
+                            {/* head */}
+                            <thead className="text-black border bg-slate-100">
+                                <tr>
+                                    <th>
+                                        <label>
+                                            <input type="checkbox" className="checkbox checkbox-error tooltip tooltip-right" data-tip="Select All" checked={allSelected} onChange={handleSelectAllChange} />
+                                        </label>
+                                    </th>
+                                    <th>Image / Name</th>
+                                    <th>Merchant</th>
+                                    <th>Status</th>
+                                    <th>Campaign</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {/* Products */}
+                                {
+                                    (products) &&
+                                    products.map((product, index) => <ProductList key={product._id} product={product} index={index} isSelected={selectedProducts.includes(product._id)} onCheckboxChange={handleCheckboxChange} onStatusChange={onStatusChange} onCampaignChange={onCampaignChange} />)
+                                }
+                            </tbody>
+                        </table> :
+                        <div>
+                            <div className="flex items-center justify-center gap-4">
+                                <div className="w-16 h-16 rounded-full skeleton shrink-0"></div>
+                                <div className="flex flex-col gap-4">
+                                    <div className="w-20 h-4 skeleton"></div>
+                                    <div className="h-4 skeleton w-28"></div>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <div className="h-4 skeleton w-28"></div>
+                                    <div className="h-4 skeleton w-28"></div>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <div className="h-4 skeleton w-28"></div>
+                                    <div className="h-4 skeleton w-28"></div>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <div className="h-4 skeleton w-28"></div>
+                                    <div className="h-4 skeleton w-28"></div>
+                                </div>
+                            </div>
+                            <br />
+                            <div className="flex items-center justify-center gap-4">
+                                <div className="w-16 h-16 rounded-full skeleton shrink-0"></div>
+                                <div className="flex flex-col gap-4">
+                                    <div className="w-20 h-4 skeleton"></div>
+                                    <div className="h-4 skeleton w-28"></div>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <div className="h-4 skeleton w-28"></div>
+                                    <div className="h-4 skeleton w-28"></div>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <div className="h-4 skeleton w-28"></div>
+                                    <div className="h-4 skeleton w-28"></div>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <div className="h-4 skeleton w-28"></div>
+                                    <div className="h-4 skeleton w-28"></div>
+                                </div>
+                            </div>
+                        </div>
+                }
             </div>
         </div>
     );
