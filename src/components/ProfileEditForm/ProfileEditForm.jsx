@@ -7,15 +7,22 @@ import { useTranslation } from "react-i18next";
 
 const ProfileEditForm = ({ profileData }) => {
 
+    const { _id, name, status, email, phone, gender, password, dob, image, address, role, createdAt, updatedAt } = profileData;
+
     const { userRegister, setUser, setAuthenticated, loading, setLoading } = useContext(AuthContext);
+
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
+
     const [eyeCloseOne, setEyeCloseOne] = useState(true);
     const [eyeCloseTwo, setEyeCloseTwo] = useState(true);
-    const [image, setImage] = useState(null);
+
+    const [photo, setPhoto] = useState(null);
     const { t } = useTranslation();
 
     const pwd = watch("password");
     const rePwd = watch("confirmPassword");
+
+    const server = import.meta.env.VITE_BACKEND_URL;
 
     const handleEditProfile = async (data) => {
         try {
@@ -81,14 +88,28 @@ const ProfileEditForm = ({ profileData }) => {
     };
 
     const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
+        setPhoto(e.target.files[0]);
         console.log(e);
     };
 
     return (
         <form onSubmit={handleSubmit(handleEditProfile)} className="p-5 mx-auto border rounded-xl bg-base-200">
-            <br />
-            <div className="form-control">
+            <figure className="mx-auto w-24 h-24 overflow-hidden rounded-full bottom-5 sm:bottom-0 left-5 sm:left-10 sm:w-32 sm:h-32 ring-4">
+                <img src={server + image} className="w-full h-full" alt={`Image of ${name}`} />
+            </figure>
+            {/* Image Upload */}
+            <div className="mt-5 form-control">
+                <label className="label">
+                    <span className="label-text">Image</span>
+                </label>
+                <input
+                    type="file"
+                    onChange={handleImageChange}
+                    name="image"
+                    className="file-input file-input-bordered"
+                />
+            </div>
+            <div className="form-control mt-3">
                 <label className="label">
                     <span className="label-text">{t('name')}</span>
                 </label>
@@ -102,6 +123,7 @@ const ProfileEditForm = ({ profileData }) => {
                                         d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                                 </svg> */}
                     <input {...register("name", { required: true })}
+                        defaultValue={name}
                         type="text"
                         placeholder={t('typeName')}
                         name="name"
@@ -112,13 +134,12 @@ const ProfileEditForm = ({ profileData }) => {
                     <span className="text-error">{t('requiredName')} !!</span>
                 </label>}
             </div>
-            <div className="mt-1 form-control">
+            <div className="mt-3 form-control">
                 <label className="label">
                     <span className="label-text">Email</span>
                 </label>
-                <input {...register("email", {
-                    required: true
-                })}
+                <input {...register("email", { required: true })}
+                    defaultValue={email}
                     type="email"
                     placeholder="email"
                     name="email"
@@ -128,7 +149,7 @@ const ProfileEditForm = ({ profileData }) => {
                     <span className="text-error">Email is required !!</span>
                 </label>}
             </div>
-            <div className="mt-1 form-control">
+            <div className="mt-3 form-control">
                 <label className="label">
                     <span className="label-text">{t('mobile')}</span>
                 </label>
@@ -136,9 +157,8 @@ const ProfileEditForm = ({ profileData }) => {
                     {/* <svg xmlns="http://www.w3.org/2000/svg"
                                     shapeRendering="geometricPrecision" textRendering="geometricPrecision" imageRendering="optimizeQuality" fillRule="evenodd" clipRule="evenodd" viewBox="0 0 512 356.18" className="w-8"><g fillRule="nonzero"><path fill="#006A4E" d="M28.137 0H483.86C499.337 0 512 12.663 512 28.14v299.9c0 15.477-12.663 28.14-28.14 28.14H28.137C12.663 356.18 0 343.517 0 328.04V28.14C0 12.663 12.663 0 28.137 0z" /><path fill="#F42A41" d="M345.047 178.09c0-65.572-53.157-118.729-118.729-118.729-65.573 0-118.729 53.157-118.729 118.729s53.156 118.729 118.729 118.729c65.572 0 118.729-53.157 118.729-118.729z" /></g></svg> */}
                     <span>+88</span>
-                    <input {...register("phone", {
-                        required: true, pattern: /^0\d{10}$/
-                    })}
+                    <input {...register("phone", { required: true, pattern: /^0\d{10}$/ })}
+                        defaultValue={phone}
                         type="text"
                         placeholder="01726581454"
                         name="phone"
@@ -150,20 +170,8 @@ const ProfileEditForm = ({ profileData }) => {
                 </label>}
                 {errors.phone?.type === 'pattern' && <span className="mt-1 text-error">{t('invalidMobile')} !!</span>}
             </div>
-            {/* Image Upload */}
-            <div className="mt-1 form-control">
-                <label className="label">
-                    <span className="label-text">Image</span>
-                </label>
-                <input
-                    type="file"
-                    onChange={handleImageChange}
-                    name="image"
-                    className="file-input file-input-bordered"
-                />
-            </div>
             {/* Gender */}
-            <div className="mt-1 form-control">
+            <div className="mt-3 form-control">
                 <label className="label">
                     <span className="label-text">Gender</span>
                 </label>
@@ -173,17 +181,17 @@ const ProfileEditForm = ({ profileData }) => {
                     name="gender"
                     className="select select-bordered"
                 >
-                    <option value="">select gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="third">Third</option>
+                    <option className="text-slate-500" value="">select gender</option>
+                    <option className="font-medium" value="male">Male</option>
+                    <option className="font-medium" value="female">Female</option>
+                    <option className="font-medium" value="third">Third</option>
                 </select>
                 {errors.gender?.type === 'required' && <label className="label">
                     <span className="text-error">Gender is required !!</span>
                 </label>}
             </div>
             {/* Date of Birth */}
-            <div className="mt-1 form-control">
+            <div className="mt-3 form-control">
                 <label className="label">
                     <span className="label-text">Date of Birth</span>
                 </label>
@@ -199,7 +207,7 @@ const ProfileEditForm = ({ profileData }) => {
                 </label>}
             </div>
             {/* Shipping Address */}
-            <div className="mt-1 form-control">
+            <div className="mt-3 form-control">
                 <label className="label">
                     <span className="label-text">Shipping Address</span>
                 </label>
@@ -213,7 +221,7 @@ const ProfileEditForm = ({ profileData }) => {
                     <span className="text-error">Address is required !!</span>
                 </label>}
             </div>
-            <div className="mt-1 form-control">
+            <div className="mt-3 form-control">
                 <label className="label">
                     <span className="label-text">{t('password')}</span>
                 </label>
@@ -248,7 +256,7 @@ const ProfileEditForm = ({ profileData }) => {
                 {errors.password?.type === 'pattern' && <span className="text-error">Any type of character is required !!</span>}
             </div>
             {/* Confirm Password */}
-            <div className="mt-1 form-control">
+            <div className="mt-3 form-control">
                 <label className="label">
                     <span className="label-text">Confirm Password</span>
                 </label>

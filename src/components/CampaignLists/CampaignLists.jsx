@@ -74,7 +74,6 @@ const CampaignLists = () => {
                             (campaigns) &&
                             campaigns.map((campaign, index) => <CampaignList key={campaign._id} campaign={campaign} index={index} isSelected={selectedCampaigns.includes(campaign._id)} onCheckboxChange={handleCheckboxChange} onStatusChange={onStatusChange} />)
                         }
-                        {console.log(campaigns)}
                     </tbody>
                 </table>
             </div>
