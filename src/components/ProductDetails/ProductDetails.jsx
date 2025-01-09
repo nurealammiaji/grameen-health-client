@@ -46,15 +46,25 @@ const ProductDetails = ({ productData }) => {
                     </div>
                     <p className="mt-5 text-lg">{description}</p>
                     <div className="mt-8">
-                        <h4 className="mb-2 font-semibold">Shop Address</h4>
-                        <hr className="w-3/12 mb-2 border-primary" />
-                        <p>{manufacturer}</p>
+                        <h4 className="mb-2 font-semibold">Product Details</h4>
+                        <hr className="w-3/12 mb-2 text-error border-primary" />
+                        <p>Price: <span className="badge">{price}</span></p>
+                        <p className="mt-1">Special Price: <span className="badge">{specialPrice}</span></p>
+                        <p className="mt-1">Category: <span className="badge">{category}</span></p>
+                        <p className="mt-1">Sub Category: <span className="badge">{subCategory}</span></p>
+                        <p className="mt-1">Model: <span className="badge">{model}</span></p>
+                        <p className="mt-1">Brand: <span className="badge">{brand}</span></p>
+                        <p className="mt-1">Origin Country: <span className="badge">{originCountry}</span></p>
+                        <p className="mt-1">Manufacturer: <span className="badge">{manufacturer}</span></p>
+                        <p className="mt-1">Shop: <span className="badge">{shop?.name}</span></p>
+                        <p className="mt-1">Advance Money: <span className="badge">{advanceMoney}</span></p>
+                        <p className="mt-1">Quantity: <span className="badge">{quantity}</span></p>
+                        <p className="mt-1">Quantity: <span className="badge">{quantity}</span></p>
                     </div>
                     <div className="mt-5">
-                        <h4 className="mb-2 font-semibold">Shop Owner</h4>
-                        <hr className="w-3/12 mb-2 text-error border-primary" />
-                        <p>Name: <span className="badge">{manufacturer}</span></p>
-                        <p className="mt-1">Phone: <span className="badge">{manufacturer}</span></p>
+                        <h4 className="mb-2 font-semibold">Variants</h4>
+                        <hr className="w-3/12 mb-2 border-primary" />
+                        <p>{variants?.length}</p>
                     </div>
                 </div>
             </div>
