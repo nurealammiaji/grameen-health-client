@@ -25,17 +25,17 @@ const Customer = () => {
             <br /><br /><br />
             <div className="text-center">
                 <div className="shadow stats stats-vertical lg:stats-horizontal">
-                    <Link to={"/dashboard/customer/cart"} className="stat w-52 h-52">
+                    <Link to={"/dashboard/customer/cart"} className="stat w-52 h-52 hover:bg-gray-400">
                         <div className="flex justify-center mt-5 stat-title"><RiShoppingCart2Fill className="mr-3 text-2xl" /><span className="text-xl">{t('cart')}</span></div>
                         <div className="stat-value">0</div>
                         <div className="stat-desc">{t('product')}</div>
                     </Link>
-                    <Link to={"/dashboard/customer/wishlist"} className="stat w-52 h-52">
+                    <Link to={"/dashboard/customer/wishlist"} className="stat w-52 h-52 hover:bg-gray-400">
                         <div className="flex justify-center mt-5 stat-title"><RiHeartFill className="mr-3 text-2xl" /><span className="text-xl">{t('wishlist')}</span></div>
                         <div className="stat-value">0</div>
                         <div className="stat-desc">{t('product')}</div>
                     </Link>
-                    <Link to={"/dashboard/customer/orders"} className="stat w-52 h-52">
+                    <Link to={"/dashboard/customer/orders"} className="stat w-52 h-52 hover:bg-gray-400">
                         <div className="flex justify-center mt-5 stat-title"><RiFileList3Fill className="mr-3 text-2xl" /><span className="text-xl">{t('orders')}</span></div>
                         <div className="stat-value">0</div>
                         <div className="stat-desc">{userData?.createdAt?.slice(0, 10)} - {year}-{(month < 10) ? `0${month}` : month}-{(day < 10) ? `0${day}` : day}</div>

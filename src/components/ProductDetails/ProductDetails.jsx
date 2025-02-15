@@ -48,7 +48,7 @@ const ProductDetails = ({ productData }) => {
                     <div className="mt-8">
                         <h4 className="mb-2 font-semibold">Product Details</h4>
                         <hr className="w-3/12 mb-2 text-error border-primary" />
-                        <p>Price: <span className="badge">{price}</span></p>
+                        <p className="mt-3"> Price: <span className="badge">{price}</span></p>
                         <p className="mt-1">Special Price: <span className="badge">{specialPrice}</span></p>
                         <p className="mt-1">Category: <span className="badge">{category}</span></p>
                         <p className="mt-1">Sub Category: <span className="badge">{subCategory}</span></p>
@@ -61,11 +61,13 @@ const ProductDetails = ({ productData }) => {
                         <p className="mt-1">Quantity: <span className="badge">{quantity}</span></p>
                         <p className="mt-1">Quantity: <span className="badge">{quantity}</span></p>
                     </div>
-                    <div className="mt-5">
-                        <h4 className="mb-2 font-semibold">Variants</h4>
-                        <hr className="w-3/12 mb-2 border-primary" />
-                        <p>{variants?.length}</p>
-                    </div>
+                    {/* {
+                        variants &&
+                        variants.map(variant => <div className="mt-5">
+                            <h4 className="mb-2 font-semibold">{variant}</h4>
+                            <hr className="w-3/12 mb-2 border-primary" />
+                        </div>)
+                    } */}
                 </div>
             </div>
             <EditProduct productData={productData} />

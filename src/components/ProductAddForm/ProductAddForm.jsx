@@ -66,10 +66,10 @@ const ProductAddForm = () => {
     const handleAddProduct = async (data) => {
 
         const variants = [
-            { sizes: [...sizes] },
-            { grades: [...grades] },
-            { colors: [...colors] },
-            { pieces: [...pieces] }
+            { type: 'Sizes', value: [...sizes] },
+            { type: 'Grades', value: [...grades] },
+            { type: 'Colors', value: [...colors] },
+            { type: 'Pieces', value: [...pieces] }
         ];
 
         try {

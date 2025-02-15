@@ -26,17 +26,17 @@ const Merchant = () => {
             <br /><br /><br />
             <div className="text-center">
                 <div className="shadow stats stats-vertical lg:stats-horizontal">
-                    <Link to={"/dashboard/merchant/products"} className="stat w-52 h-52">
+                    <Link to={"/dashboard/merchant/products"} className="stat w-52 h-52 hover:bg-gray-400">
                         <div className="flex justify-center mt-5 stat-title"><RiBox3Fill className="mr-3 text-2xl" /><span className="text-xl">{t('products')}</span></div>
                         <div className="stat-value">0</div>
                         <div className="stat-desc">{t('product')}</div>
                     </Link>
-                    <Link to={"/dashboard/merchant/orders"} className="stat w-52 h-52">
+                    <Link to={"/dashboard/merchant/orders"} className="stat w-52 h-52 hover:bg-gray-400">
                         <div className="flex justify-center mt-5 stat-title"><RiFileList3Fill className="mr-3 text-2xl" /><span className="text-xl">{t('orders')}</span></div>
                         <div className="stat-value">0</div>
                         <div className="stat-desc">{userData?.createdAt?.slice(0, 10)} - {year}-{(month < 10) ? `0${month}` : month}-{(day < 10) ? `0${day}` : day}</div>
                     </Link>
-                    <Link to={"/dashboard/merchant/payments"} className="stat w-52 h-52">
+                    <Link to={"/dashboard/merchant/payments"} className="stat w-52 h-52 hover:bg-gray-400">
                         <div className="flex justify-center mt-5 stat-title"><TbCoinTakaFilled className="mr-3 text-3xl" /><span className="text-xl">{t('payments')}</span></div>
                         <div className="stat-value">0</div>
                         <div className="stat-desc">{userData?.createdAt?.slice(0, 10)} - {year}-{(month < 10) ? `0${month}` : month}-{(day < 10) ? `0${day}` : day}</div>
