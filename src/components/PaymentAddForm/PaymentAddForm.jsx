@@ -14,6 +14,12 @@ const PaymentAddForm = () => {
     const [fileWithPreview, setFileWithPreview] = useState(null);
     const { addPayment } = useContext(PaymentContext);
 
+    const paymentMethods = [
+        { name: "Cash on Delivery", type: "COD" },
+        { name: "Mobile Banking", type: "MFS" },
+        { name: "Online Banking", type: "bank" },
+    ];
+
     const campaignTypes = [
         { name: "Flash Sale" },
         { name: "New Arrivals" },
@@ -98,20 +104,20 @@ const PaymentAddForm = () => {
                 <div className="grid gap-5 md:grid-cols-2">
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="font-semibold label-text">Campaign Name</span>
+                            <span className="font-semibold label-text">Order ID</span>
                         </label>
-                        <input {...register("name", { required: true })} type="text" placeholder="Type name here" className="w-full input input-bordered" />
-                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredName')} !!</span>}
+                        <input {...register("orderID", { required: true })} type="text" placeholder="Type order ID here" className="w-full input input-bordered" />
+                        {errors.name?.type === 'required' && <span className="text-error">{t('requiredOrderID')} !!</span>}
                     </div>
                     <div className="w-full form-control">
                         <label className="label">
-                            <span className="font-semibold label-text">Campaign Status</span>
+                            <span className="font-semibold label-text">Payment Method</span>
                         </label>
                         <select {...register("status", { required: true })} className="w-full select select-bordered">
-                            <option className="text-slate-500" value="">select status</option>
-                            <option className="font-medium text-success" value="active">Active</option>
-                            <option className="font-medium text-error" value="inactive">Inactive</option>
-                            <option className="font-medium text-warning" value="pending">Pending</option>
+                            {
+                                (paymentMethods) &&
+                                paymentMethods.map((method, index) => <option key={index} value={method.name} className="font-medium" >{method.name}</option>)
+                            }
                         </select>
                         {errors.status?.type === 'required' && <span className="text-error">{t('requiredStatus')} !!</span>}
                     </div>
@@ -191,7 +197,7 @@ const PaymentAddForm = () => {
                 )}
 
                 {/* Submit Button */}
-                <button type="submit" className="w-full mt-8 btn btn-success">{t('addCampaign')}</button>
+                <button type="submit" className="w-full mt-8 btn btn-success">{t('addPayment')}</button>
 
             </form>
         </div>

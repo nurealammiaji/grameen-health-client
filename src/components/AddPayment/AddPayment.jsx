@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductAddForm from '../ProductAddForm/ProductAddForm';
+import PaymentAddForm from '../PaymentAddForm/PaymentAddForm';
 
 const AddPayment = () => {
     return (
@@ -12,7 +12,7 @@ const AddPayment = () => {
                         </div>
                     </div>
                     <div className="py-4">
-                        {/* <ProductAddForm /> */}
+                        <PaymentAddForm />
                     </div>
                 </div>
                 <div className="fixed top-0 modal-action">

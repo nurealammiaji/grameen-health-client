@@ -4,6 +4,7 @@ import usePayments from '../../../../hooks/usePayments';
 import { PaymentContext } from '../../../../providers/PaymentProvider';
 import AddPayment from '../../../../components/AddPayment/AddPayment';
 import { RiAddBoxFill, RiDeleteBin2Fill } from 'react-icons/ri';
+import PaymentLists from '../../../../components/PaymentLists/PaymentLists';
 
 const ManagePayments = () => {
 
@@ -67,7 +68,7 @@ const ManagePayments = () => {
             <AddPayment />
             <br />
             <div>
-                {/* <PaymentLists /> */}
+                <PaymentLists />
             </div>
         </div>
     );
